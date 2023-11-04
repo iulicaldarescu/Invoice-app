@@ -1,6 +1,26 @@
-import { FaTrashAlt } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import InvoiceItem from "./InvoiceItem";
+function NewInvoice({ setNewInvoiceModalOpen }) {
+  const [invoiceItems, setInvoiceItems] = useState([1]);
 
-function NewInvoice() {
+  // prevent submit action
+  const preventSubmit = (event) => {
+    event.preventDefault();
+  };
+
+  const incrementInvoiceItemsArray = () => {
+    const newItemId = Date.now(); // this is mandatory for deleting to work properly
+    setInvoiceItems([...invoiceItems, newItemId]);
+  };
+
+  console.log(invoiceItems);
+
+  // we had a situation that when clicking the trash for a specific item it deleted only
+  // the last item within aray no matter on which item tras we clicked
+  // solution to set randomly unique item id and assigning to key and id the item itself
+  // id={invoiceItem}
+  // key={invoiceItem}
+
   return (
     <div className="fixed top-0 bottom-0 right-0 left-0 bg-[#141625] flex flex-col text-white px-4">
       <div className="basis-1/6 ">
@@ -10,7 +30,7 @@ function NewInvoice() {
       {/* form for invoice details */}
       <div className="basis-4/6 bg-[#141625] overflow-auto pl-1">
         {/* bill from */}
-        <form>
+        <form onSubmit={preventSubmit}>
           <div>
             <p>Bill Form</p>
           </div>
@@ -42,7 +62,6 @@ function NewInvoice() {
           {/* bill to */}
           <div className="py-6">
             <p>Bill To</p>
-            <test>das</test>
           </div>
           <div className="">
             <div className=" flex flex-col">
@@ -129,48 +148,24 @@ function NewInvoice() {
               </div>
 
               {/* potential component down */}
+
               {/* item name + quantity container */}
-              <div className="flex  justify-between border-b-2 border-b-slate-100 pb-3">
-                <div className=" flex flex-wrap gap-3">
-                  <div className="flex flex-col">
-                    <label>Item Name</label>
-                    <input className=" rounded-lg p-2 max-w-[15rem] bg-[#1e2139]"></input>
-                  </div>
-
-                  <div className="flex flex-col">
-                    <label>Qty.</label>
-                    <input
-                      placeholder="1"
-                      className=" rounded-lg p-2 max-w-[3rem] bg-[#1e2139]"
-                    ></input>
-                  </div>
-
-                  <div className="flex flex-col">
-                    <label>Price</label>
-                    <input
-                      placeholder="0"
-                      className=" rounded-lg p-2 max-w-[6rem] bg-[#1e2139]"
-                    ></input>
-                  </div>
-
-                  <div className="flex flex-col">
-                    <label>Total</label>
-                    <input
-                      placeholder="0"
-                      className=" rounded-lg p-2 max-w-[3rem] bg-[#1e2139]"
-                    ></input>
-                  </div>
-                </div>
-                {/* trash icon */}
-                <div className="flex items-end pb-2">
-                  <FaTrashAlt size={"1.3rem"} />
-                </div>
-              </div>
-
+              {invoiceItems.map((invoiceItem, index) => {
+                return (
+                  <InvoiceItem
+                    id={invoiceItem}
+                    key={invoiceItem} // this is mandatory for deleting to work properly
+                    invoiceItems={invoiceItems}
+                    setInvoiceItems={setInvoiceItems}
+                  />
+                );
+              })}
               {/* potential component up */}
             </div>
             <div className="text-center rounded-lg bg-black py-2 mt-6">
-              <button className="">+ Add new Item</button>
+              <button onClick={incrementInvoiceItemsArray} className="">
+                + Add new Item
+              </button>
             </div>
           </div>
         </form>
@@ -178,7 +173,10 @@ function NewInvoice() {
 
       {/* save and discard buttons */}
       <div className="flex justify-between basis-1/6">
-        <button className=" bg-[#1e2139] px-4 h-1/4 m-auto rounded-full ">
+        <button
+          onClick={() => setNewInvoiceModalOpen(false)}
+          className=" bg-[#1e2139] px-4 h-1/4 m-auto rounded-full "
+        >
           Discard
         </button>
         <button className="bg-[#7c5dfa] px-4 h-1/4 m-auto rounded-full">

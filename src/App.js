@@ -26,4 +26,3 @@ export default App;
 
 
 
-Mortii ma si

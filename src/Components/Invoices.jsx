@@ -7,10 +7,15 @@ import data from "./data.json";
 import "../styles/invoices.css";
 import useUserId from "../stores/UserId";
 
-function Invoices({}) {
+function Invoices() {
+  // filter modal state
   const [filterOpened, setFilterOpened] = useState(false);
+
   const [statusFiltersArray, setStatusFiltersArray] = useState([]);
+
+  // New item add modal open state
   const [newInvoiceModalOpen, setNewInvoiceModalOpen] = useState(false);
+
   const { userId } = useUserId();
 
   const filterOpener = () => {
@@ -139,6 +144,7 @@ function Invoices({}) {
                   total={item.total}
                   status={item.status}
                   key={index}
+                  setNewInvoiceModalOpen={setNewInvoiceModalOpen}
                 />
               );
             }
@@ -147,7 +153,9 @@ function Invoices({}) {
       </div>
 
       {/* calling the new Invoice modal component */}
-      {newInvoiceModalOpen && <NewInvoice />}
+      {newInvoiceModalOpen && (
+        <NewInvoice setNewInvoiceModalOpen={setNewInvoiceModalOpen} />
+      )}
     </div>
   );
 }
