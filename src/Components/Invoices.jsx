@@ -3,7 +3,7 @@ import { ImPlus } from "react-icons/im";
 import Invoice from "../Components/Invoice";
 import NewInvoice from "./NewInvoice";
 import arrowDown from "../assets/icon-arrow-down.svg";
-import data from "./data.json";
+import jsonFile from "./db.json";
 import "../styles/invoices.css";
 import useUserId from "../stores/UserId";
 
@@ -131,7 +131,7 @@ function Invoices() {
         </div>
 
         <div className="pb-20">
-          {data.map((item, index) => {
+          {jsonFile.data.map((item, index) => {
             if (
               statusFiltersArray.includes(item.status) ||
               statusFiltersArray.length === 0

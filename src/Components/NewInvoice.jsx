@@ -1,7 +1,61 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import InvoiceItem from "./InvoiceItem";
 function NewInvoice({ setNewInvoiceModalOpen }) {
   const [invoiceItems, setInvoiceItems] = useState([1]);
+  const [newInvoiceInfo, setNewInvoiceInfo] = useState({
+    id: "",
+    createdAt: "",
+    paymentDue: "",
+    description: "",
+    paymentTerms: null,
+    clientName: "",
+    clientEmail: "",
+    status: "",
+    senderAddress: {
+      street: "",
+      city: "",
+      postCode: "",
+      country: "",
+    },
+    clientAddress: {
+      street: "",
+      city: "",
+      postCode: "",
+      country: "",
+    },
+    items: [
+      {
+        name: "",
+        quantity: null,
+        price: null,
+        total: null,
+      },
+    ],
+    total: null,
+  });
+
+  const getInputData = (event) => {
+    const { name, value } = event.target;
+    // Split the name attribute to access the nested property
+
+    if (name.includes(".")) {
+      const updatedInfo = { ...newInvoiceInfo };
+      const [parentProperty, childProperty] = name.split(".");
+
+      updatedInfo[parentProperty][childProperty] = value;
+
+      setNewInvoiceInfo(updatedInfo);
+    } else setNewInvoiceInfo({ ...newInvoiceInfo, [name]: value });
+
+    // const array = name.split(".");
+
+    // const parentProperty = array[0];
+    // const childProperty = array[1];
+
+    // Update the nested property in the state
+
+    console.log(newInvoiceInfo);
+  };
 
   // prevent submit action
   const preventSubmit = (event) => {
@@ -37,6 +91,8 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
           <div className="flex flex-col">
             <label>Street Address</label>
             <input
+              onChange={getInputData}
+              name="senderAddress.street"
               type="text"
               className="rounded-lg p-2 text-blue-500 bg-[#1e2139]"
             ></input>
@@ -45,17 +101,29 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
           <div className="flex gap-6">
             <div className=" flex flex-col">
               <label>City</label>
-              <input className="w-full rounded-lg p-2 bg-[#1e2139]"></input>
+              <input
+                name="senderAddress.city"
+                onChange={getInputData}
+                className="w-full rounded-lg p-2 bg-[#1e2139]"
+              ></input>
             </div>
 
             <div className=" flex flex-col">
               <label>Post Code</label>
-              <input className="w-full rounded-lg p-2 bg-[#1e2139]"></input>
+              <input
+                onChange={getInputData}
+                name="senderAddress.postCode"
+                className="w-full rounded-lg p-2 bg-[#1e2139]"
+              ></input>
             </div>
 
             <div className=" flex flex-col">
               <label>Country</label>
-              <input className="w-full rounded-lg p-2 bg-[#1e2139]"></input>
+              <input
+                onChange={getInputData}
+                name="senderAddress.country"
+                className="w-full rounded-lg p-2 bg-[#1e2139]"
+              ></input>
             </div>
           </div>
 
@@ -67,6 +135,8 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
             <div className=" flex flex-col">
               <label>Client Name</label>
               <input
+                onChange={getInputData}
+                name="clientName"
                 type="text"
                 className="w-full rounded-lg p-2 bg-[#1e2139]"
               ></input>
@@ -75,6 +145,8 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
             <div className=" flex flex-col">
               <label>Client Email</label>
               <input
+                onChange={getInputData}
+                name="clientEmail"
                 type="text"
                 className="w-full rounded-lg p-2 bg-[#1e2139]"
               ></input>
@@ -83,6 +155,7 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
             <div className=" flex flex-col">
               <label>Client Address</label>
               <input
+                onChange={getInputData}
                 type="text"
                 className="w-full rounded-lg p-2 bg-[#1e2139]"
               ></input>
@@ -91,17 +164,29 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
             <div className="flex gap-6">
               <div className=" flex flex-col">
                 <label>City</label>
-                <input className="w-full rounded-lg p-2 bg-[#1e2139]"></input>
+                <input
+                  onChange={getInputData}
+                  name="clientAddress.city"
+                  className="w-full rounded-lg p-2 bg-[#1e2139]"
+                ></input>
               </div>
 
               <div className=" flex flex-col">
                 <label>Post Code</label>
-                <input className="w-full rounded-lg p-2 bg-[#1e2139]"></input>
+                <input
+                  onChange={getInputData}
+                  name="clientAddress.postCode"
+                  className="w-full rounded-lg p-2 bg-[#1e2139]"
+                ></input>
               </div>
 
               <div className=" flex flex-col">
                 <label>Country</label>
-                <input className="w-full rounded-lg p-2 bg-[#1e2139]"></input>
+                <input
+                  onChange={getInputData}
+                  name="clientAddress.country"
+                  className="w-full rounded-lg p-2 bg-[#1e2139]"
+                ></input>
               </div>
             </div>
 
@@ -112,6 +197,8 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
                 <div>
                   <label>Invoice Date</label>
                   <input
+                    onChange={getInputData}
+                    name="createdAt"
                     type="date"
                     className="w-full rounded-lg p-2 bg-[#1e2139]"
                     placeholder="mm/dd/yyyy"
@@ -120,9 +207,10 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
                 <div>
                   <label htmlFor="terms">Payment Terms</label>
                   <select
+                    onChange={getInputData}
                     className="w-full rounded-lg p-2 bg-[#1e2139] border-b-[3px] border-[#1e2139]"
                     id="terms"
-                    name="terms"
+                    name="paymentTerms"
                   >
                     <option value="1">Next day</option>
                     <option value="7">Next 7 days</option>
@@ -135,6 +223,8 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
               <div>
                 <label>Description</label>
                 <input
+                  onChange={getInputData}
+                  name="description"
                   className="w-full rounded-lg p-2 bg-[#1e2139]"
                   type="text"
                 ></input>
