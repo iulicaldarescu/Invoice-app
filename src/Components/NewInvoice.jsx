@@ -42,7 +42,6 @@ function NewInvoice() {
           {/* bill to */}
           <div className="py-6">
             <p>Bill To</p>
-            <test>das</test>
           </div>
           <div className="">
             <div className=" flex flex-col">
