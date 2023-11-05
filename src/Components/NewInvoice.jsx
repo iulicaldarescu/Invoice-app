@@ -1,61 +1,63 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useFormik } from "formik";
 import InvoiceItem from "./InvoiceItem";
 function NewInvoice({ setNewInvoiceModalOpen }) {
   const [invoiceItems, setInvoiceItems] = useState([1]);
-  const [newInvoiceInfo, setNewInvoiceInfo] = useState({
-    id: "",
-    createdAt: "",
-    paymentDue: "",
-    description: "",
-    paymentTerms: null,
-    clientName: "",
-    clientEmail: "",
-    status: "",
-    senderAddress: {
-      street: "",
-      city: "",
-      postCode: "",
-      country: "",
+
+  // to be reviewd
+
+  // const [newInvoiceInfo, setNewInvoiceInfo] = useState({
+  //   id: "",
+  //   createdAt: "",
+  //   paymentDue: "",
+  //   description: "",
+  //   paymentTerms: null,
+  //   clientName: "",
+  //   clientEmail: "",
+  //   status: "",
+  //   senderAddress: {
+  //     street: "",
+  //     city: "",
+  //     postCode: "",
+  //     country: "",
+  //   },
+  //   clientAddress: {
+  //     street: "",
+  //     city: "",
+  //     postCode: "",
+  //     country: "",
+  //   },
+  //   items: [
+  //     {
+  //       name: "",
+  //       quantity: null,
+  //       price: null,
+  //       total: null,
+  //     },
+  //   ],
+  //   total: null,
+  // });
+
+  const formik = useFormik({
+    initialValues: {
+      clientName: "",
     },
-    clientAddress: {
-      street: "",
-      city: "",
-      postCode: "",
-      country: "",
+
+    onSubmit: (values) => {
+      // Handle form submission or update your state here.
+      // to be continued
     },
-    items: [
-      {
-        name: "",
-        quantity: null,
-        price: null,
-        total: null,
-      },
-    ],
-    total: null,
   });
 
-  const getInputData = (event) => {
-    const { name, value } = event.target;
-    // Split the name attribute to access the nested property
+  // const handleChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setNewInvoiceInfo({ ...newInvoiceInfo, [name]: value });
+  //   formik.handleChange(name);
+  // };
 
-    if (name.includes(".")) {
-      const updatedInfo = { ...newInvoiceInfo };
-      const [parentProperty, childProperty] = name.split(".");
-
-      updatedInfo[parentProperty][childProperty] = value;
-
-      setNewInvoiceInfo(updatedInfo);
-    } else setNewInvoiceInfo({ ...newInvoiceInfo, [name]: value });
-
-    // const array = name.split(".");
-
-    // const parentProperty = array[0];
-    // const childProperty = array[1];
-
-    // Update the nested property in the state
-
-    console.log(newInvoiceInfo);
-  };
+  // useEffect(() => {
+  //   console.log("Updated newInvoiceInfo:", newInvoiceInfo);
+  // }, [newInvoiceInfo.clientName]);
 
   // prevent submit action
   const preventSubmit = (event) => {
@@ -67,7 +69,9 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
     setInvoiceItems([...invoiceItems, newItemId]);
   };
 
-  console.log(invoiceItems);
+  const getInputData = () => {
+    console.log("ma-ta");
+  };
 
   // we had a situation that when clicking the trash for a specific item it deleted only
   // the last item within aray no matter on which item tras we clicked
@@ -84,7 +88,7 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
       {/* form for invoice details */}
       <div className="basis-4/6 bg-[#141625] overflow-auto pl-1">
         {/* bill from */}
-        <form onSubmit={preventSubmit}>
+        <form>
           <div>
             <p>Bill Form</p>
           </div>
@@ -135,7 +139,7 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
             <div className=" flex flex-col">
               <label>Client Name</label>
               <input
-                onChange={getInputData}
+                onChange={handleChange}
                 name="clientName"
                 type="text"
                 className="w-full rounded-lg p-2 bg-[#1e2139]"
@@ -247,6 +251,8 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
                     key={invoiceItem} // this is mandatory for deleting to work properly
                     invoiceItems={invoiceItems}
                     setInvoiceItems={setInvoiceItems}
+                    setNewInvoiceInfo={setNewInvoiceInfo}
+                    newInvoiceInfo={newInvoiceInfo}
                   />
                 );
               })}

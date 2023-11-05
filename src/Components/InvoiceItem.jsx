@@ -1,6 +1,12 @@
 import { FaTrashAlt } from "react-icons/fa";
 
-function InvoiceItem({ id, invoiceItems, setInvoiceItems }) {
+function InvoiceItem({
+  id,
+  invoiceItems,
+  setInvoiceItems,
+  newInvoiceInfo,
+  setNewInvoiceInfo,
+}) {
   const deleteInvoiceItem = (indexToDelete) => {
     const newArr = invoiceItems.filter((item) => {
       return indexToDelete !== item;
@@ -15,7 +21,10 @@ function InvoiceItem({ id, invoiceItems, setInvoiceItems }) {
       <div className=" flex flex-wrap gap-3">
         <div className="flex flex-col">
           <label>Item Name</label>
-          <input className=" rounded-lg p-2 max-w-[15rem] bg-[#1e2139]"></input>
+          <input
+            className=" rounded-lg p-2 max-w-[15rem] bg-[#1e2139]"
+            name="items[]"
+          ></input>
         </div>
 
         <div className="flex flex-col">

@@ -39,7 +39,6 @@ function Invoices() {
 
   const openNewInvoice = () => {
     setNewInvoiceModalOpen((prev) => !prev);
-    console.log(newInvoiceModalOpen);
   };
 
   return (
