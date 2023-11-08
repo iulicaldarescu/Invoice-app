@@ -4,7 +4,7 @@ import InvoiceItem from "./InvoiceItem";
 function NewInvoice({ setNewInvoiceModalOpen }) {
   const [invoiceItems, setInvoiceItems] = useState([1]);
 
-  // to be reviewd
+  // to be reviewed if a state is needed or not
 
   // const [newInvoiceInfo, setNewInvoiceInfo] = useState({
   //   id: "",
@@ -40,37 +40,72 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
 
   const formik = useFormik({
     initialValues: {
+      createdAt: "",
+      paymentDue: "",
+      description: "",
+      paymentTerms: "",
       clientName: "",
+      clientEmail: "",
+      status: "",
+      senderAddress: {
+        street: "",
+        city: "",
+        postCode: "",
+        country: "",
+      },
+      clientAddress: {
+        street: "",
+        city: "",
+        postCode: "",
+        country: "",
+      },
+      items: [
+        {
+          // name: "",
+          // quantity: null,
+          // price: null,
+          // total: null,
+        },
+      ],
     },
 
     onSubmit: (values) => {
       // Handle form submission or update your state here.
-      // to be continued
     },
   });
 
-  // const handleChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setNewInvoiceInfo({ ...newInvoiceInfo, [name]: value });
-  //   formik.handleChange(name);
-  // };
-
-  // useEffect(() => {
-  //   console.log("Updated newInvoiceInfo:", newInvoiceInfo);
-  // }, [newInvoiceInfo.clientName]);
-
-  // prevent submit action
-  const preventSubmit = (event) => {
+  const incrementInvoiceItemsArray = (event) => {
     event.preventDefault();
-  };
-
-  const incrementInvoiceItemsArray = () => {
     const newItemId = Date.now(); // this is mandatory for deleting to work properly
     setInvoiceItems([...invoiceItems, newItemId]);
   };
 
-  const getInputData = () => {
-    console.log("ma-ta");
+  //this is a test function witch creates an object with all the information of the new invoice after a click
+  const createNewInvoiceDetails = () => {
+    const newInvoiceDetailsObject = {
+      createdAt: formik.values.createdAt,
+      paymentDue: formik.values.paymentDue,
+      description: formik.values.description,
+      paymentTerms: null,
+      clientName: formik.values.clientName,
+      clientEmail: formik.values.clientEmail,
+      status: formik.values.status,
+      senderAddress: {
+        street: formik.values.senderAddress.street,
+        city: formik.values.senderAddress.city,
+        postCode: formik.values.senderAddress.postCode,
+        country: formik.values.senderAddress.country,
+      },
+      clientAddress: {
+        street: formik.values.clientAddress.street,
+        city: formik.values.clientAddress.city,
+        postCode: formik.values.clientAddress.postCode,
+        country: formik.values.clientAddress.country,
+      },
+      items: [],
+    };
+
+    console.log(newInvoiceDetailsObject);
   };
 
   // we had a situation that when clicking the trash for a specific item it deleted only
@@ -88,15 +123,16 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
       {/* form for invoice details */}
       <div className="basis-4/6 bg-[#141625] overflow-auto pl-1">
         {/* bill from */}
-        <form>
+        <form onSubmit={formik.values.handleSubmit}>
           <div>
             <p>Bill Form</p>
           </div>
           <div className="flex flex-col">
             <label>Street Address</label>
             <input
-              onChange={getInputData}
+              onChange={formik.handleChange}
               name="senderAddress.street"
+              value={formik.values.senderAddress.street}
               type="text"
               className="rounded-lg p-2 text-blue-500 bg-[#1e2139]"
             ></input>
@@ -106,8 +142,9 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
             <div className=" flex flex-col">
               <label>City</label>
               <input
+                onChange={formik.handleChange}
                 name="senderAddress.city"
-                onChange={getInputData}
+                value={formik.values.senderAddress.city}
                 className="w-full rounded-lg p-2 bg-[#1e2139]"
               ></input>
             </div>
@@ -115,8 +152,9 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
             <div className=" flex flex-col">
               <label>Post Code</label>
               <input
-                onChange={getInputData}
+                onChange={formik.handleChange}
                 name="senderAddress.postCode"
+                value={formik.values.senderAddress.postCode}
                 className="w-full rounded-lg p-2 bg-[#1e2139]"
               ></input>
             </div>
@@ -124,8 +162,9 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
             <div className=" flex flex-col">
               <label>Country</label>
               <input
-                onChange={getInputData}
+                onChange={formik.handleChange}
                 name="senderAddress.country"
+                value={formik.values.senderAddress.country}
                 className="w-full rounded-lg p-2 bg-[#1e2139]"
               ></input>
             </div>
@@ -139,8 +178,9 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
             <div className=" flex flex-col">
               <label>Client Name</label>
               <input
-                onChange={handleChange}
+                onChange={formik.handleChange}
                 name="clientName"
+                values={formik.values.clientName}
                 type="text"
                 className="w-full rounded-lg p-2 bg-[#1e2139]"
               ></input>
@@ -149,28 +189,33 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
             <div className=" flex flex-col">
               <label>Client Email</label>
               <input
-                onChange={getInputData}
+                onChange={formik.handleChange}
                 name="clientEmail"
+                values={formik.values.clientEmail}
                 type="text"
                 className="w-full rounded-lg p-2 bg-[#1e2139]"
               ></input>
             </div>
 
             <div className=" flex flex-col">
-              <label>Client Address</label>
+              <p>Client Address</p>
+              <label>Street</label>
               <input
-                onChange={getInputData}
+                onChange={formik.handleChange}
                 type="text"
+                name="clientAddress.street"
+                values={formik.values.clientAddress.street}
                 className="w-full rounded-lg p-2 bg-[#1e2139]"
               ></input>
             </div>
 
             <div className="flex gap-6">
               <div className=" flex flex-col">
-                <label>City</label>
+                <label onClick={createNewInvoiceDetails}>City</label>
                 <input
-                  onChange={getInputData}
+                  onChange={formik.handleChange}
                   name="clientAddress.city"
+                  value={formik.values.clientAddress.city}
                   className="w-full rounded-lg p-2 bg-[#1e2139]"
                 ></input>
               </div>
@@ -178,8 +223,9 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
               <div className=" flex flex-col">
                 <label>Post Code</label>
                 <input
-                  onChange={getInputData}
+                  onChange={formik.handleChange}
                   name="clientAddress.postCode"
+                  value={formik.values.clientAddress.postCode}
                   className="w-full rounded-lg p-2 bg-[#1e2139]"
                 ></input>
               </div>
@@ -187,8 +233,9 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
               <div className=" flex flex-col">
                 <label>Country</label>
                 <input
-                  onChange={getInputData}
+                  onChange={formik.handleChange}
                   name="clientAddress.country"
+                  value={formik.values.clientAddress.country}
                   className="w-full rounded-lg p-2 bg-[#1e2139]"
                 ></input>
               </div>
@@ -201,7 +248,8 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
                 <div>
                   <label>Invoice Date</label>
                   <input
-                    onChange={getInputData}
+                    onChange={formik.handleChange}
+                    value={formik.values.createdAt}
                     name="createdAt"
                     type="date"
                     className="w-full rounded-lg p-2 bg-[#1e2139]"
@@ -211,10 +259,10 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
                 <div>
                   <label htmlFor="terms">Payment Terms</label>
                   <select
-                    onChange={getInputData}
+                    onChange={formik.handleChange}
                     className="w-full rounded-lg p-2 bg-[#1e2139] border-b-[3px] border-[#1e2139]"
-                    id="terms"
                     name="paymentTerms"
+                    value={formik.values.paymentTerms}
                   >
                     <option value="1">Next day</option>
                     <option value="7">Next 7 days</option>
@@ -227,8 +275,9 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
               <div>
                 <label>Description</label>
                 <input
-                  onChange={getInputData}
+                  onChange={formik.handleChange}
                   name="description"
+                  values={formik.values.description}
                   className="w-full rounded-lg p-2 bg-[#1e2139]"
                   type="text"
                 ></input>
@@ -251,8 +300,6 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
                     key={invoiceItem} // this is mandatory for deleting to work properly
                     invoiceItems={invoiceItems}
                     setInvoiceItems={setInvoiceItems}
-                    setNewInvoiceInfo={setNewInvoiceInfo}
-                    newInvoiceInfo={newInvoiceInfo}
                   />
                 );
               })}
