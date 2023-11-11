@@ -3,6 +3,9 @@ import { useFormik } from "formik";
 import InvoiceItem from "./InvoiceItem";
 function NewInvoice({ setNewInvoiceModalOpen }) {
   const [invoiceItems, setInvoiceItems] = useState([1]);
+  const [itemsArray, setItemsArray] = useState([]);
+  const [itemsDetailsObj, setItemsDetailsObj] = useState({});
+  const [test, setTest] = useState(0);
 
   // to be reviewed if a state is needed or not
 
@@ -78,6 +81,11 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
     event.preventDefault();
     const newItemId = Date.now(); // this is mandatory for deleting to work properly
     setInvoiceItems([...invoiceItems, newItemId]);
+
+    // from other function
+    setTest((prev) => prev + 1);
+    const itemDetailsObj = { ...itemsDetailsObj };
+    setItemsArray((prevItems) => [...prevItems, itemDetailsObj]);
   };
 
   //this is a test function witch creates an object with all the information of the new invoice after a click
@@ -102,7 +110,8 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
         postCode: formik.values.clientAddress.postCode,
         country: formik.values.clientAddress.country,
       },
-      items: [],
+      // itemsArray has to be overwritten in this items array
+      items: [...itemsArray],
     };
 
     console.log(newInvoiceDetailsObject);
@@ -113,6 +122,19 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
   // solution to set randomly unique item id and assigning to key and id the item itself
   // id={invoiceItem}
   // key={invoiceItem}
+
+  const saveAndSendInvoice = () => {
+    console.log("Saved & Sent");
+  };
+
+  // test this is for real time console log !!!!!!!!!!
+  useEffect(() => {
+    console.log(itemsArray);
+  }, [itemsArray]);
+
+  // const invoiceItemDetails = (event) => {
+  //   event.preventDefault();
+  // };
 
   return (
     <div className="fixed top-0 bottom-0 right-0 left-0 bg-[#141625] flex flex-col text-white px-4">
@@ -300,6 +322,10 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
                     key={invoiceItem} // this is mandatory for deleting to work properly
                     invoiceItems={invoiceItems}
                     setInvoiceItems={setInvoiceItems}
+                    itemsArray={itemsArray}
+                    setItemsArray={setItemsArray}
+                    setItemsDetailsObj={setItemsDetailsObj}
+                    test={test}
                   />
                 );
               })}
@@ -322,7 +348,10 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
         >
           Discard
         </button>
-        <button className="bg-[#7c5dfa] px-4 h-1/4 m-auto rounded-full">
+        <button
+          onClick={saveAndSendInvoice}
+          className="bg-[#7c5dfa] px-4 h-1/4 m-auto rounded-full"
+        >
           Save & Send
         </button>
       </div>
