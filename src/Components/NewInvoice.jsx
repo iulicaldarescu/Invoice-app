@@ -7,40 +7,6 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
   const [itemsDetailsObj, setItemsDetailsObj] = useState({});
   const [test, setTest] = useState(0);
 
-  // to be reviewed if a state is needed or not
-
-  // const [newInvoiceInfo, setNewInvoiceInfo] = useState({
-  //   id: "",
-  //   createdAt: "",
-  //   paymentDue: "",
-  //   description: "",
-  //   paymentTerms: null,
-  //   clientName: "",
-  //   clientEmail: "",
-  //   status: "",
-  //   senderAddress: {
-  //     street: "",
-  //     city: "",
-  //     postCode: "",
-  //     country: "",
-  //   },
-  //   clientAddress: {
-  //     street: "",
-  //     city: "",
-  //     postCode: "",
-  //     country: "",
-  //   },
-  //   items: [
-  //     {
-  //       name: "",
-  //       quantity: null,
-  //       price: null,
-  //       total: null,
-  //     },
-  //   ],
-  //   total: null,
-  // });
-
   const formik = useFormik({
     initialValues: {
       createdAt: "",
@@ -81,14 +47,8 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
     event.preventDefault();
     const newItemId = Date.now(); // this is mandatory for deleting to work properly
     setInvoiceItems([...invoiceItems, newItemId]);
-
-    // from other function
-    setTest((prev) => prev + 1);
-    const itemDetailsObj = { ...itemsDetailsObj };
-    setItemsArray((prevItems) => [...prevItems, itemDetailsObj]);
   };
 
-  //this is a test function witch creates an object with all the information of the new invoice after a click
   const createNewInvoiceDetails = () => {
     const newInvoiceDetailsObject = {
       createdAt: formik.values.createdAt,
@@ -114,6 +74,7 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
       items: [...itemsArray],
     };
 
+    //console.log(JSON.stringify(newInvoiceDetailsObject, null, 2));
     console.log(newInvoiceDetailsObject);
   };
 
@@ -122,10 +83,6 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
   // solution to set randomly unique item id and assigning to key and id the item itself
   // id={invoiceItem}
   // key={invoiceItem}
-
-  const saveAndSendInvoice = () => {
-    console.log("Saved & Sent");
-  };
 
   // test this is for real time console log !!!!!!!!!!
   useEffect(() => {
@@ -233,7 +190,7 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
 
             <div className="flex gap-6">
               <div className=" flex flex-col">
-                <label onClick={createNewInvoiceDetails}>City</label>
+                <label>City</label>
                 <input
                   onChange={formik.handleChange}
                   name="clientAddress.city"
@@ -349,7 +306,7 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
           Discard
         </button>
         <button
-          onClick={saveAndSendInvoice}
+          onClick={createNewInvoiceDetails}
           className="bg-[#7c5dfa] px-4 h-1/4 m-auto rounded-full"
         >
           Save & Send

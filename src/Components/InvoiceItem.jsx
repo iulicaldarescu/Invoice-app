@@ -1,6 +1,6 @@
 import { FaTrashAlt } from "react-icons/fa";
 import { useFormik } from "formik";
-import { useEffect } from "react";
+import { useState } from "react";
 
 function InvoiceItem({
   id,
@@ -9,8 +9,9 @@ function InvoiceItem({
   itemsArray,
   setItemsArray,
   setItemsDetailsObj,
-  test,
 }) {
+  const [inputDisabled, setInputDisabled] = useState(false);
+
   const deleteInvoiceItem = (indexToDelete) => {
     const newArr = invoiceItems.filter((item) => {
       return indexToDelete !== item;
@@ -50,15 +51,22 @@ function InvoiceItem({
   //   setItemsArray((prevItems) => [...prevItems, itemDetailsObj]);
   // };
 
-  useEffect(() => {
-    setItemsDetailsObj({
+  const confirmInvoiceItemDetails = (e) => {
+    e.preventDefault();
+    const invoiceItemDetails = {
       id: id,
       itemName: formik.values.itemName,
       itemQty: formik.values.itemQty,
       itemPrice: formik.values.itemPrice,
       itemTotal: formik.values.itemTotal,
-    });
-  }, [test]);
+    };
+
+    setItemsArray([...itemsArray, invoiceItemDetails]);
+
+    setInputDisabled(true);
+
+    console.log(itemsArray);
+  };
 
   return (
     // if not works puthi below back in potential component
@@ -69,7 +77,8 @@ function InvoiceItem({
           <input
             onChange={formik.handleChange}
             name="itemName"
-            className=" rounded-lg p-2 max-w-[15rem] bg-[#1e2139]"
+            className={` rounded-lg p-2 max-w-[15rem] bg-[#1e2139]`}
+            disabled={inputDisabled}
           ></input>
         </div>
 
@@ -80,6 +89,7 @@ function InvoiceItem({
             name="itemQty"
             placeholder="1"
             className=" rounded-lg p-2 max-w-[3rem] bg-[#1e2139]"
+            disabled={inputDisabled}
           ></input>
         </div>
 
@@ -90,6 +100,7 @@ function InvoiceItem({
             name="itemPrice"
             placeholder="0"
             className=" rounded-lg p-2 max-w-[6rem] bg-[#1e2139]"
+            disabled={inputDisabled}
           ></input>
         </div>
 
@@ -100,9 +111,19 @@ function InvoiceItem({
             name="itemTotal"
             placeholder="0"
             className=" rounded-lg p-2 max-w-[3rem] bg-[#1e2139]"
+            disabled={inputDisabled}
           ></input>
         </div>
+        <div className="flex flex-col items-center justify-end">
+          <button
+            className="bg-green-600 p-2 rounded-lg"
+            onClick={confirmInvoiceItemDetails}
+          >
+            Confirm
+          </button>
+        </div>
       </div>
+
       {/* trash icon */}
       <div className="flex items-end pb-2">
         <FaTrashAlt onClick={() => deleteInvoiceItem(id)} size={"1.3rem"} />
