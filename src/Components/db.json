@@ -56,17 +56,17 @@
         {
           "name": "Banner Design",
           "quantity": 1,
-          "price": 156.0,
-          "total": 156.0
+          "price": 156,
+          "total": 156
         },
         {
           "name": "Email Design",
           "quantity": 2,
-          "price": 200.0,
-          "total": 400.0
+          "price": 200,
+          "total": 400
         }
       ],
-      "total": 556.0
+      "total": 556
     },
     {
       "id": "RG0314",
@@ -161,8 +161,8 @@
         {
           "name": "Brand Guidelines",
           "quantity": 1,
-          "price": 2500.0,
-          "total": 2500.0
+          "price": 2500,
+          "total": 2500
         }
       ],
       "total": 4032.33
@@ -228,6 +228,6 @@
         }
       ],
       "total": 3102.04
-    }
+    }    
   ]
 }

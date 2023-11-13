@@ -14,7 +14,7 @@ function App() {
     <div className="">
       <Header></Header>
       {/* <Invoices path='/'></Invoices> */}
-      <Routes>
+      <Routes>~
         <Route path="/" element={<Invoices />} />
         <Route path={`/invoice/:id`} element={<InvoicePage />}></Route>
       </Routes>

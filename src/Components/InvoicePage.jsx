@@ -2,7 +2,7 @@ import iconArrowLeft from "../assets/icon-arrow-left.svg";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useUserId from "../stores/UserId";
-import data from "./data.json";
+import jsonFile from "./db.json";
 
 function InvoicePage() {
   const formatDate = (dateToChange) => {
@@ -20,6 +20,7 @@ function InvoicePage() {
     clientName: "",
     senderAddress: {},
     invoiceDate: "",
+    status: "",
     paymentDue: "",
     clientAddress: {},
     clientEmail: "",
@@ -28,7 +29,7 @@ function InvoicePage() {
   });
 
   const getData = () => {
-    const userInfosArray = data.filter((item) => {
+    const userInfosArray = jsonFile.data.filter((item) => {
       return item.id === userId;
     });
     setUserInfo({
@@ -39,6 +40,7 @@ function InvoicePage() {
       senderAddress: userInfosArray[0]?.senderAddress || {},
       invoiceDate: formatDate(userInfosArray[0]?.createdAt) || "",
       paymentDue: formatDate(userInfosArray[0]?.paymentDue) || "",
+      status: userInfosArray[0]?.status || "",
       clientAddress: userInfosArray[0]?.clientAddress || "",
       clientEmail: userInfosArray[0]?.clientEmail || "",
       items: userInfosArray[0]?.items || [],
@@ -87,7 +89,17 @@ function InvoicePage() {
 
       <div className="flex justify-between w-full bg-[#1f213a] rounded-lg items-center p-5">
         <p className="text-gray-300">Status</p>
-        <div className="w-32 p-3 text-center rounded-lg font-semibold bg-[#33d69f0f] text-[#33d69f]">
+        <div
+          className={`w-32 p-3 text-center rounded-lg font-semibold ${
+            userInfo.status === "paid"
+              ? "bg-[#33d69f0f] text-[#33d69f]"
+              : userInfo.status === "pending"
+              ? "bg-[#ff8f000f] text-[#ff8f00]"
+              : userInfo.status === "draft"
+              ? "bg-[#dfe3fa0f] text-[#dfe3fa]"
+              : "text-[#ff8f00]"
+          }`}
+        >
           <span className="pr-2">&#9679;</span>
           {userInfo.paymentStatus}
         </div>

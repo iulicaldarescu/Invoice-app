@@ -15,7 +15,6 @@ function Invoice({ id, clientName, paymentDue, total, status }) {
   };
 
   //   format data, added comma as a separator
-  const formatTotal = total.toLocaleString("en-US");
 
   //   format data execution
   const formatedData = formatDate(paymentDue);
@@ -23,6 +22,8 @@ function Invoice({ id, clientName, paymentDue, total, status }) {
   const getUserId = (param) => {
     setUserId(param);
   };
+
+  console.log(total);
 
   return (
     <Link to={`/invoice/${id}`}>
@@ -43,7 +44,7 @@ function Invoice({ id, clientName, paymentDue, total, status }) {
             {/* due date + total */}
             <div className="flex flex-col text-white">
               <p className="text-gray-400">Due {formatedData}</p>
-              <p className="font-bold">${formatTotal}</p>
+              <p className="font-bold">${total}</p>
             </div>
 
             {/* payment status */}

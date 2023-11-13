@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import InvoiceItem from "./InvoiceItem";
+
 function NewInvoice({ setNewInvoiceModalOpen }) {
   const [invoiceItems, setInvoiceItems] = useState([1]);
   const [itemsArray, setItemsArray] = useState([]);
@@ -28,14 +29,7 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
         postCode: "",
         country: "",
       },
-      items: [
-        {
-          // name: "",
-          // quantity: null,
-          // price: null,
-          // total: null,
-        },
-      ],
+      items: [{}],
     },
 
     onSubmit: (values) => {
@@ -49,7 +43,7 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
     setInvoiceItems([...invoiceItems, newItemId]);
   };
 
-  const createNewInvoiceDetails = () => {
+  const createNewInvoiceDetails = async () => {
     const newInvoiceDetailsObject = {
       createdAt: formik.values.createdAt,
       paymentDue: formik.values.paymentDue,
@@ -76,6 +70,19 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
 
     //console.log(JSON.stringify(newInvoiceDetailsObject, null, 2));
     console.log(newInvoiceDetailsObject);
+
+    // post data has to be here
+    const data = await fetch("http://localhost:3001/data", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newInvoiceDetailsObject),
+    });
+
+    const response = await data.json(newInvoiceDetailsObject);
+    console.log(response);
   };
 
   // we had a situation that when clicking the trash for a specific item it deleted only
@@ -88,10 +95,6 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
   useEffect(() => {
     console.log(itemsArray);
   }, [itemsArray]);
-
-  // const invoiceItemDetails = (event) => {
-  //   event.preventDefault();
-  // };
 
   return (
     <div className="fixed top-0 bottom-0 right-0 left-0 bg-[#141625] flex flex-col text-white px-4">
@@ -243,6 +246,7 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
                     name="paymentTerms"
                     value={formik.values.paymentTerms}
                   >
+                    <option value="">Select day</option>
                     <option value="1">Next day</option>
                     <option value="7">Next 7 days</option>
                     <option value="14">Next 14 days</option>
@@ -260,6 +264,21 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
                   className="w-full rounded-lg p-2 bg-[#1e2139]"
                   type="text"
                 ></input>
+              </div>
+              {/* Status of inveoice select */}
+              <div>
+                <label htmlFor="status">Status</label>
+                <select
+                  onChange={formik.handleChange}
+                  className="w-full rounded-lg p-2 bg-[#1e2139] border-b-[3px] border-[#1e2139]"
+                  name="status"
+                  value={formik.values.status}
+                >
+                  <option value="">Select status</option>
+                  <option value="paid">Paid</option>
+                  <option value="pending">Pending</option>
+                  <option value="draft">Draft</option>
+                </select>
               </div>
             </div>
 
@@ -317,3 +336,6 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
 }
 
 export default NewInvoice;
+
+// this command was needed to run json
+// json-server --watch "src\Components\db.json" --port 3001
