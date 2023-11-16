@@ -6,7 +6,12 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
   const [invoiceItems, setInvoiceItems] = useState([1]);
   const [itemsArray, setItemsArray] = useState([]);
   const [itemsDetailsObj, setItemsDetailsObj] = useState({});
-  const [test, setTest] = useState(0);
+
+  const getTotalFromAllItems = itemsArray.reduce((acc, curr) => {
+    return acc + curr.itemTotal;
+  }, 0);
+
+  console.log(getTotalFromAllItems);
 
   const formik = useFormik({
     initialValues: {
@@ -43,15 +48,21 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
     setInvoiceItems([...invoiceItems, newItemId]);
   };
 
+  const originalDate = new Date(formik.values.createdAt);
+  const newDate = new Date(
+    originalDate.getTime() + formik.values.paymentTerms * 24 * 60 * 60 * 1000
+  );
+
   const createNewInvoiceDetails = async () => {
     const newInvoiceDetailsObject = {
       createdAt: formik.values.createdAt,
-      paymentDue: formik.values.paymentDue,
+      paymentDue: newDate,
       description: formik.values.description,
-      paymentTerms: null,
+      paymentTerms: formik.values.paymentTerms,
       clientName: formik.values.clientName,
       clientEmail: formik.values.clientEmail,
       status: formik.values.status,
+      total: getTotalFromAllItems,
       senderAddress: {
         street: formik.values.senderAddress.street,
         city: formik.values.senderAddress.city,
@@ -174,7 +185,7 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
                 onChange={formik.handleChange}
                 name="clientEmail"
                 values={formik.values.clientEmail}
-                type="text"
+                type="email"
                 className="w-full rounded-lg p-2 bg-[#1e2139]"
               ></input>
             </div>
@@ -301,7 +312,6 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
                     itemsArray={itemsArray}
                     setItemsArray={setItemsArray}
                     setItemsDetailsObj={setItemsDetailsObj}
-                    test={test}
                   />
                 );
               })}

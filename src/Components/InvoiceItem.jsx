@@ -39,26 +39,19 @@ function InvoiceItem({
     },
   });
 
-  // const invoiceItemDetails = () => {
-  //   const itemDetailsObj = {
-  //     id: id,
-  //     itemName: formik.values.itemName,
-  //     itemQty: formik.values.itemQty,
-  //     itemPrice: formik.values.itemPrice,
-  //     itemTotal: formik.values.itemTotal,
-  //   };
-
-  //   setItemsArray((prevItems) => [...prevItems, itemDetailsObj]);
-  // };
-
+  //const itemQuantity = parseInt(formik.values.itemQty
   const confirmInvoiceItemDetails = (e) => {
     e.preventDefault();
+
     const invoiceItemDetails = {
       id: id,
       itemName: formik.values.itemName,
       itemQty: formik.values.itemQty,
       itemPrice: formik.values.itemPrice,
-      itemTotal: formik.values.itemTotal,
+      itemTotal:
+        formik.values.itemQty * formik.values.itemPrice > 0
+          ? formik.values.itemQty * formik.values.itemPrice
+          : 0,
     };
 
     setItemsArray([...itemsArray, invoiceItemDetails]);
@@ -88,6 +81,7 @@ function InvoiceItem({
             onChange={formik.handleChange}
             name="itemQty"
             placeholder="1"
+            type="number"
             className=" rounded-lg p-2 max-w-[3rem] bg-[#1e2139]"
             disabled={inputDisabled}
           ></input>
@@ -99,6 +93,7 @@ function InvoiceItem({
             onChange={formik.handleChange}
             name="itemPrice"
             placeholder="0"
+            type="number"
             className=" rounded-lg p-2 max-w-[6rem] bg-[#1e2139]"
             disabled={inputDisabled}
           ></input>
@@ -106,13 +101,15 @@ function InvoiceItem({
 
         <div className="flex flex-col">
           <label>Total</label>
-          <input
-            onChange={formik.handleChange}
+          <p
             name="itemTotal"
             placeholder="0"
             className=" rounded-lg p-2 max-w-[3rem] bg-[#1e2139]"
-            disabled={inputDisabled}
-          ></input>
+          >
+            {formik.values.itemQty * formik.values.itemPrice > 0
+              ? formik.values.itemQty * formik.values.itemPrice
+              : 0}
+          </p>
         </div>
         <div className="flex flex-col items-center justify-end">
           <button
