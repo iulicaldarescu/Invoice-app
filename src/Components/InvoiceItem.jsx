@@ -22,10 +22,7 @@ function InvoiceItem({
       console.log(indexToDelete);
       return item.id !== indexToDelete;
     });
-    console.log(newUpdateItemsArray);
     setItemsArray(newUpdateItemsArray);
-
-    console.log(itemsArray);
   };
 
   // Formik
@@ -104,7 +101,7 @@ function InvoiceItem({
           <p
             name="itemTotal"
             placeholder="0"
-            className=" rounded-lg p-2 max-w-[3rem] bg-[#1e2139]"
+            className=" rounded-lg p-2 w-[5rem] bg-[#1e2139] overflow-hidden"
           >
             {formik.values.itemQty * formik.values.itemPrice > 0
               ? formik.values.itemQty * formik.values.itemPrice

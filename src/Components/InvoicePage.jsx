@@ -56,6 +56,13 @@ function InvoicePage() {
     console.log(userInfo); // This will log the updated userInfo
   }, [userId]);
 
+  const deleteInvoice = (id) => {
+    const newArr = jsonFile.data.filter((invoice) => {
+      console.log(id);
+      console.log(invoice.id);
+    });
+  };
+
   return (
     <div className="px-2 bg-[#141625] h-full flex flex-col gap-3 py-3">
       {/* Go back button */}
@@ -71,10 +78,16 @@ function InvoicePage() {
               Go back
             </Link>
             <div className="flex gap-2 text-white">
-              <button className="bg-[#252945] px-3 py-1 text-sm rounded-full active:opacity-80">
+              <Link
+                to={`/edit-invoice`}
+                className="bg-[#252945] px-3 py-1 text-sm rounded-full active:opacity-80"
+              >
                 Edit
-              </button>
-              <button className="bg-rose-500 px-3 py-1 text-sm rounded-full active:opacity-80">
+              </Link>
+              <button
+                onClick={() => deleteInvoice(userId)}
+                className="bg-rose-500 px-3 py-1 text-sm rounded-full active:opacity-80"
+              >
                 Delete
               </button>
               <button className="bg-[#7c5df9] text-sm px-2 py-1 rounded-full active:opacity-80">
