@@ -2,7 +2,8 @@ import { FaTrashAlt } from "react-icons/fa";
 import useUserId from "../stores/UserId";
 import jsonFile from "./db.json";
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 function EditInvoice() {
   const { userId } = useUserId();
@@ -12,30 +13,52 @@ function EditInvoice() {
   });
 
   // get the initial values in this state
-  const [newItemsArr, setNewItemsArr] = useState(
-    invoiceObjectToEdit[0].items.map((item) => {
-      return { ...item, id: Date.now() };
-    })
-  );
+  const [newItemsArr, setNewItemsArr] = useState([]);
+
+  useEffect(() => {
+    setNewItemsArr(
+      invoiceObjectToEdit[0].items.map((item) => {
+        return { ...item, id: uuidv4() };
+      })
+    );
+  }, []);
 
   const addNewItem = (e) => {
     e.preventDefault();
+
     const newItem = {
-      id: Date.now(),
+      id: uuidv4(),
       name: "",
       quantity: null,
       price: null,
       total: null,
     };
-    setNewItemsArr([...newItemsArr, newItem]);
-
     console.log(newItem.id);
+
+    setNewItemsArr([...newItemsArr, newItem]);
+  };
+  //trebuie continuat de aici
+  const deleteDataFromJSON = async (id) => {
+    const url = `${jsonFile}/${id}`;
+
+    const data = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
   };
 
-  const deleteItem = (id) => {
+  newItemsArr.map((item) => {
+    console.log(item?.id);
+  });
+
+  const deleteItem = (id, index) => {
     const newArr = newItemsArr.filter((item) => {
-      return item.id !== id;
+      return id !== item.id;
     });
+    deleteDataFromJSON(id);
     setNewItemsArr(newArr);
   };
 
@@ -251,7 +274,10 @@ function EditInvoice() {
 
               {newItemsArr.map((item, index) => {
                 return (
-                  <div className="flex  justify-between border-b-2 border-b-slate-100 pb-3">
+                  <div
+                    key={index}
+                    className="flex  justify-between border-b-2 border-b-slate-100 pb-3"
+                  >
                     <div className=" flex flex-wrap gap-3">
                       <div className="flex flex-col">
                         <label>Item Name</label>
