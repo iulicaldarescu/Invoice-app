@@ -25,27 +25,6 @@ function EditInvoice() {
     );
   }, []);
 
-  //here we have the updated array (newItemsArr have 2 or 3 el)
-
-  const addNewItem = (e) => {
-    e.preventDefault();
-
-    const newItem = {
-      id: uuidv4(),
-      name: "",
-      quantity: null,
-      price: null,
-      total: null,
-    };
-
-    console.log(newItem.id);
-
-    setNewItemsArr([...newItemsArr, newItem]);
-  };
-
-  console.log(newItemsArr);
-
-  //trebuie continuat de aici
   const deleteDataFromJSON = async (id, updatedItems) => {
     const url = `http://localhost:3001/data/${id}`;
     try {
@@ -63,10 +42,6 @@ function EditInvoice() {
   };
 
   //---------------------------
-
-  newItemsArr.map((item) => {
-    console.log(item);
-  });
 
   //function to delete item from the items array
   const deleteItem = (id, index) => {
@@ -111,7 +86,85 @@ function EditInvoice() {
     formik.setFieldValue("items", newItemsArr);
   }, [newItemsArr]);
 
-  console.log(formik.values.items);
+  // confrim item button function
+  const handleItemConfirm = async (object) => {
+    const newArr = newItemsArr.map((item) => {
+      if (item.id === object.id) {
+        return {
+          ...item,
+          name: object.name,
+          quantity: parseFloat(object.quantity),
+          price: parseFloat(object.price),
+          total: parseFloat(object.price * object.quantity),
+        };
+      }
+      return item;
+    });
+    setNewItemsArr(newArr);
+    console.log(newItemsArr);
+  };
+
+  const updateData = async () => {
+    const url = `http://localhost:3001/data/${userId}`;
+
+    try {
+      const response = await fetch(url, {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ items: [...newItemsArr] }),
+      });
+
+      // Ensure that the response is successful before proceeding
+      if (!response.ok) {
+        throw new Error("Failed to update data");
+      }
+    } catch (error) {
+      console.error("Error updating data:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    updateData();
+  }, [newItemsArr]);
+
+  const addNewItem = async (e) => {
+    e.preventDefault();
+
+    const newItem = {
+      id: uuidv4(),
+      name: "",
+      quantity: null,
+      price: null,
+      total: null,
+    };
+
+    setNewItemsArr([...newItemsArr, newItem]);
+
+    // PATCH METHOD TO BE CREATED AND INSERT IN JSON EMPTYs further iterate through each and insert data
+    const url = `http://localhost:3001/data/${userId}`;
+    try {
+      const data = await fetch(url, {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ items: [...newItemsArr, newItem] }),
+      });
+    } catch (error) {
+      console.error("Error updating data:", error.message);
+    }
+
+    // when clickin on cofirm iterat through json and where id matches insert from input field the dates .
+  };
+
+  // prevent default form behaviour
+  const preventDefaultFct = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <div className="fixed top-0 bottom-0 right-0 left-0 bg-[#141625] flex flex-col text-white px-4">
@@ -122,7 +175,7 @@ function EditInvoice() {
       {/* form for invoice details */}
       <div className="basis-4/6 bg-[#141625] overflow-auto pl-1">
         {/* bill from */}
-        <form>
+        <form onSubmit={preventDefaultFct}>
           <div>
             <p>Bill Form</p>
           </div>
@@ -336,13 +389,22 @@ function EditInvoice() {
                       <div className="flex flex-col">
                         <label>Total</label>
                         <input
+                          value={
+                            formik.values.items[index]?.price *
+                            formik.values.items[index]?.quantity
+                          }
                           disabled
                           placeholder="0"
                           className=" rounded-lg p-2 max-w-[3rem] bg-[#1e2139]"
                         ></input>
                       </div>
                       <div className="flex flex-col items-center justify-end">
-                        <button className="bg-green-600 p-2 rounded-lg">
+                        <button
+                          onClick={() =>
+                            handleItemConfirm(formik.values.items[index])
+                          }
+                          className="bg-green-600 p-2 rounded-lg"
+                        >
                           Confirm
                         </button>
                       </div>
@@ -382,7 +444,8 @@ function EditInvoice() {
 
 export default EditInvoice;
 
-// All data are taken from DB
-// Add new item functionality
-// Calcul total automated
-// Patch method to update the already taken data
+// Calcul main total from the invoice
+// Delete the invoice function
+// Mark as paid function
+// Responsive
+// Small CSS details

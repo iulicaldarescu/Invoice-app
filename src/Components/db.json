@@ -21,7 +21,15 @@
         "postCode": "NR24 5WQ",
         "country": "United Kingdom"
       },
-      "items": [],
+      "items": [
+        {
+          "id": "474cde54-8836-42f5-84a9-678003042bf2",
+          "name": "Raul",
+          "quantity": 55,
+          "price": 123,
+          "total": 6765
+        }
+      ],
       "total": 1800.9
     },
     {
@@ -223,44 +231,20 @@
       "total": 3102.04
     },
     {
-      "id": "df84572c-5e28-4282-a5dc-d57bda4ce4c2",
+      "id": "77ee7986-fa48-4692-ab87-148c3ea17c65",
       "createdAt": "",
       "paymentDue": null,
       "description": "",
       "paymentTerms": "",
-      "clientName": "",
+      "clientName": "234",
       "clientEmail": "",
       "status": "",
       "total": null,
       "senderAddress": {
-        "street": "test",
-        "city": "",
-        "postCode": "",
-        "country": ""
-      },
-      "clientAddress": {
-        "street": "",
-        "city": "",
-        "postCode": "",
-        "country": ""
-      },
-      "items": []
-    },
-    {
-      "id": "fa03130a-c286-49e6-81f7-22c50d2f182b",
-      "createdAt": "",
-      "paymentDue": null,
-      "description": "",
-      "paymentTerms": "",
-      "clientName": "",
-      "clientEmail": "",
-      "status": "",
-      "total": null,
-      "senderAddress": {
-        "street": "",
-        "city": "",
-        "postCode": "",
-        "country": ""
+        "street": "234",
+        "city": "324",
+        "postCode": "234",
+        "country": "234"
       },
       "clientAddress": {
         "street": "",
@@ -270,37 +254,13 @@
       },
       "items": [
         {
-          "id": "3fde2cf8-14cd-4e2c-a981-b4d241e42f52",
-          "name": "ewq",
-          "quantity": 2,
-          "price": 3,
-          "total": 6
+          "id": "fed3df7a-8ac9-433d-b9d2-468d4d7ae83b",
+          "name": "ewsrwer",
+          "quantity": 3423,
+          "price": 234,
+          "total": 800982
         }
       ]
-    },
-    {
-      "id": "e61574f1-bec4-434f-bbf8-664642c67410",
-      "createdAt": "",
-      "paymentDue": null,
-      "description": "",
-      "paymentTerms": "",
-      "clientName": "",
-      "clientEmail": "",
-      "status": "",
-      "total": null,
-      "senderAddress": {
-        "street": "",
-        "city": "",
-        "postCode": "",
-        "country": ""
-      },
-      "clientAddress": {
-        "street": "",
-        "city": "",
-        "postCode": "",
-        "country": ""
-      },
-      "items": []
     }
   ]
 }
