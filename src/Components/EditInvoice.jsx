@@ -8,6 +8,8 @@ import { v4 as uuidv4 } from "uuid";
 function EditInvoice() {
   const { userId } = useUserId();
 
+  //here we get the object from database using the id we got from click on a invoice
+
   const invoiceObjectToEdit = jsonFile.data.filter((object) => {
     return object.id === userId;
   });
@@ -18,10 +20,12 @@ function EditInvoice() {
   useEffect(() => {
     setNewItemsArr(
       invoiceObjectToEdit[0].items.map((item) => {
-        return { ...item, id: uuidv4() };
+        return { ...item };
       })
     );
   }, []);
+
+  //here we have the updated array (newItemsArr have 2 or 3 el)
 
   const addNewItem = (e) => {
     e.preventDefault();
@@ -33,32 +37,44 @@ function EditInvoice() {
       price: null,
       total: null,
     };
+
     console.log(newItem.id);
 
     setNewItemsArr([...newItemsArr, newItem]);
   };
-  //trebuie continuat de aici
-  const deleteDataFromJSON = async (id) => {
-    const url = `${jsonFile}/${id}`;
 
-    const data = await fetch(url, {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
+  console.log(newItemsArr);
+
+  //trebuie continuat de aici
+  const deleteDataFromJSON = async (id, updatedItems) => {
+    const url = `http://localhost:3001/data/${id}`;
+    try {
+      const data = await fetch(url, {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ items: updatedItems }),
+      });
+    } catch (error) {
+      console.error("Error updating data:", error.message);
+    }
   };
 
+  //---------------------------
+
   newItemsArr.map((item) => {
-    console.log(item?.id);
+    console.log(item);
   });
 
+  //function to delete item from the items array
   const deleteItem = (id, index) => {
     const newArr = newItemsArr.filter((item) => {
-      return id !== item.id;
+      return item.id !== id;
     });
-    deleteDataFromJSON(id);
+
+    deleteDataFromJSON(userId, newArr);
     setNewItemsArr(newArr);
   };
 
@@ -83,13 +99,19 @@ function EditInvoice() {
         postCode: invoiceObjectToEdit[0].clientAddress.postCode,
         country: invoiceObjectToEdit[0].clientAddress.country,
       },
-      items: invoiceObjectToEdit[0].items,
+      items: newItemsArr,
     },
 
     onSubmit: (values) => {
       // Handle form submission or update your state here.
     },
   });
+
+  useEffect(() => {
+    formik.setFieldValue("items", newItemsArr);
+  }, [newItemsArr]);
+
+  console.log(formik.values.items);
 
   return (
     <div className="fixed top-0 bottom-0 right-0 left-0 bg-[#141625] flex flex-col text-white px-4">
@@ -284,9 +306,9 @@ function EditInvoice() {
                         <input
                           name={`items[${index}.name]`}
                           onChange={formik.handleChange}
-                          value={formik.values.items[index]?.name}
+                          value={formik.values.items[index]?.name || ""}
                           className="rounded-lg p-2 max-w-[15rem] bg-[#1e2139]"
-                        />
+                        ></input>
                       </div>
 
                       <div className="flex flex-col">
@@ -294,7 +316,7 @@ function EditInvoice() {
                         <input
                           name={`items[${index}.quantity]`}
                           onChange={formik.handleChange}
-                          value={formik.values.items[index]?.quantity}
+                          value={formik.values.items[index]?.quantity || ""}
                           placeholder="1"
                           className=" rounded-lg p-2 max-w-[3rem] bg-[#1e2139]"
                         ></input>
@@ -305,7 +327,7 @@ function EditInvoice() {
                         <input
                           name={`items[${index}.price]`}
                           onChange={formik.handleChange}
-                          value={formik.values.items[index]?.price}
+                          value={formik.values.items[index]?.price || ""}
                           placeholder="0"
                           className=" rounded-lg p-2 max-w-[6rem] bg-[#1e2139]"
                         ></input>
@@ -315,12 +337,14 @@ function EditInvoice() {
                         <label>Total</label>
                         <input
                           disabled
-                          name={`items[${index}.total]`}
-                          onChange={formik.handleChange}
-                          value={formik.values.items[index]?.total}
                           placeholder="0"
                           className=" rounded-lg p-2 max-w-[3rem] bg-[#1e2139]"
                         ></input>
+                      </div>
+                      <div className="flex flex-col items-center justify-end">
+                        <button className="bg-green-600 p-2 rounded-lg">
+                          Confirm
+                        </button>
                       </div>
                     </div>
                     {/* trash icon */}
@@ -361,5 +385,4 @@ export default EditInvoice;
 // All data are taken from DB
 // Add new item functionality
 // Calcul total automated
-// Delete items bin functionality
 // Patch method to update the already taken data

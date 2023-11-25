@@ -21,14 +21,7 @@
         "postCode": "NR24 5WQ",
         "country": "United Kingdom"
       },
-      "items": [
-        {
-          "name": "Brand Guidelines",
-          "quantity": 1,
-          "price": 1800.9,
-          "total": 1800.9
-        }
-      ],
+      "items": [],
       "total": 1800.9
     },
     {
@@ -228,6 +221,86 @@
         }
       ],
       "total": 3102.04
-    }    
+    },
+    {
+      "id": "df84572c-5e28-4282-a5dc-d57bda4ce4c2",
+      "createdAt": "",
+      "paymentDue": null,
+      "description": "",
+      "paymentTerms": "",
+      "clientName": "",
+      "clientEmail": "",
+      "status": "",
+      "total": null,
+      "senderAddress": {
+        "street": "test",
+        "city": "",
+        "postCode": "",
+        "country": ""
+      },
+      "clientAddress": {
+        "street": "",
+        "city": "",
+        "postCode": "",
+        "country": ""
+      },
+      "items": []
+    },
+    {
+      "id": "fa03130a-c286-49e6-81f7-22c50d2f182b",
+      "createdAt": "",
+      "paymentDue": null,
+      "description": "",
+      "paymentTerms": "",
+      "clientName": "",
+      "clientEmail": "",
+      "status": "",
+      "total": null,
+      "senderAddress": {
+        "street": "",
+        "city": "",
+        "postCode": "",
+        "country": ""
+      },
+      "clientAddress": {
+        "street": "",
+        "city": "",
+        "postCode": "",
+        "country": ""
+      },
+      "items": [
+        {
+          "id": "3fde2cf8-14cd-4e2c-a981-b4d241e42f52",
+          "name": "ewq",
+          "quantity": 2,
+          "price": 3,
+          "total": 6
+        }
+      ]
+    },
+    {
+      "id": "e61574f1-bec4-434f-bbf8-664642c67410",
+      "createdAt": "",
+      "paymentDue": null,
+      "description": "",
+      "paymentTerms": "",
+      "clientName": "",
+      "clientEmail": "",
+      "status": "",
+      "total": null,
+      "senderAddress": {
+        "street": "",
+        "city": "",
+        "postCode": "",
+        "country": ""
+      },
+      "clientAddress": {
+        "street": "",
+        "city": "",
+        "postCode": "",
+        "country": ""
+      },
+      "items": []
+    }
   ]
 }

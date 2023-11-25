@@ -1,6 +1,7 @@
 import { FaTrashAlt } from "react-icons/fa";
 import { useFormik } from "formik";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 function InvoiceItem({
   id,
@@ -41,11 +42,11 @@ function InvoiceItem({
     e.preventDefault();
 
     const invoiceItemDetails = {
-      id: id,
-      itemName: formik.values.itemName,
-      itemQty: formik.values.itemQty,
-      itemPrice: formik.values.itemPrice,
-      itemTotal:
+      id: uuidv4(),
+      name: formik.values.itemName,
+      quantity: formik.values.itemQty,
+      price: formik.values.itemPrice,
+      total:
         formik.values.itemQty * formik.values.itemPrice > 0
           ? formik.values.itemQty * formik.values.itemPrice
           : 0,

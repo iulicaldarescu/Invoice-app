@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import InvoiceItem from "./InvoiceItem";
+import { v4 as uuidv4 } from "uuid";
 
 function NewInvoice({ setNewInvoiceModalOpen }) {
   const [invoiceItems, setInvoiceItems] = useState([1]);
@@ -55,6 +56,7 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
 
   const createNewInvoiceDetails = async () => {
     const newInvoiceDetailsObject = {
+      id: uuidv4(),
       createdAt: formik.values.createdAt,
       paymentDue: newDate,
       description: formik.values.description,
