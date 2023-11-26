@@ -19,10 +19,14 @@ function EditInvoice() {
 
   useEffect(() => {
     setNewItemsArr(
-      invoiceObjectToEdit[0].items.map((item) => {
-        return { ...item };
-      })
+      // invoiceObjectToEdit[0].items.map((item) => {
+      //   return { ...item };
+      // })
+      invoiceObjectToEdit[0].items
     );
+
+    console.log("invoiceObjectToEdit[0].items", invoiceObjectToEdit[0].items);
+    console.log("newItemsArray", newItemsArr);
   }, []);
 
   const deleteDataFromJSON = async (id, updatedItems) => {
@@ -82,11 +86,63 @@ function EditInvoice() {
     },
   });
 
+  // here we are creating a function which updates the database with updated values
+
+  const updateAllData = async () => {
+    const updatedItem = invoiceObjectToEdit.find((item) => item.id === userId);
+
+    if (!updatedItem) {
+      console.error("Item not found for update");
+      return;
+    }
+
+    const updatedData = {
+      ...updatedItem,
+      createdAt: formik.values.createdAt,
+      paymentDue: formik.values.paymentDue,
+      description: formik.values.description,
+      paymentTerms: formik.values.paymentTerms,
+      clientName: formik.values.clientName,
+      clientEmail: formik.values.clientEmail,
+      status: formik.values.status,
+      senderAddress: {
+        street: formik.values.senderAddress.street,
+        city: formik.values.senderAddress.city,
+        postCode: formik.values.senderAddress.postCode,
+        country: formik.values.senderAddress.country,
+      },
+      clientAddress: {
+        street: formik.values.clientAddress.street,
+        city: formik.values.clientAddress.city,
+        postCode: formik.values.clientAddress.postCode,
+        country: formik.values.clientAddress.country,
+      },
+    };
+
+    console.log("Updated Data", updatedData);
+
+    try {
+      const response = await fetch(`http://localhost:3001/data/${userId}`, {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedData),
+      });
+
+      const responseData = await response.json();
+      console.log("Response", responseData);
+    } catch (error) {
+      console.error("Error updating data:", error.message);
+    }
+  };
+
   useEffect(() => {
     formik.setFieldValue("items", newItemsArr);
   }, [newItemsArr]);
 
-  // confrim item button function
+  // confirm item button function
   const handleItemConfirm = async (object) => {
     const newArr = newItemsArr.map((item) => {
       if (item.id === object.id) {
@@ -126,8 +182,35 @@ function EditInvoice() {
     }
   };
 
+  const updateTotalData = async () => {
+    const url = `http://localhost:3001/data/${userId}`;
+
+    const total = newItemsArr.reduce((acc, curr) => {
+      return acc + curr.total;
+    }, 0);
+
+    try {
+      const response = await fetch(url, {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ total: total }),
+      });
+
+      // Ensure that the response is successful before proceeding
+      if (!response.ok) {
+        throw new Error("Failed to update data");
+      }
+    } catch (error) {
+      console.error("Error updating data:", error.message);
+    }
+  };
+
   useEffect(() => {
     updateData();
+    updateTotalData();
   }, [newItemsArr]);
 
   const addNewItem = async (e) => {
@@ -434,7 +517,10 @@ function EditInvoice() {
         <button className=" bg-[#1e2139] px-4 h-1/4 m-auto rounded-full ">
           Discard
         </button>
-        <button className="bg-[#7c5dfa] px-4 h-1/4 m-auto rounded-full">
+        <button
+          className="bg-[#7c5dfa] px-4 h-1/4 m-auto rounded-full"
+          onClick={updateAllData}
+        >
           Save & Send
         </button>
       </div>

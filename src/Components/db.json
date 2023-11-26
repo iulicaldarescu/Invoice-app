@@ -4,9 +4,9 @@
       "id": "RT3080",
       "createdAt": "2021-08-18",
       "paymentDue": "2021-08-19",
-      "description": "Re-branding",
+      "description": "dsadas",
       "paymentTerms": 1,
-      "clientName": "Jensen Huang",
+      "clientName": "MESSI",
       "clientEmail": "jensenh@mail.com",
       "status": "paid",
       "senderAddress": {
@@ -17,26 +17,18 @@
       },
       "clientAddress": {
         "street": "106 Kendell Street",
-        "city": "Sharrington",
+        "city": "Romania",
         "postCode": "NR24 5WQ",
         "country": "United Kingdom"
       },
-      "items": [
-        {
-          "id": "474cde54-8836-42f5-84a9-678003042bf2",
-          "name": "Raul",
-          "quantity": 55,
-          "price": 123,
-          "total": 6765
-        }
-      ],
-      "total": 1800.9
+      "items": [],
+      "total": 0
     },
     {
       "id": "XM9141",
       "createdAt": "2021-08-21",
       "paymentDue": "2021-09-20",
-      "description": "Graphic Design",
+      "description": "Front end development course",
       "paymentTerms": 30,
       "clientName": "Alex Grim",
       "clientEmail": "alexgrim@mail.com",
@@ -55,19 +47,19 @@
       },
       "items": [
         {
-          "name": "Banner Design",
-          "quantity": 1,
-          "price": 156,
-          "total": 156
+          "name": "HTML",
+          "quantity": 3,
+          "price": 121,
+          "total": 363
         },
         {
-          "name": "Email Design",
-          "quantity": 2,
-          "price": 200,
-          "total": 400
+          "name": "HTML",
+          "quantity": 3,
+          "price": 121,
+          "total": 363
         }
       ],
-      "total": 556
+      "total": 726
     },
     {
       "id": "RG0314",
@@ -90,15 +82,8 @@
         "postCode": "IP19 3PF",
         "country": "United Kingdom"
       },
-      "items": [
-        {
-          "name": "Website Redesign",
-          "quantity": 1,
-          "price": 14002.33,
-          "total": 14002.33
-        }
-      ],
-      "total": 14002.33
+      "items": [],
+      "total": 0
     },
     {
       "id": "RT2080",
@@ -152,30 +137,17 @@
         "postCode": "CB5 6EG",
         "country": "United Kingdom"
       },
-      "items": [
-        {
-          "name": "New Logo",
-          "quantity": 1,
-          "price": 1532.33,
-          "total": 1532.33
-        },
-        {
-          "name": "Brand Guidelines",
-          "quantity": 1,
-          "price": 2500,
-          "total": 2500
-        }
-      ],
-      "total": 4032.33
+      "items": [],
+      "total": 0
     },
     {
       "id": "TY9141",
       "createdAt": "2021-10-01",
       "paymentDue": "2021-10-31",
-      "description": "Landing Page Design",
-      "paymentTerms": 30,
+      "description": "mare smen",
+      "paymentTerms": "1",
       "clientName": "Thomas Wayne",
-      "clientEmail": "thomas@dc.com",
+      "clientEmail": "thomas@raul.com",
       "status": "pending",
       "senderAddress": {
         "street": "19 Union Terrace",
@@ -185,19 +157,20 @@
       },
       "clientAddress": {
         "street": "3964  Queens Lane",
-        "city": "Gotham",
+        "city": "cluj",
         "postCode": "60457",
         "country": "United States of America"
       },
       "items": [
         {
-          "name": "Web Design",
-          "quantity": 1,
-          "price": 6155.91,
-          "total": 6155.91
+          "id": "d74c3b7c-15c1-4327-8173-ffca53589ee9",
+          "name": "dasdsa",
+          "quantity": 3,
+          "price": 4,
+          "total": 12
         }
       ],
-      "total": 6155.91
+      "total": 12
     },
     {
       "id": "FV2353",
@@ -231,20 +204,20 @@
       "total": 3102.04
     },
     {
-      "id": "77ee7986-fa48-4692-ab87-148c3ea17c65",
+      "id": "d6ccead8-2633-4e5c-bcab-bbbac7b1758d",
       "createdAt": "",
       "paymentDue": null,
       "description": "",
       "paymentTerms": "",
-      "clientName": "234",
+      "clientName": "",
       "clientEmail": "",
       "status": "",
-      "total": null,
+      "total": 1570,
       "senderAddress": {
-        "street": "234",
-        "city": "324",
-        "postCode": "234",
-        "country": "234"
+        "street": "",
+        "city": "",
+        "postCode": "",
+        "country": ""
       },
       "clientAddress": {
         "street": "",
@@ -254,11 +227,25 @@
       },
       "items": [
         {
-          "id": "fed3df7a-8ac9-433d-b9d2-468d4d7ae83b",
-          "name": "ewsrwer",
-          "quantity": 3423,
-          "price": 234,
-          "total": 800982
+          "id": "adce5cf6-0f1e-4008-980d-acfd3f1dbfa6",
+          "name": "ds",
+          "quantity": 10,
+          "price": 4,
+          "total": 40
+        },
+        {
+          "id": "c178b30f-5007-402a-84a1-dd68f62d3ead",
+          "name": "dd",
+          "quantity": 10,
+          "price": 33,
+          "total": 330
+        },
+        {
+          "id": "af7ba4ea-4885-4970-971b-0ecf972c9faa",
+          "name": "dddd",
+          "quantity": 100,
+          "price": 12,
+          "total": 1200
         }
       ]
     }

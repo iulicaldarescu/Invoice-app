@@ -9,9 +9,10 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
   const [itemsDetailsObj, setItemsDetailsObj] = useState({});
 
   const getTotalFromAllItems = itemsArray.reduce((acc, curr) => {
-    return acc + curr.itemTotal;
+    return acc + curr.total;
   }, 0);
 
+  console.log(itemsArray);
   console.log(getTotalFromAllItems);
 
   const formik = useFormik({
@@ -79,6 +80,7 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
       },
       // itemsArray has to be overwritten in this items array
       items: [...itemsArray],
+      total: getTotalFromAllItems,
     };
 
     //console.log(JSON.stringify(newInvoiceDetailsObject, null, 2));

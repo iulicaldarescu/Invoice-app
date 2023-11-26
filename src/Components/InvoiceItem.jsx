@@ -9,7 +9,6 @@ function InvoiceItem({
   setInvoiceItems,
   itemsArray,
   setItemsArray,
-  setItemsDetailsObj,
 }) {
   const [inputDisabled, setInputDisabled] = useState(false);
 
