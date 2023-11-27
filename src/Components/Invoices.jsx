@@ -50,7 +50,7 @@ function Invoices() {
           <div className="flex justify-between basis-5/6 text-white font-bold text-sm ">
             <div className="flex flex-col  justify-center">
               <p className="text-lg">Invoices</p>
-              <p>7 items</p>
+              <p>{jsonFile.data.length} items</p>
             </div>
 
             <div className="flex items-center relative">

@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 
 function EditInvoice() {
   const { userId } = useUserId();
+  const [newItemsArr, setNewItemsArr] = useState([]);
 
   //here we get the object from database using the id we got from click on a invoice
 
@@ -15,47 +16,12 @@ function EditInvoice() {
   });
 
   // get the initial values in this state
-  const [newItemsArr, setNewItemsArr] = useState([]);
 
   useEffect(() => {
-    setNewItemsArr(
-      // invoiceObjectToEdit[0].items.map((item) => {
-      //   return { ...item };
-      // })
-      invoiceObjectToEdit[0].items
-    );
-
-    console.log("invoiceObjectToEdit[0].items", invoiceObjectToEdit[0].items);
-    console.log("newItemsArray", newItemsArr);
+    setNewItemsArr([...invoiceObjectToEdit[0].items]);
   }, []);
 
-  const deleteDataFromJSON = async (id, updatedItems) => {
-    const url = `http://localhost:3001/data/${id}`;
-    try {
-      const data = await fetch(url, {
-        method: "PATCH",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ items: updatedItems }),
-      });
-    } catch (error) {
-      console.error("Error updating data:", error.message);
-    }
-  };
-
   //---------------------------
-
-  //function to delete item from the items array
-  const deleteItem = (id, index) => {
-    const newArr = newItemsArr.filter((item) => {
-      return item.id !== id;
-    });
-
-    deleteDataFromJSON(userId, newArr);
-    setNewItemsArr(newArr);
-  };
 
   const formik = useFormik({
     initialValues: {
@@ -78,7 +44,7 @@ function EditInvoice() {
         postCode: invoiceObjectToEdit[0].clientAddress.postCode,
         country: invoiceObjectToEdit[0].clientAddress.country,
       },
-      items: newItemsArr,
+      items: "",
     },
 
     onSubmit: (values) => {
@@ -86,8 +52,25 @@ function EditInvoice() {
     },
   });
 
-  // here we are creating a function which updates the database with updated values
+  useEffect(() => {
+    formik.setFieldValue("items", newItemsArr);
+  }, [newItemsArr]);
 
+  //function to calculate the total payment of all invoice items
+  const getTotalInvoiceItemsPrices = () => {
+    const total = newItemsArr.reduce((acc, curr) => {
+      return acc + curr.total;
+    }, 0);
+    return total;
+  };
+
+  const test = () => {
+    // console.log("invoiceObjectToEdit[0].items", invoiceObjectToEdit[0].items);
+    console.log("newItemsArray", newItemsArr);
+    console.log(getTotalInvoiceItemsPrices());
+  };
+
+  // here we are creating a function which updates the database with updated values
   const updateAllData = async () => {
     const updatedItem = invoiceObjectToEdit.find((item) => item.id === userId);
 
@@ -103,6 +86,7 @@ function EditInvoice() {
       description: formik.values.description,
       paymentTerms: formik.values.paymentTerms,
       clientName: formik.values.clientName,
+      total: getTotalInvoiceItemsPrices(),
       clientEmail: formik.values.clientEmail,
       status: formik.values.status,
       senderAddress: {
@@ -117,6 +101,7 @@ function EditInvoice() {
         postCode: formik.values.clientAddress.postCode,
         country: formik.values.clientAddress.country,
       },
+      items: formik.values.items,
     };
 
     console.log("Updated Data", updatedData);
@@ -138,80 +123,7 @@ function EditInvoice() {
     }
   };
 
-  useEffect(() => {
-    formik.setFieldValue("items", newItemsArr);
-  }, [newItemsArr]);
-
-  // confirm item button function
-  const handleItemConfirm = async (object) => {
-    const newArr = newItemsArr.map((item) => {
-      if (item.id === object.id) {
-        return {
-          ...item,
-          name: object.name,
-          quantity: parseFloat(object.quantity),
-          price: parseFloat(object.price),
-          total: parseFloat(object.price * object.quantity),
-        };
-      }
-      return item;
-    });
-    setNewItemsArr(newArr);
-    console.log(newItemsArr);
-  };
-
-  const updateData = async () => {
-    const url = `http://localhost:3001/data/${userId}`;
-
-    try {
-      const response = await fetch(url, {
-        method: "PATCH",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ items: [...newItemsArr] }),
-      });
-
-      // Ensure that the response is successful before proceeding
-      if (!response.ok) {
-        throw new Error("Failed to update data");
-      }
-    } catch (error) {
-      console.error("Error updating data:", error.message);
-    }
-  };
-
-  const updateTotalData = async () => {
-    const url = `http://localhost:3001/data/${userId}`;
-
-    const total = newItemsArr.reduce((acc, curr) => {
-      return acc + curr.total;
-    }, 0);
-
-    try {
-      const response = await fetch(url, {
-        method: "PATCH",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ total: total }),
-      });
-
-      // Ensure that the response is successful before proceeding
-      if (!response.ok) {
-        throw new Error("Failed to update data");
-      }
-    } catch (error) {
-      console.error("Error updating data:", error.message);
-    }
-  };
-
-  useEffect(() => {
-    updateData();
-    updateTotalData();
-  }, [newItemsArr]);
+  //this creates a new spot in the array so another div with inputs appears
 
   const addNewItem = async (e) => {
     e.preventDefault();
@@ -225,28 +137,38 @@ function EditInvoice() {
     };
 
     setNewItemsArr([...newItemsArr, newItem]);
+  };
 
-    // PATCH METHOD TO BE CREATED AND INSERT IN JSON EMPTYs further iterate through each and insert data
-    const url = `http://localhost:3001/data/${userId}`;
-    try {
-      const data = await fetch(url, {
-        method: "PATCH",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ items: [...newItemsArr, newItem] }),
-      });
-    } catch (error) {
-      console.error("Error updating data:", error.message);
-    }
-
-    // when clickin on cofirm iterat through json and where id matches insert from input field the dates .
+  // confirm item button function
+  const handleItemConfirm = (object) => {
+    const updatedItemsArr = newItemsArr.map((item) => {
+      if (item.id === object.id) {
+        const updatedItem = {
+          ...item,
+          name: object.name,
+          quantity: parseFloat(object.quantity),
+          price: parseFloat(object.price),
+        };
+        updatedItem.total = updatedItem.quantity * updatedItem.price;
+        return updatedItem;
+      }
+      return item;
+    });
+    setNewItemsArr(updatedItemsArr);
   };
 
   // prevent default form behaviour
   const preventDefaultFct = (e) => {
     e.preventDefault();
+  };
+
+  // function to delete item from the items array
+  const deleteItem = (id, index) => {
+    const newArr = newItemsArr.filter((item) => {
+      return item.id !== id;
+    });
+
+    setNewItemsArr(newArr);
   };
 
   return (
@@ -424,7 +346,7 @@ function EditInvoice() {
             {/* Item list container */}
             <div>
               <div>
-                <p>Item List</p>
+                <p onClick={test}>Item List</p>
               </div>
 
               {/* potential component down */}
@@ -473,8 +395,10 @@ function EditInvoice() {
                         <label>Total</label>
                         <input
                           value={
-                            formik.values.items[index]?.price *
-                            formik.values.items[index]?.quantity
+                            parseFloat(formik.values.items[index]?.price) *
+                              parseFloat(
+                                formik.values.items[index]?.quantity
+                              ) || ""
                           }
                           disabled
                           placeholder="0"
@@ -529,9 +453,3 @@ function EditInvoice() {
 }
 
 export default EditInvoice;
-
-// Calcul main total from the invoice
-// Delete the invoice function
-// Mark as paid function
-// Responsive
-// Small CSS details

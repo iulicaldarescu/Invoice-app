@@ -56,10 +56,47 @@ function InvoicePage() {
     console.log(userInfo); // This will log the updated userInfo
   }, [userId]);
 
-  const deleteInvoice = (id) => {
-    const newArr = jsonFile.data.filter((invoice) => {
-      console.log(id);
-      console.log(invoice.id);
+  // ------------------------------------------------------------------------------- DELETE INVOICE COMPLETLY -----------------------------------------------------------------------------------------------
+
+  const deleteInvoice = async (id) => {
+    // JSON modify method
+    const url = `http://localhost:3001/data/${id}`;
+
+    try {
+      const response = await fetch(url, {
+        method: "DELETE",
+      });
+
+      // Ensure that the response is successful before proceeding
+      if (!response.ok) {
+        throw new Error("Failed to delete data");
+      }
+    } catch (error) {
+      console.error("Error delete data:", error.message);
+    }
+  };
+
+  // ------------------------------------------------------------------------------- DELETE INVOICE COMPLETLY -----------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------MARK AS PAID FUNTION ----------------------------------------------------------------------------------------------------
+  const markAsPaidFunction = (id) => {
+    jsonFile.data.map(async (item) => {
+      if (item.id === id) {
+        const url = `http://localhost:3001/data/${id}`;
+
+        try {
+          const response = await fetch(url, {
+            method: "PATCH",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ status: "paid" }),
+          });
+        } catch (error) {
+          console.error("Error updating data:", error.message);
+        }
+      }
     });
   };
 
@@ -84,13 +121,19 @@ function InvoicePage() {
               >
                 Edit
               </Link>
+              <Link to="/">
+                <button
+                  onClick={() => deleteInvoice(userId)}
+                  className="bg-rose-500 px-3 py-1 text-sm rounded-full active:opacity-80"
+                >
+                  Delete
+                </button>
+              </Link>
+
               <button
-                onClick={() => deleteInvoice(userId)}
-                className="bg-rose-500 px-3 py-1 text-sm rounded-full active:opacity-80"
+                className="bg-[#7c5df9] text-sm px-2 py-1 rounded-full active:opacity-80"
+                onClick={() => markAsPaidFunction(userId)}
               >
-                Delete
-              </button>
-              <button className="bg-[#7c5df9] text-sm px-2 py-1 rounded-full active:opacity-80">
                 Mark as paid
               </button>
             </div>

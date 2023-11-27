@@ -57,7 +57,7 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
 
   const createNewInvoiceDetails = async () => {
     const newInvoiceDetailsObject = {
-      id: uuidv4(),
+      id: uuidv4().slice(0, 6).toUpperCase(),
       createdAt: formik.values.createdAt,
       paymentDue: newDate,
       description: formik.values.description,

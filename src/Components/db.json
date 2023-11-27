@@ -1,34 +1,10 @@
 {
   "data": [
     {
-      "id": "RT3080",
-      "createdAt": "2021-08-18",
-      "paymentDue": "2021-08-19",
-      "description": "dsadas",
-      "paymentTerms": 1,
-      "clientName": "MESSI",
-      "clientEmail": "jensenh@mail.com",
-      "status": "paid",
-      "senderAddress": {
-        "street": "19 Union Terrace",
-        "city": "London",
-        "postCode": "E1 3EZ",
-        "country": "United Kingdom"
-      },
-      "clientAddress": {
-        "street": "106 Kendell Street",
-        "city": "Romania",
-        "postCode": "NR24 5WQ",
-        "country": "United Kingdom"
-      },
-      "items": [],
-      "total": 0
-    },
-    {
       "id": "XM9141",
       "createdAt": "2021-08-21",
       "paymentDue": "2021-09-20",
-      "description": "Front end development course",
+      "description": "Graphic Design",
       "paymentTerms": 30,
       "clientName": "Alex Grim",
       "clientEmail": "alexgrim@mail.com",
@@ -47,19 +23,21 @@
       },
       "items": [
         {
-          "name": "HTML",
-          "quantity": 3,
-          "price": 121,
-          "total": 363
+          "id": "98543534534",
+          "name": "Banner Design",
+          "quantity": 1,
+          "price": 156,
+          "total": 156
         },
         {
-          "name": "HTML",
-          "quantity": 3,
-          "price": 121,
-          "total": 363
+          "id": "98543256344",
+          "name": "Email Design",
+          "quantity": 2,
+          "price": 200,
+          "total": 400
         }
       ],
-      "total": 726
+      "total": 556
     },
     {
       "id": "RG0314",
@@ -82,8 +60,16 @@
         "postCode": "IP19 3PF",
         "country": "United Kingdom"
       },
-      "items": [],
-      "total": 0
+      "items": [
+        {
+          "id": "98fdsfds5fds",
+          "name": "Website Redesign",
+          "quantity": 1,
+          "price": 14002.33,
+          "total": 14002.33
+        }
+      ],
+      "total": 14002.33
     },
     {
       "id": "RT2080",
@@ -108,6 +94,7 @@
       },
       "items": [
         {
+          "id": "9gsdffdsafdsnfasd34543",
           "name": "Logo Sketches",
           "quantity": 1,
           "price": 102.04,
@@ -118,7 +105,7 @@
     },
     {
       "id": "AA1449",
-      "createdAt": "2021-10-07",
+      "createdAt": "2021-10-7",
       "paymentDue": "2021-10-14",
       "description": "Re-branding",
       "paymentTerms": 7,
@@ -137,18 +124,33 @@
         "postCode": "CB5 6EG",
         "country": "United Kingdom"
       },
-      "items": [],
-      "total": 0
+      "items": [
+        {
+          "id": "9gsdffdfdsghfdd345343",
+          "name": "New Logo",
+          "quantity": 1,
+          "price": 1532.33,
+          "total": 1532.33
+        },
+        {
+          "id": "9gsgfddsadsac3-3",
+          "name": "Brand Guidelines",
+          "quantity": 1,
+          "price": 2500,
+          "total": 2500
+        }
+      ],
+      "total": 4032.33
     },
     {
       "id": "TY9141",
       "createdAt": "2021-10-01",
       "paymentDue": "2021-10-31",
-      "description": "mare smen",
-      "paymentTerms": "1",
+      "description": "Landing Page Design",
+      "paymentTerms": 30,
       "clientName": "Thomas Wayne",
-      "clientEmail": "thomas@raul.com",
-      "status": "pending",
+      "clientEmail": "thomas@dc.com",
+      "status": "paid",
       "senderAddress": {
         "street": "19 Union Terrace",
         "city": "London",
@@ -157,97 +159,20 @@
       },
       "clientAddress": {
         "street": "3964  Queens Lane",
-        "city": "cluj",
+        "city": "Gotham",
         "postCode": "60457",
         "country": "United States of America"
       },
       "items": [
         {
-          "id": "d74c3b7c-15c1-4327-8173-ffca53589ee9",
-          "name": "dasdsa",
-          "quantity": 3,
-          "price": 4,
-          "total": 12
-        }
-      ],
-      "total": 12
-    },
-    {
-      "id": "FV2353",
-      "createdAt": "2021-11-05",
-      "paymentDue": "2021-11-12",
-      "description": "Logo Re-design",
-      "paymentTerms": 7,
-      "clientName": "Anita Wainwright",
-      "clientEmail": "",
-      "status": "draft",
-      "senderAddress": {
-        "street": "19 Union Terrace",
-        "city": "London",
-        "postCode": "E1 3EZ",
-        "country": "United Kingdom"
-      },
-      "clientAddress": {
-        "street": "",
-        "city": "",
-        "postCode": "",
-        "country": ""
-      },
-      "items": [
-        {
-          "name": "Logo Re-design",
+          "id": "9g-234fd-fds-dsagfds",
+          "name": "Web Design",
           "quantity": 1,
-          "price": 3102.04,
-          "total": 3102.04
+          "price": 6155.91,
+          "total": 6155.91
         }
       ],
-      "total": 3102.04
-    },
-    {
-      "id": "d6ccead8-2633-4e5c-bcab-bbbac7b1758d",
-      "createdAt": "",
-      "paymentDue": null,
-      "description": "",
-      "paymentTerms": "",
-      "clientName": "",
-      "clientEmail": "",
-      "status": "",
-      "total": 1570,
-      "senderAddress": {
-        "street": "",
-        "city": "",
-        "postCode": "",
-        "country": ""
-      },
-      "clientAddress": {
-        "street": "",
-        "city": "",
-        "postCode": "",
-        "country": ""
-      },
-      "items": [
-        {
-          "id": "adce5cf6-0f1e-4008-980d-acfd3f1dbfa6",
-          "name": "ds",
-          "quantity": 10,
-          "price": 4,
-          "total": 40
-        },
-        {
-          "id": "c178b30f-5007-402a-84a1-dd68f62d3ead",
-          "name": "dd",
-          "quantity": 10,
-          "price": 33,
-          "total": 330
-        },
-        {
-          "id": "af7ba4ea-4885-4970-971b-0ecf972c9faa",
-          "name": "dddd",
-          "quantity": 100,
-          "price": 12,
-          "total": 1200
-        }
-      ]
+      "total": 6155.91
     }
   ]
 }
