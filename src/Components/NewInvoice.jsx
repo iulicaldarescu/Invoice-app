@@ -47,6 +47,10 @@ function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
     },
   });
 
+  useEffect(() => {
+    formik.setFieldValue("items", itemsArray);
+  }, [itemsArray]);
+
   const incrementInvoiceItemsArray = (event) => {
     event.preventDefault();
     const newItemId = Date.now(); // this is mandatory for deleting to work properly

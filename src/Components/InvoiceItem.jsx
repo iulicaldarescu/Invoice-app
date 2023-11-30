@@ -45,13 +45,13 @@ function InvoiceItem({
       name: formik.values.itemName,
       quantity: formik.values.itemQty,
       price: formik.values.itemPrice,
-      total:
-        formik.values.itemQty * formik.values.itemPrice > 0
-          ? formik.values.itemQty * formik.values.itemPrice
-          : 0,
     };
-
-    setItemsArray([...itemsArray, invoiceItemDetails]);
+    (invoiceItemDetails.total =
+      formik.values.itemQty * formik.values.itemPrice > 0
+        ? parseFloat(formik.values.itemQty) *
+          parseFloat(formik.values.itemPrice)
+        : 0),
+      setItemsArray([...itemsArray, invoiceItemDetails]);
 
     setInputDisabled(true);
 
