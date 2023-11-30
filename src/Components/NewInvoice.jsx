@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
+import { Navigate, useNavigate } from "react-router";
 import InvoiceItem from "./InvoiceItem";
 import supabase from "../config/supabaseClient";
-
-import { v4 as uuidv4 } from "uuid";
 
 function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
   const [invoiceItems, setInvoiceItems] = useState([1]);
   const [itemsArray, setItemsArray] = useState([]);
   const [itemsDetailsObj, setItemsDetailsObj] = useState({});
+
+  const navigate = useNavigate();
 
   const getTotalFromAllItems = itemsArray.reduce((acc, curr) => {
     return acc + curr.total;
@@ -58,31 +59,6 @@ function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
   );
 
   const createNewInvoiceDetails = async () => {
-    // const newInvoiceDetailsObject = {
-    //   createdAt: formik.values.createdAt,
-    //   paymentDue: newDate,
-    //   description: formik.values.description,
-    //   paymentTerms: formik.values.paymentTerms,
-    //   clientName: formik.values.clientName,
-    //   clientEmail: formik.values.clientEmail,
-    //   status: formik.values.status,
-    //   total: getTotalFromAllItems,
-    //   senderAddress: {
-    //     street: formik.values.senderAddress.street,
-    //     city: formik.values.senderAddress.city,
-    //     postCode: formik.values.senderAddress.postCode,
-    //     country: formik.values.senderAddress.country,
-    //   },
-    //   clientAddress: {
-    //     street: formik.values.clientAddress.street,
-    //     city: formik.values.clientAddress.city,
-    //     postCode: formik.values.clientAddress.postCode,
-    //     country: formik.values.clientAddress.country,
-    //   },
-    //   // itemsArray has to be overwritten in this items array
-    //   items: [...itemsArray],
-    // };
-
     const { error } = await supabase.from("invoices").insert({
       createdAt: formik.values.createdAt,
       paymentDue: newDate,
@@ -118,6 +94,10 @@ function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
   useEffect(() => {
     console.log(itemsArray);
   }, [itemsArray]);
+
+  const goToMainPage = () => {
+    navigate("/");
+  };
 
   return (
     <div className="fixed top-0 bottom-0 right-0 left-0 bg-[#141625] flex flex-col text-white px-4">
@@ -347,7 +327,10 @@ function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
           Discard
         </button>
         <button
-          onClick={createNewInvoiceDetails}
+          onClick={() => {
+            createNewInvoiceDetails();
+            goToMainPage();
+          }}
           className="bg-[#7c5dfa] px-4 h-1/4 m-auto rounded-full"
         >
           Save & Send
