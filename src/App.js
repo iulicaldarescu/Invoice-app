@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import useUserId from "./stores/UserId";
 import EditInvoice from "./Components/EditInvoice";
 import { setIn } from "formik";
+import Register from "./Authentication/Register";
+
 
 function App() {
   const { userId } = useUserId();
@@ -46,14 +48,23 @@ function App() {
   }, [flagToUpdateMainPage]);
 
   return (
+    
+    
     <div className="">
-      <Header></Header>
+    
+     
+      
       {/* <Invoices path='/'></Invoices> */}
       <Routes>
+
+        <Route path={'/register'} element={ <Register /> }></Route>
+        
         <Route
+        
           path="/"
-          element={<Invoices fetchError={fetchError} invoices={invoices} />}
-        />
+          element={ <><Header /> <Invoices fetchError={fetchError} invoices={invoices} /></>} />
+       
+
         <Route
           path={`/invoice/:id`}
           element={
@@ -65,12 +76,15 @@ function App() {
             />
           }
         ></Route>
+
         <Route
           path={`/edit-invoice`}
           element={<EditInvoice invoices={invoices} />}
         ></Route>
+
       </Routes>
     </div>
+    
   );
 }
 

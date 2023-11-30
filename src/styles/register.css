@@ -1,9 +1,17 @@
-body {
+/* body {
+  background-image: url(https://unsplash.com/photos/EZRYF6UX6QM/download?force=true&w=1920);
+  background-size: cover;
+  background-position: center;
+  font-family: "Raleway", sans-serif;
+} */
+
+.test {
   background-image: url(https://unsplash.com/photos/EZRYF6UX6QM/download?force=true&w=1920);
   background-size: cover;
   background-position: center;
   font-family: "Raleway", sans-serif;
 }
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
