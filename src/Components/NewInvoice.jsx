@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import InvoiceItem from "./InvoiceItem";
+import supabase from "../config/supabaseClient";
+
 import { v4 as uuidv4 } from "uuid";
 
-function NewInvoice({ setNewInvoiceModalOpen }) {
+function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
   const [invoiceItems, setInvoiceItems] = useState([1]);
   const [itemsArray, setItemsArray] = useState([]);
   const [itemsDetailsObj, setItemsDetailsObj] = useState({});
@@ -56,8 +58,32 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
   );
 
   const createNewInvoiceDetails = async () => {
-    const newInvoiceDetailsObject = {
-      id: uuidv4().slice(0, 6).toUpperCase(),
+    // const newInvoiceDetailsObject = {
+    //   createdAt: formik.values.createdAt,
+    //   paymentDue: newDate,
+    //   description: formik.values.description,
+    //   paymentTerms: formik.values.paymentTerms,
+    //   clientName: formik.values.clientName,
+    //   clientEmail: formik.values.clientEmail,
+    //   status: formik.values.status,
+    //   total: getTotalFromAllItems,
+    //   senderAddress: {
+    //     street: formik.values.senderAddress.street,
+    //     city: formik.values.senderAddress.city,
+    //     postCode: formik.values.senderAddress.postCode,
+    //     country: formik.values.senderAddress.country,
+    //   },
+    //   clientAddress: {
+    //     street: formik.values.clientAddress.street,
+    //     city: formik.values.clientAddress.city,
+    //     postCode: formik.values.clientAddress.postCode,
+    //     country: formik.values.clientAddress.country,
+    //   },
+    //   // itemsArray has to be overwritten in this items array
+    //   items: [...itemsArray],
+    // };
+
+    const { error } = await supabase.from("invoices").insert({
       createdAt: formik.values.createdAt,
       paymentDue: newDate,
       description: formik.values.description,
@@ -78,26 +104,8 @@ function NewInvoice({ setNewInvoiceModalOpen }) {
         postCode: formik.values.clientAddress.postCode,
         country: formik.values.clientAddress.country,
       },
-      // itemsArray has to be overwritten in this items array
       items: [...itemsArray],
-      total: getTotalFromAllItems,
-    };
-
-    //console.log(JSON.stringify(newInvoiceDetailsObject, null, 2));
-    console.log(newInvoiceDetailsObject);
-
-    // post data has to be here
-    const data = await fetch("http://localhost:3001/data", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newInvoiceDetailsObject),
     });
-
-    const response = await data.json(newInvoiceDetailsObject);
-    console.log(response);
   };
 
   // we had a situation that when clicking the trash for a specific item it deleted only

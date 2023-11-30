@@ -2,9 +2,11 @@ import iconArrowLeft from "../assets/icon-arrow-left.svg";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useUserId from "../stores/UserId";
-import jsonFile from "./db.json";
+import supabase from "../config/supabaseClient";
+import { useNavigate } from "react-router-dom";
 
-function InvoicePage() {
+function InvoicePage({ invoices, setFlagToUpdateMainPage }) {
+  const navigate = useNavigate();
   const formatDate = (dateToChange) => {
     const options = { year: "numeric", month: "short", day: "numeric" };
     const date = new Date(dateToChange);
@@ -12,11 +14,10 @@ function InvoicePage() {
     return date.toLocaleDateString(undefined, options);
   };
 
-  const { userId } = useUserId();
+  const { userId, setUserId } = useUserId();
 
   const [userInfo, setUserInfo] = useState({
     id: "",
-    paymentStatus: "",
     clientName: "",
     senderAddress: {},
     invoiceDate: "",
@@ -29,12 +30,11 @@ function InvoicePage() {
   });
 
   const getData = () => {
-    const userInfosArray = jsonFile.data.filter((item) => {
+    const userInfosArray = invoices?.filter((item) => {
       return item.id === userId;
     });
     setUserInfo({
       ...userInfo,
-      paymentStatus: userInfosArray[0]?.status || "",
       id: userInfosArray[0]?.id || "",
       clientName: userInfosArray[0]?.clientName || "",
       senderAddress: userInfosArray[0]?.senderAddress || {},
@@ -59,45 +59,40 @@ function InvoicePage() {
   // ------------------------------------------------------------------------------- DELETE INVOICE COMPLETLY -----------------------------------------------------------------------------------------------
 
   const deleteInvoice = async (id) => {
-    // JSON modify method
-    const url = `http://localhost:3001/data/${id}`;
-
     try {
-      const response = await fetch(url, {
-        method: "DELETE",
-      });
+      const { error } = await supabase.from("invoices").delete().eq("id", id);
 
-      // Ensure that the response is successful before proceeding
-      if (!response.ok) {
-        throw new Error("Failed to delete data");
+      if (!error) {
+        // Deletion successful, now navigate to the home page
+      } else {
+        console.error("Error deleting invoice:", error);
       }
     } catch (error) {
-      console.error("Error delete data:", error.message);
+      console.error("Error deleting invoice:", error);
     }
+
+    navigate("/");
   };
 
   // ------------------------------------------------------------------------------- DELETE INVOICE COMPLETLY -----------------------------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------------MARK AS PAID FUNTION ----------------------------------------------------------------------------------------------------
   const markAsPaidFunction = (id) => {
-    jsonFile.data.map(async (item) => {
+    invoices.map(async (item) => {
       if (item.id === id) {
-        const url = `http://localhost:3001/data/${id}`;
-
-        try {
-          const response = await fetch(url, {
-            method: "PATCH",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ status: "paid" }),
-          });
-        } catch (error) {
-          console.error("Error updating data:", error.message);
-        }
+        const { error } = await supabase
+          .from("invoices")
+          .update({ status: "paid" })
+          .eq("id", id);
       }
     });
+    setFlagToUpdateMainPage((prev) => !prev);
+    setUserInfo({ ...userInfo, status: "paid" });
+  };
+
+  //we update the flag here aswell , when we go back to the main page to have the status updated
+  const goBackToMainPage = () => {
+    setFlagToUpdateMainPage((prev) => !prev);
   };
 
   return (
@@ -111,7 +106,11 @@ function InvoicePage() {
           </span>
 
           <div className="flex justify-between w-full">
-            <Link to="/" className="text-white flex items-center">
+            <Link
+              to="/"
+              className="text-white flex items-center"
+              onClick={goBackToMainPage}
+            >
               Go back
             </Link>
             <div className="flex gap-2 text-white">
@@ -121,7 +120,7 @@ function InvoicePage() {
               >
                 Edit
               </Link>
-              <Link to="/">
+              <Link>
                 <button
                   onClick={() => deleteInvoice(userId)}
                   className="bg-rose-500 px-3 py-1 text-sm rounded-full active:opacity-80"
@@ -157,7 +156,7 @@ function InvoicePage() {
           }`}
         >
           <span className="pr-2">&#9679;</span>
-          {userInfo.paymentStatus}
+          {userInfo.status}
         </div>
       </div>
 

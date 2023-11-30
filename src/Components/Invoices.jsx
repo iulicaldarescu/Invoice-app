@@ -3,11 +3,11 @@ import { ImPlus } from "react-icons/im";
 import Invoice from "../Components/Invoice";
 import NewInvoice from "./NewInvoice";
 import arrowDown from "../assets/icon-arrow-down.svg";
-import jsonFile from "./db.json";
+
 import "../styles/invoices.css";
 import useUserId from "../stores/UserId";
 
-function Invoices() {
+function Invoices({ fetchError, invoices }) {
   // filter modal state
   const [filterOpened, setFilterOpened] = useState(false);
 
@@ -50,7 +50,7 @@ function Invoices() {
           <div className="flex justify-between basis-5/6 text-white font-bold text-sm ">
             <div className="flex flex-col  justify-center">
               <p className="text-lg">Invoices</p>
-              <p>{jsonFile.data.length} items</p>
+              <p>{invoices?.length} items</p>
             </div>
 
             <div className="flex items-center relative">
@@ -130,7 +130,7 @@ function Invoices() {
         </div>
 
         <div className="pb-20">
-          {jsonFile.data.map((item, index) => {
+          {invoices?.map((item, index) => {
             if (
               statusFiltersArray.includes(item.status) ||
               statusFiltersArray.length === 0
@@ -153,7 +153,10 @@ function Invoices() {
 
       {/* calling the new Invoice modal component */}
       {newInvoiceModalOpen && (
-        <NewInvoice setNewInvoiceModalOpen={setNewInvoiceModalOpen} />
+        <NewInvoice
+          setNewInvoiceModalOpen={setNewInvoiceModalOpen}
+          invoices={invoices}
+        />
       )}
     </div>
   );

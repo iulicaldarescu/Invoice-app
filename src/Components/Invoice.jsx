@@ -24,8 +24,6 @@ function Invoice({ id, clientName, paymentDue, total, status }) {
     console.log(userId);
   };
 
-  console.log(total);
-
   return (
     <Link to={`/invoice/${id}`}>
       <div className="px-4 py-3 " onClick={() => getUserId(id)}>

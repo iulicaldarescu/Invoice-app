@@ -1,17 +1,19 @@
 import { FaTrashAlt } from "react-icons/fa";
 import useUserId from "../stores/UserId";
-import jsonFile from "./db.json";
+import supabase from "../config/supabaseClient";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-function EditInvoice() {
+function EditInvoice({ invoices }) {
+  const navigate = useNavigate();
   const { userId } = useUserId();
   const [newItemsArr, setNewItemsArr] = useState([]);
 
   //here we get the object from database using the id we got from click on a invoice
 
-  const invoiceObjectToEdit = jsonFile.data.filter((object) => {
+  const invoiceObjectToEdit = invoices?.filter((object) => {
     return object.id === userId;
   });
 
@@ -79,48 +81,32 @@ function EditInvoice() {
       return;
     }
 
-    const updatedData = {
-      ...updatedItem,
-      createdAt: formik.values.createdAt,
-      paymentDue: formik.values.paymentDue,
-      description: formik.values.description,
-      paymentTerms: formik.values.paymentTerms,
-      clientName: formik.values.clientName,
-      total: getTotalInvoiceItemsPrices(),
-      clientEmail: formik.values.clientEmail,
-      status: formik.values.status,
-      senderAddress: {
-        street: formik.values.senderAddress.street,
-        city: formik.values.senderAddress.city,
-        postCode: formik.values.senderAddress.postCode,
-        country: formik.values.senderAddress.country,
-      },
-      clientAddress: {
-        street: formik.values.clientAddress.street,
-        city: formik.values.clientAddress.city,
-        postCode: formik.values.clientAddress.postCode,
-        country: formik.values.clientAddress.country,
-      },
-      items: formik.values.items,
-    };
-
-    console.log("Updated Data", updatedData);
-
-    try {
-      const response = await fetch(`http://localhost:3001/data/${userId}`, {
-        method: "PATCH",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+    const { error } = await supabase
+      .from("invoices")
+      .update({
+        createdAt: formik.values.createdAt,
+        paymentDue: formik.values.paymentDue,
+        description: formik.values.description,
+        paymentTerms: formik.values.paymentTerms,
+        clientName: formik.values.clientName,
+        total: getTotalInvoiceItemsPrices(),
+        clientEmail: formik.values.clientEmail,
+        status: formik.values.status,
+        senderAddress: {
+          street: formik.values.senderAddress.street,
+          city: formik.values.senderAddress.city,
+          postCode: formik.values.senderAddress.postCode,
+          country: formik.values.senderAddress.country,
         },
-        body: JSON.stringify(updatedData),
-      });
-
-      const responseData = await response.json();
-      console.log("Response", responseData);
-    } catch (error) {
-      console.error("Error updating data:", error.message);
-    }
+        clientAddress: {
+          street: formik.values.clientAddress.street,
+          city: formik.values.clientAddress.city,
+          postCode: formik.values.clientAddress.postCode,
+          country: formik.values.clientAddress.country,
+        },
+        items: newItemsArr,
+      })
+      .eq("id", userId);
   };
 
   //this creates a new spot in the array so another div with inputs appears
@@ -169,6 +155,10 @@ function EditInvoice() {
     });
 
     setNewItemsArr(newArr);
+  };
+
+  const discard = () => {
+    navigate("/");
   };
 
   return (
@@ -438,7 +428,10 @@ function EditInvoice() {
 
       {/* save and discard buttons */}
       <div className="flex justify-between basis-1/6">
-        <button className=" bg-[#1e2139] px-4 h-1/4 m-auto rounded-full ">
+        <button
+          className=" bg-[#1e2139] px-4 h-1/4 m-auto rounded-full "
+          onClick={discard}
+        >
           Discard
         </button>
         <button
