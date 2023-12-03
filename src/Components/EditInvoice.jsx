@@ -1,7 +1,7 @@
 import { FaTrashAlt } from "react-icons/fa";
 import useUserId from "../stores/UserId";
 import supabase from "../config/supabaseClient";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -158,8 +158,11 @@ function EditInvoice({ invoices }) {
   };
 
   const discard = () => {
-    navigate("/");
+    navigate("/home");
   };
+
+  const testt = localStorage.getItem("name");
+  console.log(testt);
 
   return (
     <div className="fixed top-0 bottom-0 right-0 left-0 bg-[#141625] flex flex-col text-white px-4">

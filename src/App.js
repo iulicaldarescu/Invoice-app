@@ -2,14 +2,13 @@ import "./App.css";
 import supabase from "./config/supabaseClient";
 import Header from "./Components/Headers";
 import Invoices from "./Components/Invoices";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import InvoicePage from "./Components/InvoicePage";
 import { useEffect, useState } from "react";
 import useUserId from "./stores/UserId";
 import EditInvoice from "./Components/EditInvoice";
-import { setIn } from "formik";
 import Register from "./Authentication/Register";
-
+import Login from "./Authentication/Login";
 
 function App() {
   const { userId } = useUserId();
@@ -23,6 +22,8 @@ function App() {
 
   //flag to update the main page
   const [flagToUpdateMainPage, setFlagToUpdateMainPage] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchInvoices = async () => {
@@ -47,44 +48,55 @@ function App() {
     fetchInvoices();
   }, [flagToUpdateMainPage]);
 
+  //function to logout
+
+  const logout = () => {
+    localStorage.removeItem("initials");
+    navigate("/");
+  };
   return (
-    
-    
     <div className="">
-    
-     
-      
       {/* <Invoices path='/'></Invoices> */}
       <Routes>
+        <Route path={"/register"} element={<Register />}></Route>
+        <Route path={"/"} element={<Login />}></Route>
 
-        <Route path={'/register'} element={ <Register /> }></Route>
-        
         <Route
-        
-          path="/"
-          element={ <><Header /> <Invoices fetchError={fetchError} invoices={invoices} /></>} />
-       
+          path="/home"
+          element={
+            <>
+              <Header logout={logout} />{" "}
+              <Invoices fetchError={fetchError} invoices={invoices} />
+            </>
+          }
+        />
 
         <Route
           path={`/invoice/:id`}
           element={
-            <InvoicePage
-              invoices={invoices}
-              setInvoices={setInvoices}
-              flagToUpdateMainPage={flagToUpdateMainPage}
-              setFlagToUpdateMainPage={setFlagToUpdateMainPage}
-            />
+            <>
+              <Header logout={logout} />{" "}
+              <InvoicePage
+                invoices={invoices}
+                setInvoices={setInvoices}
+                flagToUpdateMainPage={flagToUpdateMainPage}
+                setFlagToUpdateMainPage={setFlagToUpdateMainPage}
+              />
+            </>
           }
         ></Route>
 
         <Route
           path={`/edit-invoice`}
-          element={<EditInvoice invoices={invoices} />}
+          element={
+            <>
+              <Header logout={logout} />
+              <EditInvoice invoices={invoices} />
+            </>
+          }
         ></Route>
-
       </Routes>
     </div>
-    
   );
 }
 

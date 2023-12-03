@@ -100,7 +100,7 @@ function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
   }, [itemsArray]);
 
   const goToMainPage = () => {
-    navigate("/");
+    navigate("/home");
   };
 
   return (

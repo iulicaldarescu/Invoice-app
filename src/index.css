@@ -16,7 +16,6 @@ code {
     monospace;
 }
 
-
 /* input number type arrows offs */
 @layer base {
   input[type="number"]::-webkit-inner-spin-button,
