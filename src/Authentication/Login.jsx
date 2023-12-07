@@ -2,8 +2,10 @@ import validationSchema from "../schemas/loginSchema";
 import supabase from "../config/supabaseClient";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
+import { useState } from "react";
 
 function Login() {
+  const [userIsLogged, setUserIsLogged] = useState(false);
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -30,9 +32,8 @@ function Login() {
         });
 
         if (userFound) {
-          const initials = userFound.firstName[0] + userFound.lastName[0];
-          localStorage.setItem("initials", initials);
-          navigate("/home", { replace: true });
+          localStorage.setItem("userId", userFound.id);
+          navigate(`/home`, { replace: true });
         } else {
           console.log("dsa");
         }

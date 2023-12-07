@@ -71,7 +71,7 @@ function InvoicePage({ invoices, setFlagToUpdateMainPage }) {
       console.error("Error deleting invoice:", error);
     }
 
-    navigate("/");
+    navigate("/home");
   };
 
   // ------------------------------------------------------------------------------- DELETE INVOICE COMPLETLY -----------------------------------------------------------------------------------------------

@@ -3,8 +3,47 @@ import "../styles/header.css";
 import sun from "../assets/icon-sun.svg";
 import moon from "../assets/icon-moon.svg";
 import avatar from "../assets/image-avatar.jpg";
+import supabase from "../config/supabaseClient";
+import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 
-function Header({ logout }) {
+function Header() {
+  const navigate = useNavigate();
+  const loggedUserId = localStorage.getItem("userId");
+  const [userInitials, setUserInitials] = useState("");
+
+  const goToUserProfilePage = () => {
+    navigate("/user-info");
+  };
+
+  useEffect(() => {
+    console.log(loggedUserId);
+    const fetchInitials = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("users")
+          .select()
+          .eq("id", loggedUserId);
+
+        if (error) {
+          console.error("Error fetching data:", error.message);
+          return null;
+        }
+
+        setUserInitials(
+          data[0]?.firstName.charAt(0) + data[0]?.lastName.charAt(0)
+        );
+
+        console.log(userInitials);
+      } catch (error) {
+        console.error("Error:", error.message);
+        return null;
+      }
+    };
+
+    fetchInitials();
+  }, [loggedUserId]);
+
   return (
     <div className="w-full bg-[#20243c] flex justify-between">
       <div className="flex items-center justify-between w-full border-r border-r-gray-400">
@@ -17,13 +56,14 @@ function Header({ logout }) {
         </div>
       </div>
 
-      <div className=" flex items-center w-32 justify-center">
+      <div
+        className=" flex items-center w-32 justify-center"
+        onClick={goToUserProfilePage}
+      >
         <div className="bg-[#7c5df9] rounded-full flex items-center h-14 w-14">
-          <p
-            className="rounded-full m-auto  text-center text-white font-semibold text-3xl"
-            onClick={logout}
-          >
-            {localStorage.getItem("initials")}
+          <p className="rounded-full m-auto  text-center text-white font-semibold text-3xl cursor-pointer">
+            {" "}
+            {userInitials}
           </p>
         </div>
       </div>

@@ -9,11 +9,10 @@ import useUserId from "./stores/UserId";
 import EditInvoice from "./Components/EditInvoice";
 import Register from "./Authentication/Register";
 import Login from "./Authentication/Login";
+import UserProfile from "./Components/UserProfile";
 
 function App() {
   const { userId } = useUserId();
-  console.log("userID is:", userId);
-  console.log("I am supabase", supabase);
 
   const [fetchError, setFetchError] = useState(null);
 
@@ -50,10 +49,6 @@ function App() {
 
   //function to logout
 
-  const logout = () => {
-    localStorage.removeItem("initials");
-    navigate("/");
-  };
   return (
     <div className="">
       {/* <Invoices path='/'></Invoices> */}
@@ -65,7 +60,7 @@ function App() {
           path="/home"
           element={
             <>
-              <Header logout={logout} />{" "}
+              <Header />{" "}
               <Invoices fetchError={fetchError} invoices={invoices} />
             </>
           }
@@ -75,7 +70,7 @@ function App() {
           path={`/invoice/:id`}
           element={
             <>
-              <Header logout={logout} />{" "}
+              <Header />{" "}
               <InvoicePage
                 invoices={invoices}
                 setInvoices={setInvoices}
@@ -90,8 +85,18 @@ function App() {
           path={`/edit-invoice`}
           element={
             <>
-              <Header logout={logout} />
+              <Header />
               <EditInvoice invoices={invoices} />
+            </>
+          }
+        ></Route>
+
+        <Route
+          path="/user-info"
+          element={
+            <>
+              <Header />
+              <UserProfile />
             </>
           }
         ></Route>
