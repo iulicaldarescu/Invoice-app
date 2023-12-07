@@ -16,6 +16,10 @@ function Header() {
     navigate("/user-info");
   };
 
+  const goToTheMainPage = () => {
+    navigate("/home");
+  };
+
   useEffect(() => {
     console.log(loggedUserId);
     const fetchInitials = async () => {
