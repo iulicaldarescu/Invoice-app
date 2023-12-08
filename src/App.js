@@ -11,11 +11,13 @@ import Register from "./Authentication/Register";
 import Login from "./Authentication/Login";
 import UserProfile from "./Components/UserProfile";
 import NewInvoice from "./Components/NewInvoice";
+import Footer from "./Components/Footer";
 
 function App() {
   const { userId } = useUserId();
 
   const [fetchError, setFetchError] = useState(null);
+  // const [newInvoiceModalOpen, setNewInvoiceModalOpen] = useState(false);
 
   //state to act like database
   const [invoices, setInvoices] = useState(null);
@@ -61,6 +63,7 @@ function App() {
             <>
               <Header />{" "}
               <Invoices fetchError={fetchError} invoices={invoices} />
+              <Footer />
             </>
           }
         />
@@ -76,26 +79,32 @@ function App() {
                 flagToUpdateMainPage={flagToUpdateMainPage}
                 setFlagToUpdateMainPage={setFlagToUpdateMainPage}
               />
+              <Footer />
             </>
           }
         ></Route>
 
         <Route
-          path={`/new-invoice`}
+          path="/new-invoice"
           element={
             <>
               <Header />
-              <NewInvoice invoices={invoices} />
+              <NewInvoice setFlagToUpdateMainPage={setFlagToUpdateMainPage} />
+              <Footer />
             </>
           }
         ></Route>
 
         <Route
-          path={`/edit-invoice`}
+          path="/edit-invoice"
           element={
             <>
               <Header />
-              <EditInvoice invoices={invoices} />
+              <EditInvoice
+                invoices={invoices}
+                setFlagToUpdateMainPage={setFlagToUpdateMainPage}
+              />
+              <Footer />
             </>
           }
         ></Route>
@@ -106,6 +115,7 @@ function App() {
             <>
               <Header />
               <UserProfile />
+              <Footer />
             </>
           }
         ></Route>

@@ -3,8 +3,9 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router";
 import InvoiceItem from "./InvoiceItem";
 import supabase from "../config/supabaseClient";
+import { Link } from "react-router-dom";
 
-function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
+function NewInvoice({ setFlagToUpdateMainPage }) {
   const [invoiceItems, setInvoiceItems] = useState([1]);
   const [itemsArray, setItemsArray] = useState([]);
   const [itemsDetailsObj, setItemsDetailsObj] = useState({});
@@ -86,6 +87,8 @@ function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
       },
       items: [...itemsArray],
     });
+
+    setFlagToUpdateMainPage((prev) => !prev);
   };
 
   // we had a situation that when clicking the trash for a specific item it deleted only
@@ -104,130 +107,136 @@ function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
   };
 
   return (
-    <div className="fixed top-0 bottom-0 right-0 left-0 bg-[#141625] flex flex-col text-white px-4 sm:px-16 xl:px-24">
+    <div className="  bg-[#f8f8fb] dark:bg-[#141625] flex flex-col text-white px-4 sm:px-16 xl:px-24">
       <div className="basis-1/6 ">
-        <p className="text-2xl font-bold py-10">Create Invoice</p>
+        <p className="text-2xl font-bold py-10 text-black dark:text-white">
+          Create Invoice
+        </p>
       </div>
 
       {/* form for invoice details */}
-      <div className="basis-4/6 bg-[#141625] overflow-auto pl-1">
+      <div className="basis-4/6 bg-[#f8f8fb] dark:bg-[#141625] overflow-auto pl-1">
         {/* bill from */}
         <form onSubmit={formik.values.handleSubmit}>
           <div>
-            <p>Bill Form</p>
+            <p className="text-black dark:text-white">Bill Form</p>
           </div>
           <div className="flex flex-col">
-            <label>Street Address</label>
+            <label className="text-black dark:text-white">Street Address</label>
             <input
               onChange={formik.handleChange}
               name="senderAddress.street"
               value={formik.values.senderAddress.street}
               type="text"
-              className="rounded-lg p-2 border-0 text-blue-500 bg-[#1e2139]"
+              className="rounded-lg p-2  text-blue-500 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300"
             ></input>
           </div>
 
           <div className="flex gap-6 md:justify-between">
             <div className=" flex flex-col">
-              <label>City</label>
+              <label className="text-black dark:text-white">City</label>
               <input
                 onChange={formik.handleChange}
                 name="senderAddress.city"
                 value={formik.values.senderAddress.city}
-                className="w-full rounded-lg p-2 bg-[#1e2139]"
+                className="w-full rounded-lg p-2  bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300"
               ></input>
             </div>
 
             <div className=" flex flex-col">
-              <label>Post Code</label>
+              <label className="text-black dark:text-white">Post Code</label>
               <input
                 onChange={formik.handleChange}
                 name="senderAddress.postCode"
                 value={formik.values.senderAddress.postCode}
-                className="w-full rounded-lg p-2 bg-[#1e2139]"
+                className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300"
               ></input>
             </div>
 
             <div className=" flex flex-col">
-              <label>Country</label>
+              <label className="text-black dark:text-white">Country</label>
               <input
                 onChange={formik.handleChange}
                 name="senderAddress.country"
                 value={formik.values.senderAddress.country}
-                className="w-full rounded-lg p-2 bg-[#1e2139]"
+                className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300"
               ></input>
             </div>
           </div>
 
           {/* bill to */}
           <div className="py-6">
-            <p>Bill To</p>
+            <p className="text-black dark:text-white">Bill To</p>
           </div>
           <div className="">
             <div className="lg:flex lg:justify-between">
               <div className=" flex flex-col">
-                <label>Client Name</label>
+                <label className="text-black dark:text-white">
+                  Client Name
+                </label>
                 <input
                   onChange={formik.handleChange}
                   name="clientName"
                   values={formik.values.clientName}
                   type="text"
-                  className="w-full rounded-lg p-2 bg-[#1e2139] lg:w-[20rem]"
+                  className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300 lg:w-[20rem]"
                 ></input>
               </div>
 
               <div className=" flex flex-col">
-                <label>Client Email</label>
+                <label className="text-black dark:text-white">
+                  Client Email
+                </label>
                 <input
                   onChange={formik.handleChange}
                   name="clientEmail"
                   values={formik.values.clientEmail}
                   type="email"
-                  className="w-full rounded-lg p-2 bg-[#1e2139] lg:w-[20rem]"
+                  className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300 lg:w-[20rem]"
                 ></input>
               </div>
             </div>
 
             <div className=" flex flex-col">
-              <p>Client Address</p>
-              <label>Street</label>
+              <p className="text-black dark:text-white">Client Address</p>
+              <label className="text-black dark:text-white">Street</label>
               <input
                 onChange={formik.handleChange}
                 type="text"
                 name="clientAddress.street"
                 values={formik.values.clientAddress.street}
-                className="w-full rounded-lg p-2 bg-[#1e2139]"
+                className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300"
               ></input>
             </div>
 
             <div className="flex gap-6 md:justify-between">
               <div className=" flex flex-col">
-                <label>City</label>
+                <label className="text-black dark:text-white">City</label>
                 <input
                   onChange={formik.handleChange}
                   name="clientAddress.city"
                   value={formik.values.clientAddress.city}
-                  className="w-full rounded-lg p-2 bg-[#1e2139]"
+                  className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300"
                 ></input>
               </div>
 
               <div className=" flex flex-col">
-                <label>Post Code</label>
+                <label className="text-black dark:text-white">Post Code</label>
                 <input
                   onChange={formik.handleChange}
                   name="clientAddress.postCode"
                   value={formik.values.clientAddress.postCode}
-                  className="w-full rounded-lg p-2 bg-[#1e2139]"
+                  className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300"
                 ></input>
               </div>
 
               <div className=" flex flex-col">
-                <label>Country</label>
+                <label className="text-black dark:text-white">Country</label>
                 <input
                   onChange={formik.handleChange}
                   name="clientAddress.country"
                   value={formik.values.clientAddress.country}
-                  className="w-full rounded-lg p-2 bg-[#1e2139]"
+                  className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300"
                 ></input>
               </div>
             </div>
@@ -237,21 +246,25 @@ function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
               {/* container for invoice date and payment terms */}
               <div className="flex gap-6 sm:justify-between xl:gap-12">
                 <div className="lg:flex lg:flex-col">
-                  <label>Invoice Date</label>
+                  <label className="text-black dark:text-white">
+                    Invoice Date
+                  </label>
                   <input
                     onChange={formik.handleChange}
                     value={formik.values.createdAt}
                     name="createdAt"
                     type="date"
-                    className="w-full rounded-lg p-2 bg-[#1e2139] lg:w-[20rem] xl:w-[12rem]"
+                    className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300 lg:w-[20rem] xl:w-[12rem]"
                     placeholder="mm/dd/yyyy"
                   ></input>
                 </div>
                 <div className="lg:flex lg:flex-col">
-                  <label htmlFor="terms">Payment Terms</label>
+                  <label htmlFor="terms" className="text-black dark:text-white">
+                    Payment Terms
+                  </label>
                   <select
                     onChange={formik.handleChange}
-                    className="w-full rounded-lg p-2 bg-[#1e2139] border-b-[3px] border-[#1e2139] lg:w-[20rem] xl:w-[12rem]"
+                    className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300 border-b-[3px]  lg:w-[20rem] xl:w-[12rem]"
                     name="paymentTerms"
                     value={formik.values.paymentTerms}
                   >
@@ -266,21 +279,28 @@ function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
               {/* description container */}
               <div className="lg:flex lg:justify-between xl:gap-12">
                 <div className="lg:flex lg:flex-col">
-                  <label>Description</label>
+                  <label className="text-black dark:text-white">
+                    Description
+                  </label>
                   <input
                     onChange={formik.handleChange}
                     name="description"
                     values={formik.values.description}
-                    className="w-full rounded-lg p-2 bg-[#1e2139] lg:w-[20rem] xl:w-[12rem]"
+                    className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300 lg:w-[20rem] xl:w-[12rem]"
                     type="text"
                   ></input>
                 </div>
                 {/* Status of inveoice select */}
                 <div className="lg:flex lg:flex-col">
-                  <label htmlFor="status">Status</label>
+                  <label
+                    htmlFor="status"
+                    className="text-black dark:text-white"
+                  >
+                    Status
+                  </label>
                   <select
                     onChange={formik.handleChange}
-                    className="w-full rounded-lg p-2 bg-[#1e2139] border-b-[3px] border-[#1e2139] lg:w-[20rem] xl:w-[12rem]"
+                    className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300 border-b-[3px]  lg:w-[20rem] xl:w-[12rem]"
                     name="status"
                     value={formik.values.status}
                   >
@@ -296,7 +316,9 @@ function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
             {/* Item list container */}
             <div>
               <div className="mt-4">
-                <p className=" sm:text-lg sm:font-bold">Item List</p>
+                <p className=" sm:text-lg sm:font-bold text-black dark:text-white">
+                  Item List
+                </p>
               </div>
 
               {/* potential component down */}
@@ -318,7 +340,7 @@ function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
               {/* potential component up */}
             </div>
             <div className="text-center rounded-lg bg-black py-2 mt-6">
-              <button onClick={incrementInvoiceItemsArray} className="">
+              <button onClick={incrementInvoiceItemsArray} className=" ">
                 + Add new Item
               </button>
             </div>
@@ -327,28 +349,24 @@ function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
       </div>
 
       {/* save and discard buttons */}
-      <div className="flex justify-between basis-1/6">
-        <button
-          onClick={() => setNewInvoiceModalOpen(false)}
-          className=" bg-[#1e2139] px-4 h-1/4 m-auto rounded-full "
-        >
-          Discard
-        </button>
-        <button
-          onClick={() => {
-            createNewInvoiceDetails();
-            goToMainPage();
-          }}
-          className="bg-[#7c5dfa] px-4 h-1/4 m-auto rounded-full"
-        >
-          Save & Send
-        </button>
+      <div className="flex justify-between py-8">
+        <Link to={"/home"}>
+          <button className=" bg-[#1e2139] p-2 rounded-full">Discard</button>
+        </Link>
+
+        <Link to={"/home"}>
+          <button
+            onClick={() => {
+              createNewInvoiceDetails();
+            }}
+            className="bg-[#7c5dfa] p-2 rounded-full"
+          >
+            Save & Send
+          </button>
+        </Link>
       </div>
     </div>
   );
 }
 
 export default NewInvoice;
-
-// this command was needed to run json
-// json-server --watch "src\Components\db.json" --port 3001

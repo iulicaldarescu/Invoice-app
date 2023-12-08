@@ -28,11 +28,11 @@ function Invoice({ id, clientName, paymentDue, total, status }) {
     <Link to={`/invoice/${id}`}>
       <div className="px-4 py-3 " onClick={() => getUserId(id)}>
         {/* invoice build */}
-        <div className="bg-[#1f213a] px-6 rounded-lg py-3">
+        <div className=" bg-white dark:bg-[#1f213a] px-6 rounded-lg py-3">
           {/* id + name */}
           <div className="flex justify-between pb-5 text-white">
-            <p>
-              <span className="text-[#7c5df9]">#</span>
+            <p className="text-black dark:text-white">
+              <span className="text-[#7c5df9] ">#</span>
               {id}
             </p>
             <p className="text-gray-400">{clientName}</p>
@@ -43,7 +43,7 @@ function Invoice({ id, clientName, paymentDue, total, status }) {
             {/* due date + total */}
             <div className="flex flex-col text-white">
               <p className="text-gray-400">Due {formatedData}</p>
-              <p className="font-bold">${total}</p>
+              <p className="font-bold text-black dark:text-white">${total}</p>
             </div>
 
             {/* payment status */}

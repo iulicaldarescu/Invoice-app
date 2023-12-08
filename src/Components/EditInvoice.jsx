@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { Link } from "react-router-dom";
 
-function EditInvoice({ invoices }) {
+function EditInvoice({ invoices, setFlagToUpdateMainPage }) {
   const navigate = useNavigate();
   const { userId } = useUserId();
   const [newItemsArr, setNewItemsArr] = useState([]);
@@ -107,6 +108,8 @@ function EditInvoice({ invoices }) {
         items: newItemsArr,
       })
       .eq("id", userId);
+
+    setFlagToUpdateMainPage((prev) => !prev);
   };
 
   //this creates a new spot in the array so another div with inputs appears
@@ -165,7 +168,7 @@ function EditInvoice({ invoices }) {
   console.log(testt);
 
   return (
-    <div className="fixed top-0 bottom-0 right-0 left-0 bg-[#141625] flex flex-col text-white px-4 sm:px-16 xl:px-24">
+    <div className=" bg-[#141625] flex flex-col text-white px-4 sm:px-16 xl:px-24 ">
       <div className="basis-1/6 ">
         <p className="text-2xl font-bold py-10">Edit Invoice</p>
       </div>
@@ -233,7 +236,7 @@ function EditInvoice({ invoices }) {
                   name="clientName"
                   value={formik.values.clientName}
                   type="text"
-                  className="w-full rounded-lg p-2 bg-[#1e2139]"
+                  className="w-full rounded-lg p-2 bg-[#1e2139] lg:w-[20rem]"
                 ></input>
               </div>
 
@@ -244,7 +247,7 @@ function EditInvoice({ invoices }) {
                   name="clientEmail"
                   value={formik.values.clientEmail}
                   type="text"
-                  className="w-full rounded-lg p-2 bg-[#1e2139]"
+                  className="w-full rounded-lg p-2 bg-[#1e2139] lg:w-[20rem]"
                 ></input>
               </div>
             </div>
@@ -296,23 +299,23 @@ function EditInvoice({ invoices }) {
             <div className="flex flex-col mt-10 xl:flex-row justify-between">
               {/* container for invoice date and payment terms */}
               <div className="flex gap-6 sm:justify-between xl:gap-12">
-                <div>
+                <div className="lg:flex lg:flex-col">
                   <label>Invoice Date</label>
                   <input
                     onChange={formik.handleChange}
                     name="createdAt"
                     value={formik.values.createdAt}
                     type="date"
-                    className="w-full rounded-lg p-2 bg-[#1e2139]"
+                    className="w-full rounded-lg p-2 bg-[#1e2139] lg:w-[20rem] xl:w-[12rem]"
                     placeholder="mm/dd/yyyy"
                   ></input>
                 </div>
-                <div>
+                <div className="lg:flex lg:flex-col">
                   <label htmlFor="terms">Payment Terms</label>
                   <select
                     onChange={formik.handleChange}
                     name="paymentTerms"
-                    className="w-full rounded-lg p-2 bg-[#1e2139] border-b-[3px] border-[#1e2139]"
+                    className="w-full rounded-lg p-2 bg-[#1e2139] border-b-[3px] border-[#1e2139] lg:w-[20rem] xl:w-[12rem]"
                     id="terms"
                   >
                     <option value={formik.values.paymentTerms}>
@@ -326,13 +329,13 @@ function EditInvoice({ invoices }) {
                 </div>
               </div>
               {/* description container */}
-              <div>
+              <div className="lg:flex lg:flex-col">
                 <label>Description</label>
                 <input
                   onChange={formik.handleChange}
                   name="description"
                   value={formik.values.description}
-                  className="w-full rounded-lg p-2 bg-[#1e2139]"
+                  className="w-full rounded-lg p-2 bg-[#1e2139] lg:w-[20rem] xl:w-[12rem]"
                   type="text"
                 ></input>
               </div>
@@ -351,58 +354,56 @@ function EditInvoice({ invoices }) {
                 return (
                   <div
                     key={index}
-                    className="flex flex-col justify-between border-b-2 border-b-slate-100 pb-3"
+                    className="flex flex-col justify-between border-b-2 border-b-slate-100 pb-3 mt-6"
                   >
-                    <div className=" flex flex-wrap gap-3">
-                      <div className="flex  justify-between gap-6">
-                        <div className="flex flex-col basis-3/5">
-                          <label>Item Name</label>
-                          <input
-                            name={`items[${index}.name]`}
-                            onChange={formik.handleChange}
-                            value={formik.values.items[index]?.name || ""}
-                            className={` outline-none rounded-lg p-2 bg-[#1e2139]`}
-                          ></input>
-                        </div>
-
-                        <div className="flex flex-col basis-2/5">
-                          <label className="self-end">Qty.</label>
-                          <input
-                            name={`items[${index}.quantity]`}
-                            onChange={formik.handleChange}
-                            value={formik.values.items[index]?.quantity || ""}
-                            placeholder="1"
-                            className=" rounded-lg p-2 w-2/4 self-end outline-none bg-[#1e2139] text-right"
-                          ></input>
-                        </div>
+                    <div className="flex  justify-between gap-6">
+                      <div className="flex flex-col basis-3/5">
+                        <label>Item Name</label>
+                        <input
+                          name={`items[${index}.name]`}
+                          onChange={formik.handleChange}
+                          value={formik.values.items[index]?.name || ""}
+                          className={` outline-none rounded-lg p-2 bg-[#1e2139]`}
+                        ></input>
                       </div>
 
-                      <div className="flex justify-between">
-                        <div className="flex flex-col sm:basis-2/5">
-                          <label>Price</label>
-                          <input
-                            name={`items[${index}.price]`}
-                            onChange={formik.handleChange}
-                            value={formik.values.items[index]?.price || ""}
-                            placeholder="0"
-                            className="outline-none rounded-lg p-2 w-3/4 bg-[#1e2139]"
-                          ></input>
-                        </div>
+                      <div className="flex flex-col basis-2/5">
+                        <label className="self-end">Qty.</label>
+                        <input
+                          name={`items[${index}.quantity]`}
+                          onChange={formik.handleChange}
+                          value={formik.values.items[index]?.quantity || ""}
+                          placeholder="1"
+                          className=" rounded-lg p-2 w-2/4 self-end outline-none bg-[#1e2139] text-right"
+                        ></input>
+                      </div>
+                    </div>
 
-                        <div className="flex flex-col">
-                          <label>Total</label>
-                          <input
-                            value={
-                              parseFloat(formik.values.items[index]?.price) *
-                                parseFloat(
-                                  formik.values.items[index]?.quantity
-                                ) || ""
-                            }
-                            disabled
-                            placeholder="0"
-                            className="outline-none rounded-lg p-2  bg-[#1e2139] overflow-hidden sm:w-2/4 sm:self-end text-right"
-                          ></input>
-                        </div>
+                    <div className="flex justify-between">
+                      <div className="flex flex-col sm:basis-2/5">
+                        <label>Price</label>
+                        <input
+                          name={`items[${index}.price]`}
+                          onChange={formik.handleChange}
+                          value={formik.values.items[index]?.price || ""}
+                          placeholder="0"
+                          className="outline-none rounded-lg p-2 w-3/4 bg-[#1e2139]"
+                        ></input>
+                      </div>
+
+                      <div className="flex flex-col sm:basis-3/5">
+                        <label className="sm:self-end">Total</label>
+                        <input
+                          value={
+                            parseFloat(formik.values.items[index]?.price) *
+                              parseFloat(
+                                formik.values.items[index]?.quantity
+                              ) || ""
+                          }
+                          disabled
+                          placeholder="0"
+                          className="outline-none rounded-lg p-2  bg-[#1e2139] overflow-hidden sm:w-2/4 sm:self-end text-right"
+                        ></input>
                       </div>
                     </div>
 
@@ -439,20 +440,19 @@ function EditInvoice({ invoices }) {
       </div>
 
       {/* save and discard buttons */}
-      <div className="flex justify-between basis-1/6">
-        <button
-          className=" bg-[#1e2139] px-4 h-1/4 m-auto rounded-full "
-          onClick={discard}
-        >
-          Discard
-        </button>
-        <button
-          className="bg-[#7c5dfa] px-4 h-1/4 m-auto rounded-full"
-          onClick={updateAllData}
-        >
-          Save & Send
-        </button>
-      </div>
+      <Link to={"/home"}>
+        <div className="flex justify-between py-8">
+          <button className=" bg-[#1e2139] p-2 rounded-full" onClick={discard}>
+            Discard
+          </button>
+          <button
+            className="bg-[#7c5dfa] p-2 rounded-full"
+            onClick={updateAllData}
+          >
+            Save & Send
+          </button>
+        </div>
+      </Link>
     </div>
   );
 }

@@ -2,7 +2,6 @@ import logo from "../assets/logo.svg";
 import "../styles/header.css";
 import sun from "../assets/icon-sun.svg";
 import moon from "../assets/icon-moon.svg";
-import avatar from "../assets/image-avatar.jpg";
 import supabase from "../config/supabaseClient";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
@@ -11,6 +10,7 @@ function Header() {
   const navigate = useNavigate();
   const loggedUserId = localStorage.getItem("userId");
   const [userInitials, setUserInitials] = useState("");
+  const [darkMode, setDarkMode] = useState(false);
 
   const goToUserProfilePage = () => {
     navigate("/user-info");
@@ -48,6 +48,19 @@ function Header() {
     fetchInitials();
   }, [loggedUserId]);
 
+  //change between light mode and dark mode
+
+  useEffect(() => {
+    const htmlElement = document.documentElement;
+    darkMode
+      ? htmlElement.classList.add("dark")
+      : htmlElement.classList.remove("dark");
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
     <div className="w-full bg-[#20243c] flex justify-between">
       <div className="flex items-center justify-between w-full border-r border-r-gray-400">
@@ -59,7 +72,11 @@ function Header() {
         </div>
 
         <div className="pr-6 ">
-          <img src={sun} className="w-7 animate-spin-once"></img>
+          <img
+            src={darkMode ? sun : moon}
+            className="w-7 animate-spin-once"
+            onClick={toggleDarkMode}
+          ></img>
         </div>
       </div>
 
