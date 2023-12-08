@@ -105,14 +105,12 @@ function InvoicePage({ invoices, setFlagToUpdateMainPage }) {
             <img className="h-3" src={iconArrowLeft} alt="arrow left"></img>
           </span>
 
-          <div className="flex justify-between w-full">
-            <Link
-              to="/"
-              className="text-white flex items-center"
-              onClick={goBackToMainPage}
-            >
-              Go back
-            </Link>
+          <div
+            className="flex justify-between w-full text-white items-center"
+            onClick={goBackToMainPage}
+          >
+            <Link to={"/home"}>Go back</Link>
+
             <div className="flex gap-2 text-white">
               <Link
                 to={`/edit-invoice`}

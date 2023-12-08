@@ -104,7 +104,7 @@ function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
   };
 
   return (
-    <div className="fixed top-0 bottom-0 right-0 left-0 bg-[#141625] flex flex-col text-white px-4">
+    <div className="fixed top-0 bottom-0 right-0 left-0 bg-[#141625] flex flex-col text-white px-4 sm:px-16 xl:px-24">
       <div className="basis-1/6 ">
         <p className="text-2xl font-bold py-10">Create Invoice</p>
       </div>
@@ -123,11 +123,11 @@ function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
               name="senderAddress.street"
               value={formik.values.senderAddress.street}
               type="text"
-              className="rounded-lg p-2 text-blue-500 bg-[#1e2139]"
+              className="rounded-lg p-2 border-0 text-blue-500 bg-[#1e2139]"
             ></input>
           </div>
 
-          <div className="flex gap-6">
+          <div className="flex gap-6 md:justify-between">
             <div className=" flex flex-col">
               <label>City</label>
               <input
@@ -164,26 +164,28 @@ function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
             <p>Bill To</p>
           </div>
           <div className="">
-            <div className=" flex flex-col">
-              <label>Client Name</label>
-              <input
-                onChange={formik.handleChange}
-                name="clientName"
-                values={formik.values.clientName}
-                type="text"
-                className="w-full rounded-lg p-2 bg-[#1e2139]"
-              ></input>
-            </div>
+            <div className="lg:flex lg:justify-between">
+              <div className=" flex flex-col">
+                <label>Client Name</label>
+                <input
+                  onChange={formik.handleChange}
+                  name="clientName"
+                  values={formik.values.clientName}
+                  type="text"
+                  className="w-full rounded-lg p-2 bg-[#1e2139] lg:w-[20rem]"
+                ></input>
+              </div>
 
-            <div className=" flex flex-col">
-              <label>Client Email</label>
-              <input
-                onChange={formik.handleChange}
-                name="clientEmail"
-                values={formik.values.clientEmail}
-                type="email"
-                className="w-full rounded-lg p-2 bg-[#1e2139]"
-              ></input>
+              <div className=" flex flex-col">
+                <label>Client Email</label>
+                <input
+                  onChange={formik.handleChange}
+                  name="clientEmail"
+                  values={formik.values.clientEmail}
+                  type="email"
+                  className="w-full rounded-lg p-2 bg-[#1e2139] lg:w-[20rem]"
+                ></input>
+              </div>
             </div>
 
             <div className=" flex flex-col">
@@ -198,7 +200,7 @@ function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
               ></input>
             </div>
 
-            <div className="flex gap-6">
+            <div className="flex gap-6 md:justify-between">
               <div className=" flex flex-col">
                 <label>City</label>
                 <input
@@ -231,25 +233,25 @@ function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
             </div>
 
             {/*dates */}
-            <div className="flex flex-col">
+            <div className="flex flex-col mt-10 xl:flex-row justify-between">
               {/* container for invoice date and payment terms */}
-              <div className="flex gap-6">
-                <div>
+              <div className="flex gap-6 sm:justify-between xl:gap-12">
+                <div className="lg:flex lg:flex-col">
                   <label>Invoice Date</label>
                   <input
                     onChange={formik.handleChange}
                     value={formik.values.createdAt}
                     name="createdAt"
                     type="date"
-                    className="w-full rounded-lg p-2 bg-[#1e2139]"
+                    className="w-full rounded-lg p-2 bg-[#1e2139] lg:w-[20rem] xl:w-[12rem]"
                     placeholder="mm/dd/yyyy"
                   ></input>
                 </div>
-                <div>
+                <div className="lg:flex lg:flex-col">
                   <label htmlFor="terms">Payment Terms</label>
                   <select
                     onChange={formik.handleChange}
-                    className="w-full rounded-lg p-2 bg-[#1e2139] border-b-[3px] border-[#1e2139]"
+                    className="w-full rounded-lg p-2 bg-[#1e2139] border-b-[3px] border-[#1e2139] lg:w-[20rem] xl:w-[12rem]"
                     name="paymentTerms"
                     value={formik.values.paymentTerms}
                   >
@@ -262,37 +264,39 @@ function NewInvoice({ setNewInvoiceModalOpen, invoices }) {
                 </div>
               </div>
               {/* description container */}
-              <div>
-                <label>Description</label>
-                <input
-                  onChange={formik.handleChange}
-                  name="description"
-                  values={formik.values.description}
-                  className="w-full rounded-lg p-2 bg-[#1e2139]"
-                  type="text"
-                ></input>
-              </div>
-              {/* Status of inveoice select */}
-              <div>
-                <label htmlFor="status">Status</label>
-                <select
-                  onChange={formik.handleChange}
-                  className="w-full rounded-lg p-2 bg-[#1e2139] border-b-[3px] border-[#1e2139]"
-                  name="status"
-                  value={formik.values.status}
-                >
-                  <option value="">Select status</option>
-                  <option value="paid">Paid</option>
-                  <option value="pending">Pending</option>
-                  <option value="draft">Draft</option>
-                </select>
+              <div className="lg:flex lg:justify-between xl:gap-12">
+                <div className="lg:flex lg:flex-col">
+                  <label>Description</label>
+                  <input
+                    onChange={formik.handleChange}
+                    name="description"
+                    values={formik.values.description}
+                    className="w-full rounded-lg p-2 bg-[#1e2139] lg:w-[20rem] xl:w-[12rem]"
+                    type="text"
+                  ></input>
+                </div>
+                {/* Status of inveoice select */}
+                <div className="lg:flex lg:flex-col">
+                  <label htmlFor="status">Status</label>
+                  <select
+                    onChange={formik.handleChange}
+                    className="w-full rounded-lg p-2 bg-[#1e2139] border-b-[3px] border-[#1e2139] lg:w-[20rem] xl:w-[12rem]"
+                    name="status"
+                    value={formik.values.status}
+                  >
+                    <option value="">Select status</option>
+                    <option value="paid">Paid</option>
+                    <option value="pending">Pending</option>
+                    <option value="draft">Draft</option>
+                  </select>
+                </div>
               </div>
             </div>
 
             {/* Item list container */}
             <div>
-              <div>
-                <p>Item List</p>
+              <div className="mt-4">
+                <p className=" sm:text-lg sm:font-bold">Item List</p>
               </div>
 
               {/* potential component down */}

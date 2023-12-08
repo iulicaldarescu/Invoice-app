@@ -165,7 +165,7 @@ function EditInvoice({ invoices }) {
   console.log(testt);
 
   return (
-    <div className="fixed top-0 bottom-0 right-0 left-0 bg-[#141625] flex flex-col text-white px-4">
+    <div className="fixed top-0 bottom-0 right-0 left-0 bg-[#141625] flex flex-col text-white px-4 sm:px-16 xl:px-24">
       <div className="basis-1/6 ">
         <p className="text-2xl font-bold py-10">Edit Invoice</p>
       </div>
@@ -188,7 +188,7 @@ function EditInvoice({ invoices }) {
             ></input>
           </div>
 
-          <div className="flex gap-6">
+          <div className="flex gap-6 md:justify-between">
             <div className=" flex flex-col">
               <label>City</label>
               <input
@@ -225,26 +225,28 @@ function EditInvoice({ invoices }) {
             <p>Bill To</p>
           </div>
           <div className="">
-            <div className=" flex flex-col">
-              <label>Client Name</label>
-              <input
-                onChange={formik.handleChange}
-                name="clientName"
-                value={formik.values.clientName}
-                type="text"
-                className="w-full rounded-lg p-2 bg-[#1e2139]"
-              ></input>
-            </div>
+            <div className="lg:flex lg:justify-between">
+              <div className=" flex flex-col">
+                <label>Client Name</label>
+                <input
+                  onChange={formik.handleChange}
+                  name="clientName"
+                  value={formik.values.clientName}
+                  type="text"
+                  className="w-full rounded-lg p-2 bg-[#1e2139]"
+                ></input>
+              </div>
 
-            <div className=" flex flex-col">
-              <label>Client Email</label>
-              <input
-                onChange={formik.handleChange}
-                name="clientEmail"
-                value={formik.values.clientEmail}
-                type="text"
-                className="w-full rounded-lg p-2 bg-[#1e2139]"
-              ></input>
+              <div className=" flex flex-col">
+                <label>Client Email</label>
+                <input
+                  onChange={formik.handleChange}
+                  name="clientEmail"
+                  value={formik.values.clientEmail}
+                  type="text"
+                  className="w-full rounded-lg p-2 bg-[#1e2139]"
+                ></input>
+              </div>
             </div>
 
             <div className=" flex flex-col">
@@ -258,7 +260,7 @@ function EditInvoice({ invoices }) {
               ></input>
             </div>
 
-            <div className="flex gap-6">
+            <div className="flex gap-6 md:justify-between">
               <div className=" flex flex-col">
                 <label>City</label>
                 <input
@@ -291,9 +293,9 @@ function EditInvoice({ invoices }) {
             </div>
 
             {/*dates */}
-            <div className="flex flex-col">
+            <div className="flex flex-col mt-10 xl:flex-row justify-between">
               {/* container for invoice date and payment terms */}
-              <div className="flex gap-6">
+              <div className="flex gap-6 sm:justify-between xl:gap-12">
                 <div>
                   <label>Invoice Date</label>
                   <input
@@ -349,55 +351,62 @@ function EditInvoice({ invoices }) {
                 return (
                   <div
                     key={index}
-                    className="flex  justify-between border-b-2 border-b-slate-100 pb-3"
+                    className="flex flex-col justify-between border-b-2 border-b-slate-100 pb-3"
                   >
                     <div className=" flex flex-wrap gap-3">
-                      <div className="flex flex-col">
-                        <label>Item Name</label>
-                        <input
-                          name={`items[${index}.name]`}
-                          onChange={formik.handleChange}
-                          value={formik.values.items[index]?.name || ""}
-                          className="rounded-lg p-2 max-w-[15rem] bg-[#1e2139]"
-                        ></input>
+                      <div className="flex  justify-between gap-6">
+                        <div className="flex flex-col basis-3/5">
+                          <label>Item Name</label>
+                          <input
+                            name={`items[${index}.name]`}
+                            onChange={formik.handleChange}
+                            value={formik.values.items[index]?.name || ""}
+                            className={` outline-none rounded-lg p-2 bg-[#1e2139]`}
+                          ></input>
+                        </div>
+
+                        <div className="flex flex-col basis-2/5">
+                          <label className="self-end">Qty.</label>
+                          <input
+                            name={`items[${index}.quantity]`}
+                            onChange={formik.handleChange}
+                            value={formik.values.items[index]?.quantity || ""}
+                            placeholder="1"
+                            className=" rounded-lg p-2 w-2/4 self-end outline-none bg-[#1e2139] text-right"
+                          ></input>
+                        </div>
                       </div>
 
-                      <div className="flex flex-col">
-                        <label>Qty.</label>
-                        <input
-                          name={`items[${index}.quantity]`}
-                          onChange={formik.handleChange}
-                          value={formik.values.items[index]?.quantity || ""}
-                          placeholder="1"
-                          className=" rounded-lg p-2 max-w-[3rem] bg-[#1e2139]"
-                        ></input>
-                      </div>
+                      <div className="flex justify-between">
+                        <div className="flex flex-col sm:basis-2/5">
+                          <label>Price</label>
+                          <input
+                            name={`items[${index}.price]`}
+                            onChange={formik.handleChange}
+                            value={formik.values.items[index]?.price || ""}
+                            placeholder="0"
+                            className="outline-none rounded-lg p-2 w-3/4 bg-[#1e2139]"
+                          ></input>
+                        </div>
 
-                      <div className="flex flex-col">
-                        <label>Price</label>
-                        <input
-                          name={`items[${index}.price]`}
-                          onChange={formik.handleChange}
-                          value={formik.values.items[index]?.price || ""}
-                          placeholder="0"
-                          className=" rounded-lg p-2 max-w-[6rem] bg-[#1e2139]"
-                        ></input>
+                        <div className="flex flex-col">
+                          <label>Total</label>
+                          <input
+                            value={
+                              parseFloat(formik.values.items[index]?.price) *
+                                parseFloat(
+                                  formik.values.items[index]?.quantity
+                                ) || ""
+                            }
+                            disabled
+                            placeholder="0"
+                            className="outline-none rounded-lg p-2  bg-[#1e2139] overflow-hidden sm:w-2/4 sm:self-end text-right"
+                          ></input>
+                        </div>
                       </div>
+                    </div>
 
-                      <div className="flex flex-col">
-                        <label>Total</label>
-                        <input
-                          value={
-                            parseFloat(formik.values.items[index]?.price) *
-                              parseFloat(
-                                formik.values.items[index]?.quantity
-                              ) || ""
-                          }
-                          disabled
-                          placeholder="0"
-                          className=" rounded-lg p-2 max-w-[3rem] bg-[#1e2139]"
-                        ></input>
-                      </div>
+                    <div className="flex justify-between mt-4">
                       <div className="flex flex-col items-center justify-end">
                         <button
                           onClick={() =>
@@ -408,13 +417,13 @@ function EditInvoice({ invoices }) {
                           Confirm
                         </button>
                       </div>
-                    </div>
-                    {/* trash icon */}
-                    <div
-                      onClick={() => deleteItem(item.id)}
-                      className="flex items-end pb-2"
-                    >
-                      <FaTrashAlt size={"1.3rem"} />
+                      {/* trash icon */}
+                      <div
+                        onClick={() => deleteItem(item.id)}
+                        className="flex items-end pb-2"
+                      >
+                        <FaTrashAlt size={"1.3rem"} />
+                      </div>
                     </div>
                   </div>
                 );

@@ -59,55 +59,61 @@ function InvoiceItem({
   };
 
   return (
-    // if not works puthi below back in potential component
-    <div className="flex justify-between border-b-2 border-b-slate-100 pb-3">
-      <div className=" flex flex-wrap gap-3">
-        <div className="flex flex-col">
+    <div className="flex flex-col justify-between border-b-2 border-b-slate-100 pb-3 mt-6">
+      <div className="flex  justify-between gap-6">
+        <div className="flex flex-col basis-3/5">
           <label>Item Name</label>
           <input
             onChange={formik.handleChange}
             name="itemName"
-            className={` rounded-lg p-2 max-w-[15rem] bg-[#1e2139]`}
+            className={` outline-none rounded-lg p-2 bg-[#1e2139]`}
             disabled={inputDisabled}
           ></input>
         </div>
 
-        <div className="flex flex-col">
-          <label>Qty.</label>
+        <div className="flex flex-col basis-2/5">
+          <label className="self-end">Qty.</label>
           <input
             onChange={formik.handleChange}
             name="itemQty"
             placeholder="1"
             type="number"
-            className=" rounded-lg p-2 max-w-[3rem] bg-[#1e2139]"
+            className=" rounded-lg p-2 w-2/4 self-end outline-none bg-[#1e2139] text-right"
             disabled={inputDisabled}
           ></input>
         </div>
+      </div>
 
-        <div className="flex flex-col">
+      <div className="flex justify-between">
+        <div className="flex flex-col sm:basis-2/5">
           <label>Price</label>
           <input
             onChange={formik.handleChange}
             name="itemPrice"
             placeholder="0"
             type="number"
-            className=" rounded-lg p-2 max-w-[6rem] bg-[#1e2139]"
+            className="outline-none rounded-lg p-2 w-3/4 bg-[#1e2139]"
             disabled={inputDisabled}
           ></input>
         </div>
 
-        <div className="flex flex-col">
-          <label>Total</label>
-          <p
+        <div className="flex flex-col sm:basis-3/5">
+          <label className="sm:self-end">Total</label>
+          <input
             name="itemTotal"
+            disabled
             placeholder="0"
-            className=" rounded-lg p-2 w-[5rem] bg-[#1e2139] overflow-hidden"
-          >
-            {formik.values.itemQty * formik.values.itemPrice > 0
-              ? formik.values.itemQty * formik.values.itemPrice
-              : 0}
-          </p>
+            className="outline-none rounded-lg p-2  bg-[#1e2139] overflow-hidden sm:w-2/4 sm:self-end text-right"
+            value={
+              formik.values.itemQty * formik.values.itemPrice > 0
+                ? formik.values.itemQty * formik.values.itemPrice
+                : 0
+            }
+          ></input>
         </div>
+      </div>
+
+      <div className="flex justify-between mt-4">
         <div className="flex flex-col items-center justify-end">
           <button
             className="bg-green-600 p-2 rounded-lg"
@@ -116,11 +122,11 @@ function InvoiceItem({
             Confirm
           </button>
         </div>
-      </div>
 
-      {/* trash icon */}
-      <div className="flex items-end pb-2">
-        <FaTrashAlt onClick={() => deleteInvoiceItem(id)} size={"1.3rem"} />
+        {/* trash icon */}
+        <div className="flex items-end pb-2">
+          <FaTrashAlt onClick={() => deleteInvoiceItem(id)} size={"1.3rem"} />
+        </div>
       </div>
     </div>
   );

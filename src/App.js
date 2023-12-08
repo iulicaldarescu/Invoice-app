@@ -10,6 +10,7 @@ import EditInvoice from "./Components/EditInvoice";
 import Register from "./Authentication/Register";
 import Login from "./Authentication/Login";
 import UserProfile from "./Components/UserProfile";
+import NewInvoice from "./Components/NewInvoice";
 
 function App() {
   const { userId } = useUserId();
@@ -47,8 +48,6 @@ function App() {
     fetchInvoices();
   }, [flagToUpdateMainPage]);
 
-  //function to logout
-
   return (
     <div className="">
       {/* <Invoices path='/'></Invoices> */}
@@ -77,6 +76,16 @@ function App() {
                 flagToUpdateMainPage={flagToUpdateMainPage}
                 setFlagToUpdateMainPage={setFlagToUpdateMainPage}
               />
+            </>
+          }
+        ></Route>
+
+        <Route
+          path={`/new-invoice`}
+          element={
+            <>
+              <Header />
+              <NewInvoice invoices={invoices} />
             </>
           }
         ></Route>

@@ -51,7 +51,10 @@ function Header() {
   return (
     <div className="w-full bg-[#20243c] flex justify-between">
       <div className="flex items-center justify-between w-full border-r border-r-gray-400">
-        <div className="bg-[#7c5df9] rounded-r-3xl h-full flex items-center p-6">
+        <div
+          className="bg-[#7c5df9] rounded-r-3xl h-full flex items-center p-6"
+          onClick={goToTheMainPage}
+        >
           <img src={logo} className="w-9"></img>
         </div>
 

@@ -1,4 +1,3 @@
-import RegisterStyle from "../styles/register.module.css";
 import { useFormik } from "formik";
 import validationSchema from "../schemas/registerSchema";
 import supabase from "../config/supabaseClient";
@@ -278,10 +277,7 @@ function Register() {
             )}
           </div>
           <div className="p-3 pt-4">
-            <button
-              type="submit"
-              className={`w-full text-black py-2 pr-4 ${RegisterStyle.button}`}
-            >
+            <button type="submit" className={`w-full text-black py-2 pr-4 `}>
               Register
             </button>
           </div>

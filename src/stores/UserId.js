@@ -5,9 +5,9 @@ const useUserId = create((set) => ({
   setUserId: (newUserId) => set(() => ({ userId: newUserId })),
 }));
 
-const useUserIsLogged = create((set) => ({
-  userIsLogged: false,
-  setUserIsLogged: () => set({ userIsLogged: true }),
-}));
+// const useUserIsLogged = create((set) => ({
+//   userIsLogged: false,
+//   setUserIsLogged: () => set({ userIsLogged: true }),
+// }));
 
-export default { useUserId, useUserIsLogged };
+export default useUserId;

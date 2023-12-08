@@ -3,6 +3,7 @@ import { ImPlus } from "react-icons/im";
 import Invoice from "../Components/Invoice";
 import NewInvoice from "./NewInvoice";
 import arrowDown from "../assets/icon-arrow-down.svg";
+import { Link } from "react-router-dom";
 
 import "../styles/invoices.css";
 import useUserId from "../stores/UserId";
@@ -42,8 +43,8 @@ function Invoices({ fetchError, invoices }) {
   };
 
   return (
-    <div to="/">
-      <div className="bg-[#141625] h-full pt-10 ">
+    <div>
+      <div className="bg-[#141625] h-screen pt-10 ">
         <div className="flex px-4  gap-8 pb-10">
           {/* INVOICES + FILTER */}
 
@@ -114,17 +115,19 @@ function Invoices({ fetchError, invoices }) {
 
           {/* NEW */}
 
-          <div className="basis-1/6 flex justify-end">
-            <div className="bg-[#7c5df9] p-2 flex items-center justify-center  rounded-full">
-              <button
-                onClick={openNewInvoice}
-                className="h-9 w-9 text-[#7c5df9] bg-white font-extrabold text-2xl rounded-full flex justify-center items-center"
-              >
-                <ImPlus size={"0.9rem"} />
-              </button>
-              <p className=" text-white font-bold text-base px-2">New</p>
+          <Link to={"/new-invoice"}>
+            <div className="basis-1/6 flex justify-end">
+              <div className="bg-[#7c5df9] p-2 flex items-center justify-center  rounded-full">
+                <button
+                  onClick={openNewInvoice}
+                  className="h-9 w-9 text-[#7c5df9] bg-white font-extrabold text-2xl rounded-full flex justify-center items-center"
+                >
+                  <ImPlus size={"0.9rem"} />
+                </button>
+                <p className=" text-white font-bold text-base px-2">New</p>
+              </div>
             </div>
-          </div>
+          </Link>
 
           {/* NEW END*/}
         </div>
