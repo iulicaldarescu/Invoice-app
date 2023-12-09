@@ -58,7 +58,10 @@ function InvoicePage({ invoices, setFlagToUpdateMainPage }) {
 
   const deleteInvoice = async (id) => {
     try {
-      const { error } = await supabase.from("invoices").delete().eq("id", id);
+      const { error } = await supabase
+        .from("InvoiceApp-invoices")
+        .delete()
+        .eq("id", id);
 
       if (!error) {
         // Deletion successful, now navigate to the home page

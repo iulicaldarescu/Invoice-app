@@ -12,7 +12,7 @@ function UserProfile() {
     const fetchElementById = async () => {
       try {
         const { data, error } = await supabase
-          .from("users")
+          .from("InvoiceApp-users")
           .select()
           .eq("id", loggedUserId);
 

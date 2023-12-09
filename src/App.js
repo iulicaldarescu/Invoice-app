@@ -25,7 +25,9 @@ function App() {
   useEffect(() => {
     const fetchInvoices = async () => {
       try {
-        const { data, error } = await supabase.from("invoices").select();
+        const { data, error } = await supabase
+          .from("InvoiceApp-invoices")
+          .select();
 
         if (error) {
           setFetchError(`Could not fetch invoices: ${error.message}`);

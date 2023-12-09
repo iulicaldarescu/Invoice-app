@@ -24,7 +24,9 @@ function Login() {
   const checkIfCredentialsAreCorrect = async () => {
     if (formik.isValid) {
       try {
-        const { data, error } = await supabase.from("users").select();
+        const { data, error } = await supabase
+          .from("InvoiceApp-users")
+          .select();
         const userFound = await data.find((user) => {
           return user.email === formik.values.email.toLowerCase();
         });

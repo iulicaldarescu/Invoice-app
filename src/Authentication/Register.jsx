@@ -34,7 +34,9 @@ function Register() {
     setUserExists(false);
     if (formik.isValid) {
       try {
-        const checkIfUserExists = await supabase.from("users").select("*");
+        const checkIfUserExists = await supabase
+          .from("InvoiceApp-users")
+          .select("*");
 
         checkIfUserExists.data.forEach((item) => {
           if (item.email === formik.values.email) {
@@ -49,7 +51,7 @@ function Register() {
           saltRounds
         );
 
-        const { data, error } = await supabase.from("users").insert({
+        const { data, error } = await supabase.from("InvoiceApp-users").insert({
           firstName: formik.values.firstName,
           lastName: formik.values.lastName,
           country: formik.values.country,

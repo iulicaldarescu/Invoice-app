@@ -58,7 +58,7 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
   );
 
   const createNewInvoiceDetails = async () => {
-    const { error } = await supabase.from("invoices").insert({
+    const { error } = await supabase.from("InvoiceApp-invoices").insert({
       createdAt: formik.values.createdAt,
       paymentDue: newDate,
       description: formik.values.description,
