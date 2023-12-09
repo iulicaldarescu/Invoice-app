@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router";
 import InvoiceItem from "./InvoiceItem";
 import supabase from "../config/supabaseClient";
 import { Link } from "react-router-dom";
@@ -8,9 +7,7 @@ import { Link } from "react-router-dom";
 function NewInvoice({ setFlagToUpdateMainPage }) {
   const [invoiceItems, setInvoiceItems] = useState([1]);
   const [itemsArray, setItemsArray] = useState([]);
-  const [itemsDetailsObj, setItemsDetailsObj] = useState({});
-
-  const navigate = useNavigate();
+  const [setItemsDetailsObj] = useState({});
 
   const getTotalFromAllItems = itemsArray.reduce((acc, curr) => {
     return acc + curr.total;

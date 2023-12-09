@@ -6,7 +6,6 @@ import { useState } from "react";
 import bcrypt from "bcryptjs";
 
 function Login() {
-  const [userIsLogged, setUserIsLogged] = useState(false);
   const [credentialsIncorect, setCredentialsIncorect] = useState(null);
   const navigate = useNavigate();
 

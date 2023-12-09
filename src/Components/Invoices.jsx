@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ImPlus } from "react-icons/im";
 import Invoice from "../Components/Invoice";
-import NewInvoice from "./NewInvoice";
 import arrowDown from "../assets/icon-arrow-down.svg";
 import { Link } from "react-router-dom";
 import "../styles/invoices.css";
-import useUserId from "../stores/UserId";
+
 import { FcEmptyTrash } from "react-icons/fc";
 
 function Invoices({ invoices }) {
@@ -14,8 +13,6 @@ function Invoices({ invoices }) {
   const [statusFiltersArray, setStatusFiltersArray] = useState([]);
 
   // New item add modal open state
-
-  const { userId } = useUserId();
 
   const filterOpener = () => {
     setFilterOpened((prev) => !prev);

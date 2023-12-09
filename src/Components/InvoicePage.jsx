@@ -14,7 +14,7 @@ function InvoicePage({ invoices, setFlagToUpdateMainPage }) {
     return date.toLocaleDateString(undefined, options);
   };
 
-  const { userId, setUserId } = useUserId();
+  const { userId } = useUserId();
 
   const [userInfo, setUserInfo] = useState({
     id: "",

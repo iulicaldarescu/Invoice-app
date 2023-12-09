@@ -2,10 +2,9 @@ import "./App.css";
 import supabase from "./config/supabaseClient";
 import Header from "./Components/Headers";
 import Invoices from "./Components/Invoices";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import InvoicePage from "./Components/InvoicePage";
 import { useEffect, useState } from "react";
-import useUserId from "./stores/UserId";
 import EditInvoice from "./Components/EditInvoice";
 import Register from "./Authentication/Register";
 import Login from "./Authentication/Login";
@@ -13,13 +12,7 @@ import UserProfile from "./Components/UserProfile";
 import NewInvoice from "./Components/NewInvoice";
 import Footer from "./Components/Footer";
 
-
-
 function App() {
-  const { userId } = useUserId();
-
-  
-
   const [fetchError, setFetchError] = useState(null);
   // const [newInvoiceModalOpen, setNewInvoiceModalOpen] = useState(false);
 
@@ -28,8 +21,6 @@ function App() {
 
   //flag to update the main page
   const [flagToUpdateMainPage, setFlagToUpdateMainPage] = useState(false);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchInvoices = async () => {
@@ -45,8 +36,6 @@ function App() {
         if (data) {
           setInvoices(data);
           setFetchError(null);
-          
-
         }
       } catch (error) {
         console.error("Unexpected error:", error);
@@ -92,12 +81,12 @@ function App() {
 
         <Route
           path="/new-invoice"
-          element={           
+          element={
             <>
               <Header />
               <NewInvoice setFlagToUpdateMainPage={setFlagToUpdateMainPage} />
               <Footer />
-            </>            
+            </>
           }
         ></Route>
 
