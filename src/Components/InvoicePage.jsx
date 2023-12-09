@@ -47,13 +47,11 @@ function InvoicePage({ invoices, setFlagToUpdateMainPage }) {
       total: userInfosArray[0]?.total || "",
       // Use optional chaining (?.) for safety
     });
-
-    console.log(userInfo);
   };
 
   useEffect(() => {
     getData();
-    console.log(userInfo); // This will log the updated userInfo
+    // This will log the updated userInfo
   }, [userId]);
 
   // ------------------------------------------------------------------------------- DELETE INVOICE COMPLETLY -----------------------------------------------------------------------------------------------

@@ -16,9 +16,6 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
     return acc + curr.total;
   }, 0);
 
-  console.log(itemsArray);
-  console.log(getTotalFromAllItems);
-
   const formik = useFormik({
     initialValues: {
       createdAt: "",
@@ -91,21 +88,6 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
     setFlagToUpdateMainPage((prev) => !prev);
   };
 
-  // we had a situation that when clicking the trash for a specific item it deleted only
-  // the last item within aray no matter on which item tras we clicked
-  // solution to set randomly unique item id and assigning to key and id the item itself
-  // id={invoiceItem}
-  // key={invoiceItem}
-
-  // test this is for real time console log !!!!!!!!!!
-  useEffect(() => {
-    console.log(itemsArray);
-  }, [itemsArray]);
-
-  const goToMainPage = () => {
-    navigate("/home");
-  };
-
   return (
     <div className="  bg-[#f8f8fb] dark:bg-[#141625] flex flex-col text-white px-4 sm:px-16 xl:px-24">
       <div className="basis-1/6 ">
@@ -115,11 +97,13 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
       </div>
 
       {/* form for invoice details */}
-      <div className="basis-4/6 bg-[#f8f8fb] dark:bg-[#141625] overflow-auto pl-1">
+      <div className="basis-4/6 bg-[#f8f8fb]  dark:bg-[#141625] overflow-auto pl-1">
         {/* bill from */}
-        <form onSubmit={formik.values.handleSubmit}>
+        <form className="flex flex-col" onSubmit={formik.values.handleSubmit}>
           <div>
-            <p className="text-black dark:text-white">Bill Form</p>
+            <p className="dark:text-white text-[#7c5df9] font-bold">
+              Bill From
+            </p>
           </div>
           <div className="flex flex-col">
             <label className="text-black dark:text-white">Street Address</label>
@@ -128,7 +112,7 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
               name="senderAddress.street"
               value={formik.values.senderAddress.street}
               type="text"
-              className="rounded-lg p-2  bg-[#f8f8fb] dark:bg-[#1e2139] text-black dark:text-white dark:border-0 border border-gray-300"
+              className="rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] text-black dark:text-white dark:border-0 border border-gray-300"
             ></input>
           </div>
 
@@ -166,11 +150,11 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
 
           {/* bill to */}
           <div className="py-6">
-            <p className="text-black dark:text-white">Bill To</p>
+            <p className="dark:text-white text-[#7c5df9] font-bold">Bill To</p>
           </div>
-          <div className="">
+          <div className="flex flex-col">
             <div className="lg:flex lg:justify-between">
-              <div className=" flex flex-col">
+              <div className="flex flex-col">
                 <label className="text-black dark:text-white">
                   Client Name
                 </label>

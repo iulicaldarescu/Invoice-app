@@ -22,7 +22,6 @@ function UserProfile() {
         }
 
         setUserInfo(data[0]);
-        console.log(userInfo);
       } catch (error) {
         console.error("Error:", error.message);
         return null;
@@ -31,10 +30,6 @@ function UserProfile() {
     fetchElementById();
   }, [loggedUserId]);
 
-  useEffect(() => {
-    console.log(userInfo);
-  }, [userInfo]);
-
   //function to log out
   const logout = () => {
     localStorage.removeItem("userId");
@@ -42,7 +37,7 @@ function UserProfile() {
   };
 
   return (
-    <div className=" bg-[#f8f8fb] overflow-hidden shadow border dark:bg-[#141625] pt-24  text-white lg:px-64 pb-44 xl:h-screen xl:px-96">
+    <div className=" bg-[#f8f8fb] overflow-hidden shadow border dark:bg-[#141625] pt-24 px-3 text-white lg:px-64 pb-44 xl:h-screen xl:px-96">
       <div className="px-4 py-10 sm:px-6 flex justify-between items-center text-center">
         <h3 className="text-lg leading-6 font-medium text-black dark:text-white ">
           {userInfo?.firstName}

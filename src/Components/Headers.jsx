@@ -21,7 +21,6 @@ function Header() {
   };
 
   useEffect(() => {
-    console.log(loggedUserId);
     const fetchInitials = async () => {
       try {
         const { data, error } = await supabase
@@ -37,8 +36,6 @@ function Header() {
         setUserInitials(
           data[0]?.firstName.charAt(0) + data[0]?.lastName.charAt(0)
         );
-
-        console.log(userInitials);
       } catch (error) {
         console.error("Error:", error.message);
         return null;
@@ -65,7 +62,7 @@ function Header() {
     <div className="w-full bg-[#20243c] flex justify-between">
       <div className="flex items-center justify-between w-full border-r border-r-gray-400">
         <div
-          className="bg-[#7c5df9] rounded-r-3xl h-full flex items-center p-6"
+          className="bg-[#7c5df9] cursor-pointer rounded-r-3xl h-full flex items-center p-6"
           onClick={goToTheMainPage}
         >
           <img src={logo} className="w-9"></img>

@@ -3,11 +3,11 @@ import supabase from "../config/supabaseClient";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useState } from "react";
-import bcrypt, { hash } from "bcryptjs";
+import bcrypt from "bcryptjs";
 
 function Login() {
   const [userIsLogged, setUserIsLogged] = useState(false);
-  const [passwordWrong, setPasswordWrong] = useState(null);
+  const [credentialsIncorect, setCredentialsIncorect] = useState(null);
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -36,14 +36,18 @@ function Login() {
           userFound.password
         );
 
+        if (!passwordMatch) {
+          setCredentialsIncorect(true);
+        }
+
         if (userFound && passwordMatch) {
           localStorage.setItem("userId", userFound.id);
           navigate(`/home`, { replace: true });
-        } else {
-          setPasswordWrong(true);
+          setCredentialsIncorect(false);
         }
       } catch (error) {
-        console.log("error", error);
+        setCredentialsIncorect(true);
+        console.error("error", error);
       }
     }
   };
@@ -52,30 +56,35 @@ function Login() {
     <div className="w-4/5 max-w-xs m-auto mt-32">
       <form
         onSubmit={formik.handleSubmit}
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        className="bg-white dark:bg-red-400 shadow-md rounded px-8 pt-6 pb-8 mb-4"
       >
         <div className="mb-4">
-          <label for="email">Email</label>
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="email"
+          >
+            Email
+          </label>
           <input
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             id="email"
             className={`outline-none py-2 pr-4 block w-full border-b-2 ${
               formik.errors.email ? "border-red-400" : " border-gray-300"
-            }`}
+            } ${credentialsIncorect ? "border-red-400" : ""}`}
             type="text"
             placeholder="Please enter your email"
             name="email"
             value={formik.values.email}
           />
           {formik.touched.email && formik.errors.email ? (
-            <p>{formik.errors.email}</p>
+            <p className="text-red-400">{formik.errors.email}</p>
           ) : null}
         </div>
         <div className="mb-6">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            for="password"
+            htmlFor="password"
           >
             Password
           </label>
@@ -84,19 +93,22 @@ function Login() {
             onBlur={formik.handleBlur}
             className={`outline-none py-2 pr-4 block w-full border-b-2 ${
               formik.errors.password ? "border-red-400" : " border-gray-300"
-            } ${passwordWrong ? "border-red-400" : ""}`}
+            } ${credentialsIncorect ? "border-red-400" : ""}`}
             id="password"
             type="password"
             placeholder="******************"
           />
           {formik.touched.password && formik.errors.password ? (
-            <p>{formik.errors.password}</p>
+            <p className="text-red-400">{formik.errors.password}</p>
           ) : null}
+          {credentialsIncorect && (
+            <p className="text-red-400">Email or password wrong</p>
+          )}
         </div>
         <div className="flex items-center justify-between">
           <button
             onClick={checkIfCredentialsAreCorrect}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-[#7c5dfa] cursor-pointer rounded-full active:opacity-75 text-white font-bold p-2 focus:outline-none focus:shadow-outline"
             type="submit"
             disabled={!formik.values.email || !formik.values.password}
           >
@@ -104,7 +116,7 @@ function Login() {
           </button>
           <Link
             to="/register"
-            className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+            className="inline-block align-baseline font-bold text-sm text-[#7c5dfa] rounded-full p-2 border-2 border-[#7c5dfa] active:opacity-75"
           >
             Register
           </Link>

@@ -7,7 +7,7 @@ const validationSchema = yup.object().shape({
     .required("This field cannot be empty"),
   password: yup
     .string()
-    .min(6, "THe password must be minimum 6 characters long")
+    .min(6, "The password must be minimum 6 characters long")
     .required("This field cannot be empty"),
 });
 

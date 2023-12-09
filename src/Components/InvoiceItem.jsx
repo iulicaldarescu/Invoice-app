@@ -18,8 +18,6 @@ function InvoiceItem({
     });
     setInvoiceItems(newArr);
     const newUpdateItemsArray = itemsArray.filter((item, index) => {
-      console.log(index);
-      console.log(indexToDelete);
       return item.id !== indexToDelete;
     });
     setItemsArray(newUpdateItemsArray);
@@ -54,8 +52,6 @@ function InvoiceItem({
       setItemsArray([...itemsArray, invoiceItemDetails]);
 
     setInputDisabled(true);
-
-    console.log(itemsArray);
   };
 
   return (

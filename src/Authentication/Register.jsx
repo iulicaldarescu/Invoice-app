@@ -3,6 +3,7 @@ import validationSchema from "../schemas/registerSchema";
 import supabase from "../config/supabaseClient";
 import { useNavigate } from "react-router";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import bcrypt from "bcryptjs";
 
 function Register() {
@@ -25,7 +26,6 @@ function Register() {
     validationSchema: validationSchema,
     onSubmit: () => saveToDb(),
   });
-  console.log(formik.errors);
 
   const saveToDb = async () => {
     // bcrypt data
@@ -69,19 +69,18 @@ function Register() {
         } else {
           // Data was inserted successfully
           navigate("/");
-          console.log("Success");
         }
       } catch (error) {
         console.error("An unexpected error occurred:", error);
       }
-    } else {
-      console.log("Please complete the fields properly");
     }
   };
   return (
     <>
       <div>
-        <h1>Create an user account</h1>
+        <h1 className="text-center font-bold text-2xl mt-10">
+          Create user account
+        </h1>
       </div>
       <form
         onSubmit={formik.handleSubmit}
@@ -105,7 +104,7 @@ function Register() {
             />
             {/* here the error message it displayed, the error from the yup validation */}
             {formik.touched.firstName && formik.errors.firstName ? (
-              <p>{formik.errors.firstName}</p>
+              <p className="text-red-400">{formik.errors.firstName}</p>
             ) : null}
           </div>
 
@@ -124,7 +123,7 @@ function Register() {
             />
             {/* here the error message it displayed, the error from the yup validation */}
             {formik.touched.lastName && formik.errors.lastName ? (
-              <p>{formik.errors.lastName}</p>
+              <p className="text-red-400">{formik.errors.lastName}</p>
             ) : null}
           </div>
 
@@ -143,7 +142,7 @@ function Register() {
             />
             {/* here the error message it displayed, the error from the yup validation */}
             {formik.touched.country && formik.errors.country ? (
-              <p>{formik.errors.country}</p>
+              <p className="text-red-400">{formik.errors.country}</p>
             ) : null}
           </div>
 
@@ -162,7 +161,7 @@ function Register() {
             />
             {/* here the error message it displayed, the error from the yup validation */}
             {formik.touched.city && formik.errors.city ? (
-              <p>{formik.errors.city}</p>
+              <p className="text-red-400">{formik.errors.city}</p>
             ) : null}
           </div>
 
@@ -183,7 +182,7 @@ function Register() {
             />
             {/* here the error message it displayed, the error from the yup validation */}
             {formik.touched.streetAddress && formik.errors.streetAddress ? (
-              <p>{formik.errors.streetAddress}</p>
+              <p className="text-red-400">{formik.errors.streetAddress}</p>
             ) : null}
           </div>
         </div>
@@ -205,7 +204,7 @@ function Register() {
             />
             {/* here the error message it displayed, the error from the yup validation */}
             {formik.touched.username && formik.errors.username ? (
-              <p>{formik.errors.username}</p>
+              <p className="text-red-400">{formik.errors.username}</p>
             ) : null}
           </div>
           {/* EMAIL */}
@@ -221,7 +220,7 @@ function Register() {
               placeholder="email@email.com"
             />
             {formik.touched.email && formik.errors.email ? (
-              <p>{formik.errors.email}</p>
+              <p className="text-red-400">{formik.errors.email}</p>
             ) : null}
           </div>
           {/* PASSWORD */}
@@ -237,7 +236,7 @@ function Register() {
               }`}
             />
             {formik.touched.password && formik.errors.password ? (
-              <p>{formik.errors.password}</p>
+              <p className="text-red-400">{formik.errors.password}</p>
             ) : null}
           </div>
           {/* CONFIRM PASSWORD */}
@@ -255,7 +254,7 @@ function Register() {
               placeholder="Confirm Password"
             />
             {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-              <p>{formik.errors.confirmPassword}</p>
+              <p className="text-red-400">{formik.errors.confirmPassword}</p>
             ) : null}
           </div>
           {/* NUMBER */}
@@ -273,7 +272,7 @@ function Register() {
               placeholder="Enter Mobile Number"
             />
             {formik.touched.mobileNumber && formik.errors.mobileNumber ? (
-              <p>{formik.errors.mobileNumber}</p>
+              <p className="text-red-400">{formik.errors.mobileNumber}</p>
             ) : null}
           </div>
           <div>
@@ -284,8 +283,16 @@ function Register() {
               </p>
             )}
           </div>
-          <div className="p-3 pt-4">
-            <button type="submit" className={`w-full text-black py-2 pr-4 `}>
+          <div className="p-3 pt-8 flex justify-center gap-8">
+            <Link to="/">
+              <button class=" bg-[#1e2139] p-2 rounded-full text-white">
+                Discard
+              </button>
+            </Link>
+            <button
+              type="submit"
+              className={`justify-centerpy-2 bg-[#7c5dfa] text-white p-2 rounded-full`}
+            >
               Register
             </button>
           </div>

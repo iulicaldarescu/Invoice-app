@@ -67,12 +67,6 @@ function EditInvoice({ invoices, setFlagToUpdateMainPage }) {
     return total;
   };
 
-  const test = () => {
-    // console.log("invoiceObjectToEdit[0].items", invoiceObjectToEdit[0].items);
-    console.log("newItemsArray", newItemsArr);
-    console.log(getTotalInvoiceItemsPrices());
-  };
-
   // here we are creating a function which updates the database with updated values
   const updateAllData = async () => {
     const updatedItem = invoiceObjectToEdit.find((item) => item.id === userId);
@@ -163,9 +157,6 @@ function EditInvoice({ invoices, setFlagToUpdateMainPage }) {
   const discard = () => {
     navigate("/home");
   };
-
-  const testt = localStorage.getItem("name");
-  console.log(testt);
 
   return (
     <div className=" bg-[#f8f8fb] dark:bg-[#141625] flex flex-col text-white px-4 sm:px-16 xl:px-24 ">
@@ -356,7 +347,7 @@ function EditInvoice({ invoices, setFlagToUpdateMainPage }) {
             {/* Item list container */}
             <div>
               <div>
-                <p onClick={test}>Item List</p>
+                <p>Item List</p>
               </div>
 
               {/* potential component down */}

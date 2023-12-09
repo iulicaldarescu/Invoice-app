@@ -6,6 +6,7 @@ import arrowDown from "../assets/icon-arrow-down.svg";
 import { Link } from "react-router-dom";
 import "../styles/invoices.css";
 import useUserId from "../stores/UserId";
+import { FcEmptyTrash } from "react-icons/fc";
 
 function Invoices({ invoices }) {
   // filter modal state
@@ -30,14 +31,6 @@ function Invoices({ invoices }) {
       setStatusFiltersArray(newArr);
     }
   };
-
-  useEffect(() => {
-    console.log(userId); // This will log the updated `userId`
-  }, [userId]);
-
-  // const openNewInvoice = () => {
-  //   setNewInvoiceModalOpen((prev) => !prev);
-  // };
 
   return (
     <div className="h-screen">
@@ -72,7 +65,7 @@ function Invoices({ invoices }) {
 
               {/* create filter modal */}
               {filterOpened && (
-                <div className="absolute bg-[#1e2139] text-white custom-shadow top-16 -left-5 w-36 h-32 z-50 rounded-lg p-4 ">
+                <div className="absolute border-2 border-black bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-none text-white custom-shadow top-16 -left-5 w-36 h-32 z-50 rounded-lg p-4 ">
                   <div className="flex flex-col gap-3 justify-center h-full">
                     <div className="flex items-center">
                       <input
@@ -80,7 +73,10 @@ function Invoices({ invoices }) {
                         type="checkbox"
                         name="paid"
                       ></input>
-                      <label for="paid" className="pl-2">
+                      <label
+                        for="paid"
+                        className="pl-2 text-black dark:text-white"
+                      >
                         paid
                       </label>
                     </div>
@@ -91,7 +87,10 @@ function Invoices({ invoices }) {
                         type="checkbox"
                         name="pending"
                       ></input>
-                      <label for="pending" className="pl-2">
+                      <label
+                        for="pending"
+                        className="pl-2 text-black dark:text-white"
+                      >
                         pending
                       </label>
                     </div>
@@ -101,7 +100,10 @@ function Invoices({ invoices }) {
                         type="checkbox"
                         name="draft"
                       ></input>
-                      <label for="draft" className="pl-2">
+                      <label
+                        for="draft"
+                        className="pl-2 text-black dark:text-white"
+                      >
                         draft
                       </label>
                     </div>
@@ -129,9 +131,12 @@ function Invoices({ invoices }) {
         </div>
 
         {!invoices?.length && (
-          <p className="text-center lg:text-2xl font-semibold pt-10">
-            No invoices to display
-          </p>
+          <div className=" flex flex-col items-center">
+            <p className="text-center text-black dark:text-white lg:text-2xl font-semibold pt-10 text-xl">
+              No invoices to display
+            </p>
+            <FcEmptyTrash size={"200px"} />
+          </div>
         )}
 
         <div className="pb-20">

@@ -21,7 +21,6 @@ function Invoice({ id, clientName, paymentDue, total, status }) {
 
   const getUserId = (param) => {
     setUserId(param);
-    console.log(userId);
   };
 
   return (
