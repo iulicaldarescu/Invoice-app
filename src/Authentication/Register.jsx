@@ -57,7 +57,7 @@ function Register() {
           streetAddress: formik.values.streetAddress,
           username: formik.values.username,
           password: hashedPassword,
-          email: formik.values.email,
+          email: formik.values.email.toLowerCase(),
           mobileNumber: formik.values.mobileNumber,
         });
 

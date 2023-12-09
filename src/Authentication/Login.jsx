@@ -27,7 +27,7 @@ function Login() {
       try {
         const { data, error } = await supabase.from("users").select();
         const userFound = await data.find((user) => {
-          return user.email === formik.values.email;
+          return user.email === formik.values.email.toLowerCase();
         });
 
         //checks for bycript match

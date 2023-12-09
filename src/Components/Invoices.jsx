@@ -65,7 +65,7 @@ function Invoices({ invoices }) {
 
               {/* create filter modal */}
               {filterOpened && (
-                <div className="absolute border-2 border-black bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-none text-white custom-shadow top-16 -left-5 w-36 h-32 z-50 rounded-lg p-4 ">
+                <div className="absolute border-2 border-none bg-[#f8f8fb] dark:bg-[#1e2139]  text-white custom-shadow top-16 -left-5 w-36 h-32 z-50 rounded-lg p-4 ">
                   <div className="flex flex-col gap-3 justify-center h-full">
                     <div className="flex items-center">
                       <input
