@@ -128,7 +128,7 @@ function Invoices({ invoices }) {
           {/* NEW END*/}
         </div>
 
-        {invoices.length === 0 && (
+        {!invoices?.length && (
           <p className="text-center lg:text-2xl font-semibold pt-10">
             No invoices to display
           </p>

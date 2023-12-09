@@ -13,8 +13,11 @@ import UserProfile from "./Components/UserProfile";
 import NewInvoice from "./Components/NewInvoice";
 import Footer from "./Components/Footer";
 
+
 function App() {
   const { userId } = useUserId();
+
+  const [test, setTest] = useState(false)
 
   const [fetchError, setFetchError] = useState(null);
   // const [newInvoiceModalOpen, setNewInvoiceModalOpen] = useState(false);
@@ -87,11 +90,13 @@ function App() {
         <Route
           path="/new-invoice"
           element={
+            test ?
             <>
               <Header />
               <NewInvoice setFlagToUpdateMainPage={setFlagToUpdateMainPage} />
               <Footer />
             </>
+            :navigate('/') 
           }
         ></Route>
 

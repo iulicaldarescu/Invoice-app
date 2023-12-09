@@ -3,9 +3,11 @@ import supabase from "../config/supabaseClient";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useState } from "react";
+import bcrypt, { hash } from "bcryptjs";
 
 function Login() {
   const [userIsLogged, setUserIsLogged] = useState(false);
+  const [passwordWrong, setPasswordWrong] = useState(null);
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -25,17 +27,20 @@ function Login() {
       try {
         const { data, error } = await supabase.from("users").select();
         const userFound = await data.find((user) => {
-          return (
-            user.email === formik.values.email &&
-            user.password === formik.values.password
-          );
+          return user.email === formik.values.email;
         });
 
-        if (userFound) {
+        //checks for bycript match
+        const passwordMatch = await bcrypt.compare(
+          formik.values.password,
+          userFound.password
+        );
+
+        if (userFound && passwordMatch) {
           localStorage.setItem("userId", userFound.id);
           navigate(`/home`, { replace: true });
         } else {
-          console.log("dsa");
+          setPasswordWrong(true);
         }
       } catch (error) {
         console.log("error", error);
@@ -79,7 +84,7 @@ function Login() {
             onBlur={formik.handleBlur}
             className={`outline-none py-2 pr-4 block w-full border-b-2 ${
               formik.errors.password ? "border-red-400" : " border-gray-300"
-            }`}
+            } ${passwordWrong ? "border-red-400" : ""}`}
             id="password"
             type="password"
             placeholder="******************"

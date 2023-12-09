@@ -3,6 +3,7 @@ import validationSchema from "../schemas/registerSchema";
 import supabase from "../config/supabaseClient";
 import { useNavigate } from "react-router";
 import { useState } from "react";
+import bcrypt from "bcryptjs";
 
 function Register() {
   const navigate = useNavigate();
@@ -27,12 +28,13 @@ function Register() {
   console.log(formik.errors);
 
   const saveToDb = async () => {
+    // bcrypt data
+    const saltRounds = 10;
+
     setUserExists(false);
     if (formik.isValid) {
       try {
         const checkIfUserExists = await supabase.from("users").select("*");
-
-        console.log(checkIfUserExists);
 
         checkIfUserExists.data.forEach((item) => {
           if (item.email === formik.values.email) {
@@ -41,6 +43,12 @@ function Register() {
           }
         });
 
+        // hasing password with bcrypt
+        const hashedPassword = await bcrypt.hash(
+          formik.values.password,
+          saltRounds
+        );
+
         const { data, error } = await supabase.from("users").insert({
           firstName: formik.values.firstName,
           lastName: formik.values.lastName,
@@ -48,7 +56,7 @@ function Register() {
           city: formik.values.city,
           streetAddress: formik.values.streetAddress,
           username: formik.values.username,
-          password: formik.values.password,
+          password: hashedPassword,
           email: formik.values.email,
           mobileNumber: formik.values.mobileNumber,
         });
