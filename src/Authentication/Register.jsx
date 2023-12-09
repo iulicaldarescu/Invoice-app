@@ -78,7 +78,7 @@ function Register() {
       <form
         onSubmit={formik.handleSubmit}
         action="#"
-        className={`w-3/4 px-4 flex flex-col sm:my-20 mx-auto my-10`}
+        className={`w-3/4 px-4 flex flex-col sm:my-20 mx-auto my-10 lg:px-72 xl:px-80`}
       >
         {/* ----------------------- */}
         <div>

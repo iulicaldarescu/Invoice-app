@@ -40,7 +40,7 @@ function Invoices({ invoices }) {
   // };
 
   return (
-    <div>
+    <div className="h-screen">
       <div className="bg-[#f8f8fb] dark:bg-[#141625] h-full pt-10 ">
         <div className="flex px-4  gap-8 pb-10">
           {/* INVOICES + FILTER */}
@@ -127,6 +127,12 @@ function Invoices({ invoices }) {
 
           {/* NEW END*/}
         </div>
+
+        {invoices.length === 0 && (
+          <p className="text-center lg:text-2xl font-semibold pt-10">
+            No invoices to display
+          </p>
+        )}
 
         <div className="pb-20">
           {invoices?.map((item, index) => {

@@ -128,7 +128,7 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
               name="senderAddress.street"
               value={formik.values.senderAddress.street}
               type="text"
-              className="rounded-lg p-2  text-blue-500 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300"
+              className="rounded-lg p-2  bg-[#f8f8fb] dark:bg-[#1e2139] text-black dark:text-white dark:border-0 border border-gray-300"
             ></input>
           </div>
 
@@ -139,7 +139,7 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
                 onChange={formik.handleChange}
                 name="senderAddress.city"
                 value={formik.values.senderAddress.city}
-                className="w-full rounded-lg p-2  bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300"
+                className="w-full rounded-lg p-2  bg-[#f8f8fb] dark:bg-[#1e2139] text-black dark:text-white dark:border-0 border border-gray-300"
               ></input>
             </div>
 
@@ -149,7 +149,7 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
                 onChange={formik.handleChange}
                 name="senderAddress.postCode"
                 value={formik.values.senderAddress.postCode}
-                className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300"
+                className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] text-black dark:text-white dark:border-0 border border-gray-300"
               ></input>
             </div>
 
@@ -159,7 +159,7 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
                 onChange={formik.handleChange}
                 name="senderAddress.country"
                 value={formik.values.senderAddress.country}
-                className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300"
+                className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] text-black dark:text-white dark:border-0 border border-gray-300"
               ></input>
             </div>
           </div>
@@ -179,7 +179,7 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
                   name="clientName"
                   values={formik.values.clientName}
                   type="text"
-                  className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300 lg:w-[20rem]"
+                  className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] text-black dark:text-white dark:border-0 border border-gray-300 lg:w-[20rem]"
                 ></input>
               </div>
 
@@ -192,7 +192,7 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
                   name="clientEmail"
                   values={formik.values.clientEmail}
                   type="email"
-                  className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300 lg:w-[20rem]"
+                  className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] text-black dark:text-white dark:border-0 border border-gray-300 lg:w-[20rem]"
                 ></input>
               </div>
             </div>
@@ -205,7 +205,7 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
                 type="text"
                 name="clientAddress.street"
                 values={formik.values.clientAddress.street}
-                className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300"
+                className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] text-black dark:text-white dark:border-0 border border-gray-300"
               ></input>
             </div>
 
@@ -216,7 +216,7 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
                   onChange={formik.handleChange}
                   name="clientAddress.city"
                   value={formik.values.clientAddress.city}
-                  className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300"
+                  className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] text-black dark:text-white dark:border-0 border border-gray-300"
                 ></input>
               </div>
 
@@ -226,7 +226,7 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
                   onChange={formik.handleChange}
                   name="clientAddress.postCode"
                   value={formik.values.clientAddress.postCode}
-                  className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300"
+                  className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] text-black dark:text-white dark:border-0 border border-gray-300"
                 ></input>
               </div>
 
@@ -236,7 +236,7 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
                   onChange={formik.handleChange}
                   name="clientAddress.country"
                   value={formik.values.clientAddress.country}
-                  className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300"
+                  className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] text-black dark:text-white dark:border-0 border border-gray-300"
                 ></input>
               </div>
             </div>
@@ -254,7 +254,7 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
                     value={formik.values.createdAt}
                     name="createdAt"
                     type="date"
-                    className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300 lg:w-[20rem] xl:w-[12rem]"
+                    className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] text-black dark:text-white dark:border-0 border border-gray-300 lg:w-[20rem] xl:w-[12rem]"
                     placeholder="mm/dd/yyyy"
                   ></input>
                 </div>
@@ -264,7 +264,7 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
                   </label>
                   <select
                     onChange={formik.handleChange}
-                    className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300 border-b-[3px]  lg:w-[20rem] xl:w-[12rem]"
+                    className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] text-black dark:text-white dark:border-0 border border-gray-300 border-b-[3px]  lg:w-[20rem] xl:w-[12rem]"
                     name="paymentTerms"
                     value={formik.values.paymentTerms}
                   >
@@ -286,7 +286,7 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
                     onChange={formik.handleChange}
                     name="description"
                     values={formik.values.description}
-                    className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300 lg:w-[20rem] xl:w-[12rem]"
+                    className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300 text-black dark:text-white lg:w-[20rem] xl:w-[12rem]"
                     type="text"
                   ></input>
                 </div>
@@ -300,7 +300,7 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
                   </label>
                   <select
                     onChange={formik.handleChange}
-                    className="w-full rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300 border-b-[3px]  lg:w-[20rem] xl:w-[12rem]"
+                    className="w-full rounded-lg p-2 text-black dark:text-white bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300 border-b-[3px]  lg:w-[20rem] xl:w-[12rem]"
                     name="status"
                     value={formik.values.status}
                   >

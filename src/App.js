@@ -51,7 +51,7 @@ function App() {
   }, [flagToUpdateMainPage]);
 
   return (
-    <div className="">
+    <div>
       {/* <Invoices path='/'></Invoices> */}
       <Routes>
         <Route path={"/register"} element={<Register />}></Route>

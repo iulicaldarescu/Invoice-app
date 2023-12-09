@@ -96,7 +96,7 @@ function InvoicePage({ invoices, setFlagToUpdateMainPage }) {
   };
 
   return (
-    <div className="px-2 bg-[#141625] h-full flex flex-col gap-3 py-3">
+    <div className="px-2 bg-[#f8f8fb] dark:bg-[#141625]  h-full flex flex-col gap-3 py-3 lg:px-72 xl:px-96">
       {/* Go back button */}
 
       <div className="">
@@ -106,7 +106,7 @@ function InvoicePage({ invoices, setFlagToUpdateMainPage }) {
           </span>
 
           <div
-            className="flex justify-between w-full text-white items-center"
+            className="flex justify-between w-full text-black dark:text-white  items-center"
             onClick={goBackToMainPage}
           >
             <Link to={"/home"}>Go back</Link>
@@ -140,8 +140,8 @@ function InvoicePage({ invoices, setFlagToUpdateMainPage }) {
 
       {/* Status container */}
 
-      <div className="flex justify-between w-full bg-[#1f213a] rounded-lg items-center p-5">
-        <p className="text-gray-300">Status</p>
+      <div className="flex justify-between w-full  bg-white dark:bg-[#1e2139] rounded-lg items-center p-5">
+        <p className="text-black dark:text-white">Status</p>
         <div
           className={`w-32 p-3 text-center rounded-lg font-semibold ${
             userInfo.status === "paid"
@@ -160,21 +160,31 @@ function InvoicePage({ invoices, setFlagToUpdateMainPage }) {
 
       {/* Biggest container */}
 
-      <div className="bg-[#1f213a] px-5 flex flex-col gap-8 py-8 rounded-lg text-gray-400">
+      <div className="bg-white dark:bg-[#1e2139] px-5 flex flex-col gap-8 py-8 rounded-lg text-gray-400">
         <div className="flex flex-col gap-5">
           <div className="">
-            <p className="text-white font-bold">
-              <span className="text-[#7c5df9]">#</span>
+            <p className="text-black dark:text-white">
+              <span className="text-black dark:text-white">#</span>
               {userInfo.id}
             </p>
-            <p className="text-gray-500 text-sm">{userInfo.clientName}</p>
+            <p className="text-black dark:text-white text-sm">
+              {userInfo.clientName}
+            </p>
           </div>
 
           <div className="">
-            <p>{userInfo.senderAddress.street}</p>
-            <p>{userInfo.senderAddress.city}</p>
-            <p>{userInfo.senderAddress.postCode}</p>
-            <p>{userInfo.senderAddress.country}</p>
+            <p className="text-black dark:text-white">
+              {userInfo.senderAddress.street}
+            </p>
+            <p className="text-black dark:text-white">
+              {userInfo.senderAddress.city}
+            </p>
+            <p className="text-black dark:text-white">
+              {userInfo.senderAddress.postCode}
+            </p>
+            <p className="text-black dark:text-white">
+              {userInfo.senderAddress.country}
+            </p>
           </div>
         </div>
 
@@ -183,33 +193,47 @@ function InvoicePage({ invoices, setFlagToUpdateMainPage }) {
 
           <div className="flex flex-col justify-between">
             <div className="pr-10">
-              <p>Invoice Date</p>
-              <p className="font-bold text-white">{userInfo.invoiceDate}</p>
+              <p className="text-black dark:text-white">Invoice Date</p>
+              <p className="font-bold text-black dark:text-white">
+                {userInfo.invoiceDate}
+              </p>
             </div>
 
             <div className="">
-              <p>Payment Due</p>
-              <p className="font-bold text-white">{userInfo.paymentDue}</p>
+              <p className="text-black dark:text-white">Payment Due</p>
+              <p className="font-bold text-black dark:text-white">
+                {userInfo.paymentDue}
+              </p>
             </div>
           </div>
 
           {/* second container */}
 
           <div className="pr-7">
-            <p>Bill to</p>
-            <p className="font-bold text-white">{userInfo.clientName}</p>
-            <p>{userInfo.clientAddress.street}</p>
-            <p>{userInfo.clientAddress.city}</p>
-            <p>{userInfo.clientAddress.postCode}</p>
-            <p>{userInfo.clientAddress.country}</p>
+            <p className="text-black dark:text-white">Bill to</p>
+            <p className="font-bold text-black dark:text-white">
+              {userInfo.clientName}
+            </p>
+            <p className="text-black dark:text-white">
+              {userInfo.clientAddress.street}
+            </p>
+            <p className="text-black dark:text-white">
+              {userInfo.clientAddress.city}
+            </p>
+            <p className="text-black dark:text-white">
+              {userInfo.clientAddress.postCode}
+            </p>
+            <p className="text-black dark:text-white">
+              {userInfo.clientAddress.country}
+            </p>
           </div>
         </div>
 
         {/* third container */}
 
         <div className="flex flex-col gap-2">
-          <p>Sent to</p>
-          <p>{userInfo.clientEmail}</p>
+          <p className="text-black dark:text-white">Sent to</p>
+          <p className="text-black dark:text-white">{userInfo.clientEmail}</p>
         </div>
 
         {/* last conatiner */}
@@ -222,12 +246,14 @@ function InvoicePage({ invoices, setFlagToUpdateMainPage }) {
               // css roundd work
               <div
                 key={index}
-                className={`flex justify-between border-b border-gray-400 p-9 bg-[#252945]  ${
+                className={`flex justify-between border-b bg-[#f8f8fb] border-gray-400 p-9 dark:bg-[#252945]  ${
                   index === 0 ? "rounded-t-lg" : ""
                 }`}
               >
-                <p className="">{e.name}</p>
-                <p className="text-xl">$ {e.price}</p>
+                <p className="text-black dark:text-white">{e.name}</p>
+                <p className="text-xl text-black dark:text-white">
+                  $ {e.price}
+                </p>
               </div>
             );
           })}

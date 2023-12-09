@@ -66,7 +66,7 @@ function InvoiceItem({
           <input
             onChange={formik.handleChange}
             name="itemName"
-            className={` outline-none rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300`}
+            className={` outline-none rounded-lg p-2 bg-[#f8f8fb] dark:bg-[#1e2139]  text-black dark:text-white dark:border-0 border border-gray-300`}
             disabled={inputDisabled}
           ></input>
         </div>
@@ -78,7 +78,7 @@ function InvoiceItem({
             name="itemQty"
             placeholder="1"
             type="number"
-            className=" rounded-lg p-2 w-2/4 self-end outline-none bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300 text-right"
+            className=" rounded-lg p-2 w-2/4 self-end outline-none bg-[#f8f8fb] dark:bg-[#1e2139] text-black dark:text-white dark:border-0 border border-gray-300 text-right"
             disabled={inputDisabled}
           ></input>
         </div>
@@ -92,7 +92,7 @@ function InvoiceItem({
             name="itemPrice"
             placeholder="0"
             type="number"
-            className="outline-none rounded-lg p-2 w-3/4 bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300"
+            className="outline-none rounded-lg p-2 w-3/4 bg-[#f8f8fb] dark:bg-[#1e2139] text-black dark:text-white dark:border-0 border border-gray-300"
             disabled={inputDisabled}
           ></input>
         </div>
@@ -105,7 +105,7 @@ function InvoiceItem({
             name="itemTotal"
             disabled
             placeholder="0"
-            className="outline-none rounded-lg p-2  bg-[#f8f8fb] dark:bg-[#1e2139] dark:border-0 border border-gray-300 overflow-hidden sm:w-2/4 sm:self-end text-right"
+            className="outline-none rounded-lg p-2  bg-[#f8f8fb] dark:bg-[#1e2139] text-black dark:text-white dark:border-0 border border-gray-300 overflow-hidden sm:w-2/4 sm:self-end text-right"
             value={
               formik.values.itemQty * formik.values.itemPrice > 0
                 ? formik.values.itemQty * formik.values.itemPrice
@@ -118,7 +118,7 @@ function InvoiceItem({
       <div className="flex justify-between mt-4">
         <div className="flex flex-col items-center justify-end">
           <button
-            className="bg-green-600 p-2 rounded-lg text-black dark:text-white"
+            className="bg-green-600 p-2 rounded-lg  dark:text-white "
             onClick={confirmInvoiceItemDetails}
           >
             Confirm
@@ -127,7 +127,11 @@ function InvoiceItem({
 
         {/* trash icon */}
         <div className="flex items-end pb-2">
-          <FaTrashAlt onClick={() => deleteInvoiceItem(id)} size={"1.3rem"} />
+          <FaTrashAlt
+            onClick={() => deleteInvoiceItem(id)}
+            size={"1.3rem"}
+            color={"gray"}
+          />
         </div>
       </div>
     </div>

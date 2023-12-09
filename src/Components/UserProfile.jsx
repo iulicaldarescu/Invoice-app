@@ -42,42 +42,50 @@ function UserProfile() {
   };
 
   return (
-    <div className=" overflow-hidden shadow rounded-lg border bg-[#141625]  text-white lg:px-64 pb-44">
-      <div className="px-4 py-10 sm:px-6 flex justify-between items-center">
-        <h3 className="text-lg leading-6 font-medium text-gray-100 ">
+    <div className=" bg-[#f8f8fb] overflow-hidden shadow border dark:bg-[#141625] pt-24  text-white lg:px-64 pb-44 xl:h-screen xl:px-96">
+      <div className="px-4 py-10 sm:px-6 flex justify-between items-center text-center">
+        <h3 className="text-lg leading-6 font-medium text-black dark:text-white ">
           {userInfo?.firstName}
         </h3>
         <button
           type="button"
           onClick={logout}
-          className="bg-[#7c5df9] p-3 rounded-full"
+          className="bg-[#7c5df9] p-3 rounded-full text-white"
         >
           Log Out
         </button>
       </div>
-      <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
+      <div className="border-t border-gray-200 px-4 py-5 sm:p-0 ">
         <div className="sm:divide-y sm:divide-gray-200 text-white">
           <div className="py-3 sm:py-5  sm:gap-4 sm:px-6 flex justify-between">
-            <p className="text-sm font-medium text-gray-500">Full name</p>
-            <p className="mt-1 text-sm text-gray-100 sm:mt-0  ">
+            <p className="text-sm font-medium text-black dark:text-white items-center">
+              Full name
+            </p>
+            <p className="mt-1 text-sm text-black dark:text-white sm:mt-0  items-center">
               {userInfo?.lastName + " " + userInfo?.firstName}
             </p>
           </div>
-          <div className="py-3 sm:py-5  sm:gap-4 sm:px-6 flex justify-between">
-            <p className="text-sm font-medium text-gray-500">Email address</p>
-            <p className="mt-1 text-sm text-gray-100 sm:mt-0">
+          <div className="py-3 sm:py-5  sm:gap-4 sm:px-6 flex justify-between items-center">
+            <p className="text-sm font-medium text-black dark:text-white items-center">
+              Email address
+            </p>
+            <p className="mt-1 text-sm text-black dark:text-white sm:mt-0 items-center">
               {userInfo.email}
             </p>
           </div>
           <div className="py-3 sm:py-5 sm:gap-4 sm:px-6 flex justify-between">
-            <p className="text-sm font-medium text-gray-500">Phone number</p>
-            <p className="mt-1 text-sm text-gray-100 sm:mt-0 ">
+            <p className="text-sm font-medium text-black dark:text-white items-center">
+              Phone number
+            </p>
+            <p className="mt-1 text-sm text-black dark:text-white sm:mt-0 items-center">
               {userInfo.mobileNumber}
             </p>
           </div>
           <div className="py-3 sm:py-5  sm:gap-4 sm:px-6 flex justify-between text-right">
-            <p className="text-sm font-medium text-gray-500">Address</p>
-            <p className="mt-1 text-sm text-gray-100 sm:mt-0 ">
+            <p className="text-sm font-medium text-black dark:text-white items-center">
+              Address
+            </p>
+            <p className="mt-1 text-sm text-black dark:text-white sm:mt-0 items-center">
               {userInfo.streetAddress} <br />
               {userInfo.city} <br />
               {userInfo.country}
@@ -85,8 +93,6 @@ function UserProfile() {
           </div>
         </div>
       </div>
-
-      <div>da</div>
     </div>
   );
 }
