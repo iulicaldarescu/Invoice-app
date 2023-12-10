@@ -82,7 +82,7 @@ function InvoicePage({ invoices, setFlagToUpdateMainPage }) {
     invoices.map(async (item) => {
       if (item.id === id) {
         const { error } = await supabase
-          .from("invoices")
+          .from("InvoiceApp-invoices")
           .update({ status: "paid" })
           .eq("id", id);
       }
