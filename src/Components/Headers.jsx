@@ -68,7 +68,7 @@ function Header() {
           <img src={logo} className="w-9"></img>
         </div>
 
-        <div className="pr-6 ">
+        <div className="pr-6 cursor-pointer">
           <img
             src={darkMode ? sun : moon}
             className="w-7 animate-spin-once"

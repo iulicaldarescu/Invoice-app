@@ -86,7 +86,7 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
   };
 
   return (
-    <div className="  bg-[#f8f8fb] dark:bg-[#141625] flex flex-col text-white px-4 sm:px-16 xl:px-24">
+    <div className="  bg-[#f8f8fb] dark:bg-[#141625] flex flex-col text-white px-4 sm:px-16 lg:px-48">
       <div className="basis-1/6 ">
         <p className="text-2xl font-bold py-10 text-black dark:text-white">
           Create Invoice
@@ -113,7 +113,7 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
             ></input>
           </div>
 
-          <div className="flex gap-6 md:justify-between">
+          <div className="flex gap-6 md:justify-between border-b-2 border-b-[#1e2139] pb-6">
             <div className=" flex flex-col">
               <label className="text-black dark:text-white">City</label>
               <input
@@ -223,7 +223,7 @@ function NewInvoice({ setFlagToUpdateMainPage }) {
             </div>
 
             {/*dates */}
-            <div className="flex flex-col mt-10 xl:flex-row justify-between">
+            <div className="flex flex-col mt-10 xl:flex-row justify-between border-b-2 border-b-[#1e2139] pb-6">
               {/* container for invoice date and payment terms */}
               <div className="flex gap-6 sm:justify-between xl:gap-12">
                 <div className="lg:flex lg:flex-col">

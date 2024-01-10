@@ -55,7 +55,7 @@ function InvoiceItem({
   };
 
   return (
-    <div className="flex flex-col justify-between border-b-2 border-b-slate-100 pb-3 mt-6">
+    <div className="flex flex-col justify-between border-b-2 border-b-slate-300 pb-3 mt-6">
       <div className="flex  justify-between gap-6">
         <div className="flex flex-col basis-3/5">
           <label className="text-black dark:text-white">Item Name</label>

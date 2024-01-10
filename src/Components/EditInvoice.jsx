@@ -159,7 +159,7 @@ function EditInvoice({ invoices, setFlagToUpdateMainPage }) {
   };
 
   return (
-    <div className=" bg-[#f8f8fb] dark:bg-[#141625] flex flex-col text-white px-4 sm:px-16 xl:px-24 ">
+    <div className=" bg-[#f8f8fb] dark:bg-[#141625] flex flex-col text-white px-4 sm:px-16 lg:px-48 ">
       <div className="basis-1/6 ">
         <p className="text-2xl font-bold py-10 text-black dark:text-white">
           Edit Invoice
@@ -171,7 +171,9 @@ function EditInvoice({ invoices, setFlagToUpdateMainPage }) {
         {/* bill from */}
         <form onSubmit={preventDefaultFct}>
           <div>
-            <p className="text-black dark:text-white">Bill Form</p>
+            <p className="text-[#7c5df9] dark:text-white font-bold">
+              Bill From
+            </p>
           </div>
           <div className="flex flex-col">
             <label className="text-black dark:text-white">Street Address</label>
@@ -184,7 +186,7 @@ function EditInvoice({ invoices, setFlagToUpdateMainPage }) {
             ></input>
           </div>
 
-          <div className="flex gap-6 md:justify-between">
+          <div className="flex gap-6 md:justify-between border-b-2 border-b-[#1e2139] pb-6">
             <div className=" flex flex-col">
               <label className="text-black dark:text-white">City</label>
               <input
@@ -218,7 +220,7 @@ function EditInvoice({ invoices, setFlagToUpdateMainPage }) {
 
           {/* bill to */}
           <div className="py-6">
-            <p className="text-black dark:text-white">Bill To</p>
+            <p className="text-[#7c5df9] dark:text-white font-bold">Bill To</p>
           </div>
           <div className="">
             <div className="lg:flex lg:justify-between">
@@ -295,7 +297,7 @@ function EditInvoice({ invoices, setFlagToUpdateMainPage }) {
             </div>
 
             {/*dates */}
-            <div className="flex flex-col mt-10 xl:flex-row justify-between">
+            <div className="flex flex-col mt-10 xl:flex-row justify-between border-b-2 border-b-[#1e2139] pb-6">
               {/* container for invoice date and payment terms */}
               <div className="flex gap-6 sm:justify-between xl:gap-12">
                 <div className="lg:flex lg:flex-col">
@@ -357,7 +359,7 @@ function EditInvoice({ invoices, setFlagToUpdateMainPage }) {
                 return (
                   <div
                     key={index}
-                    className="flex flex-col justify-between border-b-2 border-b-slate-100 pb-3 mt-6"
+                    className="flex flex-col justify-between border-b-2 border-b-slate-400 pb-3 mt-6 "
                   >
                     <div className="flex  justify-between gap-6">
                       <div className="flex flex-col basis-3/5">
