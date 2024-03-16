@@ -125,19 +125,6 @@ function Login() {
           </Link>
         </div>
       </form>
-      <div>
-        <p className="py-10 text-md text-center">
-          Please use this email and password to test
-        </p>
-        <div className="flex flex-col  justify-between px-5 font-bold text-md">
-          <p>
-            Email: <span className="font-normal pl-10">test@test.com</span>
-          </p>
-          <p>
-            Password:<span className="font-normal pl-10">test123</span>{" "}
-          </p>
-        </div>
-      </div>
     </div>
   );
 }
