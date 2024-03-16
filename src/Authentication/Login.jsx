@@ -77,6 +77,7 @@ function Login() {
             placeholder="Please enter your email"
             name="email"
             value={formik.values.email}
+            defaultValue="test@test.com"
           />
           {formik.touched.email && formik.errors.email ? (
             <p className="text-red-400">{formik.errors.email}</p>
@@ -98,6 +99,7 @@ function Login() {
             id="password"
             type="password"
             placeholder="******************"
+            defaultValue="test123"
           />
           {formik.touched.password && formik.errors.password ? (
             <p className="text-red-400">{formik.errors.password}</p>
